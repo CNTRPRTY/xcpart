@@ -20,7 +20,7 @@ function formattedAssetElement(asset) {
     const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
     const is_unlocked = asset.locked ? '' : ' (unlocked)'
     return (
-        <ul>
+        <ul key={asset.asset_name}>
             <li>{pretty_name}</li>
             {/* <li>{asset.asset_name}</li> */}
             <li>{asset.total}{is_unlocked}</li>
