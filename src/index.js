@@ -7,6 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import App from './App';
+import Assets from "./routes/assets";
 import Expenses from "./routes/expenses";
 import Invoices from "./routes/invoices";
 import Invoice from "./routes/invoice";
@@ -18,6 +19,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+          <Route path="assets" element={<Assets />} />
           <Route path="expenses" element={<Expenses />} />
           <Route path="invoices" element={<Invoices />}>
             <Route
