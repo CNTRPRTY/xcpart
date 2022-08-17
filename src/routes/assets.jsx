@@ -50,12 +50,12 @@ export default class Assets extends React.Component {
     render() {
         return (
             <main style={{ padding: "1rem 0" }}>
-                <h2>Assets</h2>
-                <h1>Latest</h1>
+                <h1>Assets</h1>
+                <h2>Latest</h2>
                 {this.state.latest.map((asset) => formattedAssetElement(asset))}
-                <h1>Latest Locked</h1>
+                <h2>Latest Locked</h2>
                 {this.state.latest_locked.map((asset) => formattedAssetElement(asset))}
-                <h1>Latest Locked NFT</h1>
+                <h2>Latest Locked NFT</h2>
                 {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset))}
             </main>
         );
