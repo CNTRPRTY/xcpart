@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import App from './App';
 import Assets from "./routes/assets";
+import Asset from "./routes/asset";
 // import Expenses from "./routes/expenses";
 // import Invoices from "./routes/invoices";
 // import Invoice from "./routes/invoice";
@@ -21,6 +22,7 @@ root.render(
         <Route path="/" element={<App />}>
 
           <Route path="assets" element={<Assets />} />
+          <Route path="assets/:assetName" element={<Asset />} />
 
           {/* <Route path="expenses" element={<Expenses />} />
           <Route path="invoices" element={<Invoices />}>
