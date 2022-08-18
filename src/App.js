@@ -12,9 +12,10 @@ function App() {
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/assets">Assets</Link> |{" "}
+        <Link to="/assets">Assets</Link>
+        {/* <Link to="/assets">Assets</Link> |{" "}
         <Link to="/invoices">Invoices</Link> |{" "}
-        <Link to="/expenses">Expenses</Link>
+        <Link to="/expenses">Expenses</Link> */}
       </nav>
       <Outlet />
     </div>

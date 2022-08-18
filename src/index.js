@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 import App from './App';
 import Assets from "./routes/assets";
-import Expenses from "./routes/expenses";
-import Invoices from "./routes/invoices";
-import Invoice from "./routes/invoice";
+// import Expenses from "./routes/expenses";
+// import Invoices from "./routes/invoices";
+// import Invoice from "./routes/invoice";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,8 +19,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+
           <Route path="assets" element={<Assets />} />
-          <Route path="expenses" element={<Expenses />} />
+
+          {/* <Route path="expenses" element={<Expenses />} />
           <Route path="invoices" element={<Invoices />}>
             <Route
               index
@@ -31,7 +33,8 @@ root.render(
               }
             />
             <Route path=":invoiceId" element={<Invoice />} />
-          </Route>
+          </Route> */}
+
           <Route
             path="*"
             element={
