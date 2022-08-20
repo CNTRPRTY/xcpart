@@ -1,23 +1,7 @@
-import { getAssetRoot } from "../api";
 import React from 'react';
-import { Link } from "react-router-dom";
-
-function formattedAssetElement(asset, is_locked_nft = false) {
-    const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
-    const is_unlocked = asset.locked ? '' : ' (unlocked)';
-    const last_is_enhanced = asset.description_latest.description.endsWith('.json');
-    let total_element = ` [total:${asset.total}${is_unlocked}]`;
-    if (is_locked_nft) {
-        total_element = '';
-    }
-    return (
-        <ul key={asset.asset_name}>
-            <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{total_element}</li>
-            {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
-            <li>{asset.description_first.block_timestamp_iso}</li>
-        </ul>
-    );
-}
+import { getAssetRoot } from "../api";
+import { formattedAssetElement } from "./shared/elements"
+import IssuanceEvent from "../models/IssuanceEvent";
 
 export default class Assets extends React.Component {
     constructor(props) {
@@ -43,14 +27,20 @@ export default class Assets extends React.Component {
             <main style={{ padding: "1rem 0" }}>
                 <h1>Assets</h1>
 
-                <h2>Latest Locked NFTs</h2>
-                {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, true))}
+                <h2>Latest Updated Locked NFT</h2>
+                {this.state.latest_locked_nft.length === 0 ? 'loading...' : null}
+                {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_QUANTITY, true))}
+                {/* {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, true))} */}
 
                 <h2>Latest Locked</h2>
-                {this.state.latest_locked.map((asset) => formattedAssetElement(asset))}
+                {this.state.latest_locked.length === 0 ? 'loading...' : null}
+                {this.state.latest_locked.map((asset) => formattedAssetElement(asset, asset.lock_issuance, IssuanceEvent.TYPES.LOCK))}
+                {/* {this.state.latest_locked.map((asset) => formattedAssetElement(asset))} */}
 
                 <h2>Latest</h2>
-                {this.state.latest.map((asset) => formattedAssetElement(asset))}
+                {this.state.latest.length === 0 ? 'loading...' : null}
+                {this.state.latest.map((asset) => formattedAssetElement(asset, asset.first_issuance, IssuanceEvent.TYPES.GENESIS))}
+                {/* {this.state.latest.map((asset) => formattedAssetElement(asset))} */}
 
             </main>
         );
