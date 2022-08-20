@@ -7,6 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import App from './App';
+import Home from "./routes/home"
 import Assets from "./routes/assets";
 import Asset from "./routes/asset";
 // import Expenses from "./routes/expenses";
@@ -20,6 +21,11 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+
+          <Route index element={<Home />} />
+
+          {/* TODO? cambiarlo a singular asset/ */}
+          {/* LO Q PASA, es q si lo dejo como assets pues luego otros paths pudieran ser como stats de los assets... */}
 
           <Route path="assets" element={<Assets />} />
           <Route path="assets/:assetName" element={<Asset />} />
