@@ -3,22 +3,30 @@ import React from 'react';
 import { withRouter } from './shared/classhooks';
 import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
 import { Link } from "react-router-dom";
+import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
 
 function formattedAssetPageDetailsElement(asset) {
 
-    const last_is_enhanced_element = asset.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://xchain.io/asset/${asset.asset_name}`} target="_blank">+ see enhanced</a></li>) : null;
+    let media_or_none = null; // done like this to be clear the next command can be null
+    media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset.latest_description_issuance.description);
 
-    const superasset_element = asset.superasset ? (<li>superasset: <Link to={`/assets/${asset.superasset}`}>{asset.superasset}</Link></li>) : null;
-    const subassets_list_element = asset.subassets ? (<li>subassets:<ul>{asset.subassets.map((subasset) => (<li key={subasset}><Link to={`/assets/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
+    const last_is_enhanced_element = asset.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${asset.asset_name}/_enhanced/${asset.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>) : null;
+    // const last_is_enhanced_element = asset.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://xchain.io/asset/${asset.asset_name}`} target="_blank">+ see enhanced</a></li>) : null;
+
+    const superasset_element = asset.superasset ? (<li>superasset: <Link to={`/${asset.superasset}`}>{asset.superasset}</Link></li>) : null;
+    const subassets_list_element = asset.subassets ? (<li>subassets:<ul>{asset.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
+    // const superasset_element = asset.superasset ? (<li>superasset: <Link to={`/assets/${asset.superasset}`}>{asset.superasset}</Link></li>) : null;
+    // const subassets_list_element = asset.subassets ? (<li>subassets:<ul>{asset.subassets.map((subasset) => (<li key={subasset}><Link to={`/assets/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
 
     return (
 
         <ul>
             {/* <li>[locked:{`${asset.locked}`}]</li> */}
             {/* <li>[locked:{`${asset.locked}`}][divisible:{`${asset.divisible}`}]</li> */}
+            {media_or_none}
             {last_is_enhanced_element}
             {superasset_element}
-            <li>Events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li>
+            <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li>
             {/* <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}
             {/* <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{JSON.stringify(asset_event)}</li>))}</ul></li> */}
             {/* <li>events:{asset.events.map((asset_event) => formattedAssetEventElement(asset_event))}</li> */}
