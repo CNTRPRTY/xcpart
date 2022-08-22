@@ -8,7 +8,9 @@ import {
 } from "react-router-dom";
 import App from './App';
 import Home from "./routes/home"
-import Assets from "./routes/assets";
+import Latest from "./routes/latest";
+// import Assets from "./routes/assets";
+import Rarest from "./routes/rarest";
 import Asset from "./routes/asset";
 // import Expenses from "./routes/expenses";
 // import Invoices from "./routes/invoices";

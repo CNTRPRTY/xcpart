@@ -3,7 +3,8 @@ import { getAssetRoot } from "../api";
 import { formattedAssetElement } from "./shared/elements"
 import IssuanceEvent from "../models/IssuanceEvent";
 
-export default class Assets extends React.Component {
+export default class Latest extends React.Component {
+    // export default class Assets extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
