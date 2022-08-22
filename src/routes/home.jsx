@@ -8,7 +8,7 @@ export default class Home extends React.Component {
                 <h1>Welcome to bitST.ART</h1>
                 <h2>BITCOIN MAXIMUM EXPRESSION</h2>
                 <h3>Discover Bitcoin Art and Assets</h3>
-                
+
                 <br />
                 <p>
                     This is pre-ALPHA software.
@@ -39,13 +39,20 @@ export default class Home extends React.Component {
                 <p>Help:</p>
                 <ul>
                     <li>All assets are <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">LOCKED</a> assets, unless specified otherwise</li>
-                    <li>[total...]</li>
+                    <li>[total: {`<asset supply>`}] : unlocked assets can <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">issue</a> more supply, locked assets cannot (but both can <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">destroy</a> supply)</li>
                     {/* <li>All asset lists only consider <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">LOCKED</a> assets, unless specified otherwise</li> */}
-                    <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">destroying</a> supply or not (no destroy is purer)</li>
+                    <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not (no destroy is <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">purer</a>)</li>
                     <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">events</a></li>
-                    <li>[+] : the asset could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a></li>
+                    <li>[c] : the asset could have media content associated to it (which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>)</li>
+                    {/* <li>[+] : the asset could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a></li> */}
+                    
+                    {/* LIKE using superasset, but not yet... */}
+                    <li>[subassets: {`<number of subassets>`}] : a basic "root" asset can create children assets, called <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">subassets</a></li>
+                    {/* <li>[subassets: {`<number of subassets>`}] : a basic "root" asset can become a "superasset" when it creates children assets, called subassets</li> */}
+                    
                     <li>[created by: {`<Counterparty ready Bitcoin address>`}] : the assets are created with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li>
-                    <li>[divisibility: satoshi / whole number] : the asset could be considered divisible or indivisible, but the quantity numbers are the <a href="https://counterparty.io/docs/api/#quantities-and-balances" target="_blank">same</a></li>
+                    <li>[divisibility: satoshi / whole number] : the asset could be considered divisible or indivisible, but the quantity numbers are <a href="https://counterparty.io/docs/api/#quantities-and-balances" target="_blank">equivalent</a></li>
+                    {/* <li>[divisibility: satoshi / whole number] : the asset could be considered divisible or indivisible, but the quantity numbers are the <a href="https://counterparty.io/docs/api/#quantities-and-balances" target="_blank">same</a></li> */}
                 </ul>
                 <ul>
                     <li>For any request or feedback please tweet or DM <a href="https://twitter.com/uanbtc" target="_blank">@uanbtc</a></li>
