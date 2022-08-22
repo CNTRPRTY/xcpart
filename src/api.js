@@ -1,10 +1,10 @@
 
-const api = 'https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com';
+const api_host = 'https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com';
 
 // for now only mainnet
 
 export async function getAssetRoot() {
-    const res = await fetch(`${api}/mainnet/asset`);
+    const res = await fetch(`${api_host}/mainnet/asset`);
     if (!res.ok) {
         throw Error(`[${res.status}:${res.statusText}]`);
     }
@@ -12,8 +12,20 @@ export async function getAssetRoot() {
     return data.data;
 }
 
+// TODO is this name anyname?
 export async function getAsset(name) {
-    const res = await fetch(`${api}/mainnet/asset/${name}`);
+    const res = await fetch(`${api_host}/mainnet/asset/${name}`);
+    if (!res.ok) {
+        throw Error(`[${res.status}:${res.statusText}]`);
+    }
+    const data = await res.json();
+    return data.data;
+}
+
+// TODO this one SHOULD be done client side only with CORS jsons!
+export async function getAssetEnhancedJsonResponse(asset_name, issuance_tx_index) {
+    const res = await fetch(`${api_host}/mainnet/asset_name/${asset_name}/_enhanced/${issuance_tx_index}`);
+    // const res = await fetch(`${api_host}/mainnet/asset/${name}`);
     if (!res.ok) {
         throw Error(`[${res.status}:${res.statusText}]`);
     }
@@ -44,5 +56,7 @@ export async function getAsset(name) {
     // }
     // return asset;
 
-    return data.data;
+    // returning the full response for this one
+    return data;
+    // return data.data;
 }
