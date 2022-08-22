@@ -29,8 +29,27 @@ root.render(
           {/* TODO? cambiarlo a singular asset/ */}
           {/* LO Q PASA, es q si lo dejo como assets pues luego otros paths pudieran ser como stats de los assets... */}
 
-          <Route path="assets" element={<Assets />} />
+
+
+          {/* TODO, but not yet */}
+          {/* <Route path="_news" element={
+            <main style={{ padding: "1rem" }}>
+              <p>NEWsss</p>
+            </main>
+          } /> */}
+
+
+
+          <Route path="_latest" element={<Latest />} />
+          {/* <Route path="_latest" element={<Assets />} /> */}
+          <Route path="_rarest" element={<Rarest />} />
+
+          <Route path=":assetName" element={<Asset />} />
+
+          {/* <Route path="assets" element={<Assets />} />
           <Route path="assets/:assetName" element={<Asset />} />
+
+          <Route path="rarest" element={<Rarest />} /> */}
 
           {/* <Route path="expenses" element={<Expenses />} />
           <Route path="invoices" element={<Invoices />}>
