@@ -4,19 +4,35 @@ import { withRouter } from './shared/classhooks';
 import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
 import { Link } from "react-router-dom";
 import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
+import AssetDescriptionEnhancedMedia from "../models/AssetDescriptionEnhancedMedia"
 
 class Asset extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             asset_name: props.router.params.assetName,
-            asset_resource: null
+            asset_resource: null,
+
+            enhanced_media_element: null
         };
     }
 
     async fetchData(asset_name) {
         const asset_resource = await getAsset(asset_name);
         this.setState({ asset_resource });
+
+        // then do the enhanced if applies
+        // first reset
+        this.setState({ enhanced_media_element: null });
+        // then try it
+        if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+            const asset_name = asset_resource.asset_name;
+            const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+            const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+            if (try_enhanced_media_element) {
+                this.setState({ enhanced_media_element: try_enhanced_media_element });
+            }
+        }
     }
 
     async componentDidMount() {
@@ -42,6 +58,12 @@ class Asset extends React.Component {
             let media_or_none = null; // done like this to be clear the next command can be null
             media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(this.state.asset_resource.latest_description_issuance.description);
 
+            if (this.state.enhanced_media_element) {
+                media_or_none = this.state.enhanced_media_element;
+            }
+            // if (this.state.asset_resource.latest_description_issuance.description.endsWith('.json')) {
+            //     media_or_none = (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>);
+            // }
             // const last_is_enhanced_element = this.state.asset_resource.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>) : null;
             // // const last_is_enhanced_element = asset.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://xchain.io/asset/${asset.asset_name}`} target="_blank">+ see enhanced</a></li>) : null;
 
@@ -50,15 +72,6 @@ class Asset extends React.Component {
             // const superasset_element = asset.superasset ? (<li>superasset: <Link to={`/assets/${asset.superasset}`}>{asset.superasset}</Link></li>) : null;
             // const subassets_list_element = asset.subassets ? (<li>subassets:<ul>{asset.subassets.map((subasset) => (<li key={subasset}><Link to={`/assets/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;        
             /////////
-
-
-
-            // let last_is_enhanced_element = null;
-            if (this.state.asset_resource.latest_description_issuance.description.endsWith('.json')) {
-                media_or_none = (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>);
-            }
-
-
 
             return (
                 <main style={{ padding: "1rem 0" }}>
