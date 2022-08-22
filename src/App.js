@@ -5,16 +5,23 @@ import { Outlet, Link } from "react-router-dom";
 function App() {
   return (
     <div>
-      <h1>Bookkeeper!</h1>
+
+      <h1>bitSTART</h1>
+
       <nav
         style={{
           borderBottom: "solid 1px",
           paddingBottom: "1rem",
         }}
       >
+        <Link to="/_news">News</Link> |{" "}
         <Link to="/">Home</Link> |{" "}
         {/* <a href="https://mempool.space/" target="_blank">Bitcoin</a> |{" "} */}
-        <Link to="/assets">Assets</Link>
+        <Link to="/_latest">Latest</Link> |{" "}
+        <Link to="/_rarest">Rarest</Link>
+        {/* <Link to="/assets">Latest</Link> |{" "}
+        <Link to="/rarest">Rarest</Link> */}
+        {/* <Link to="/assets">Assets</Link> */}
         {/* <Link to="/assets">Assets</Link> |{" "}
         <Link to="/invoices">Invoices</Link> |{" "}
         <Link to="/expenses">Expenses</Link> */}
