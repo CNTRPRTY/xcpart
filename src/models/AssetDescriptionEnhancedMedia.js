@@ -48,9 +48,11 @@ class AssetDescriptionEnhancedMedia {
 
         const response = await getAssetEnhancedJsonResponse(asset_name, issuance_tx_index);
 
-        if (Object.keys(response.data).length) {
+        if (Object.keys(response.data.enhanced_json).length) {
+            // if (Object.keys(response.data).length) {
 
-            const enhanced_json = response.data;
+            const enhanced_json = response.data.enhanced_json;
+            // const enhanced_json = response.data;
 
             // for now, only selecting 1, and trying the best first
             if (
@@ -79,7 +81,8 @@ class AssetDescriptionEnhancedMedia {
         }
         else {
             // TODO? more
-            console.log(`no json returned by: ${response.message}`);
+            console.log(`no json returned by: ${response.data.enhanced_url}`);
+            // console.log(`no json returned by: ${response.message}`);
         }
 
         // if none of the above returned
