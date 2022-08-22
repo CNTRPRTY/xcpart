@@ -37,6 +37,19 @@ class AssetDescriptionMedia {
         return TYPES;
     }
 
+    static checkIfDescriptionMedia(description) {
+        const media_check_pre = description.split(';')[0];
+        if (media_check_pre.length) {
+            const media_check = media_check_pre.split('/')[0];
+            if (media_check.length) {
+                if (Object.values(AssetDescriptionMedia.TYPES).includes(media_check)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     static getElementIfDescriptionMedia(description) {
         ////////
         const media_check_pre = description.split(';')[0];
@@ -53,6 +66,10 @@ class AssetDescriptionMedia {
                     }
                     else if (media_check === AssetDescriptionMedia.TYPES.SOUNDCLOUD) {
                         return getSoundcloudElement(media_check_pre);
+                    }
+                    else {
+                        console.log(`TODO else media:`);
+                        console.log(media_check);
                     }
                 }
             }

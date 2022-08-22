@@ -37,6 +37,13 @@ class AssetDescriptionEnhancedMedia {
         return TYPES;
     }
 
+    static checkIfDescriptionEnhancedMedia(description) {
+        if (description.endsWith('.json')) {
+            return true;
+        }
+        return false;
+    }
+
     static async getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index) {
 
         const response = await getAssetEnhancedJsonResponse(asset_name, issuance_tx_index);
@@ -65,7 +72,7 @@ class AssetDescriptionEnhancedMedia {
                 return getImageElement(enhanced_json[AssetDescriptionEnhancedMedia.TYPES.IMAGE_THUMBNAIL]);
             }
             else {
-                console.log(`TODO else:`);
+                console.log(`TODO else enhanced:`);
                 console.log(JSON.stringify(enhanced_json));
             }
 
