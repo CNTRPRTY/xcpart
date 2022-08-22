@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import AssetDescriptionMedia from "../../models/AssetDescriptionMedia";
+import AssetDescriptionEnhancedMedia from "../../models/AssetDescriptionEnhancedMedia";
 
 // TODO! this function proves the need for some kind of api docs for these asset events...
 function formattedAssetEventElement(asset_event) {
@@ -48,13 +50,23 @@ function formattedAssetElement(asset, event = null, event_type = null, is_locked
 
     const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
     const is_unlocked = asset.locked ? '' : ' (unlocked)';
-    const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
-    let asset_total = ` [total:${asset.total}${is_unlocked}]`;
+
+    // [c] as in media Content
+    let last_is_media = false;
+    if (
+        AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
+        AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
+    ) {
+        last_is_media = true;
+    }
+    // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
+
+    let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
     if (is_locked_nft) {
         asset_total = '';
     }
 
-    const is_superasset_subassets_amount = asset.subassets ? ` [subassets:${asset.subassets.length}]` : '';
+    const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
 
     // TODO?
     let pretty_name_is_link_or_clipboard;
@@ -79,7 +91,8 @@ function formattedAssetElement(asset, event = null, event_type = null, is_locked
 
     return (
         <ul key={asset.asset_name}>
-            <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li>
+            <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
             {time_of_type}

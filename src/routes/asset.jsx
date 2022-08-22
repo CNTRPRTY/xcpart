@@ -25,7 +25,8 @@ class Asset extends React.Component {
         // first reset
         this.setState({ enhanced_media_element: null });
         // then try it
-        if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+        if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+            // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
             const asset_name = asset_resource.asset_name;
             const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
             const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
