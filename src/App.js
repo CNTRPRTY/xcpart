@@ -14,7 +14,7 @@ function App() {
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/_news">News</Link> |{" "}
+        {/* <Link to="/_news">News</Link> |{" "} */}
         <Link to="/">Home</Link> |{" "}
         {/* <a href="https://mempool.space/" target="_blank">Bitcoin</a> |{" "} */}
         <Link to="/_latest">Latest</Link> |{" "}
