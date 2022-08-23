@@ -3,7 +3,9 @@ import AssetDescriptionMedia from "../../models/AssetDescriptionMedia";
 import AssetDescriptionEnhancedMedia from "../../models/AssetDescriptionEnhancedMedia";
 
 // TODO! this function proves the need for some kind of api docs for these asset events...
-function formattedAssetEventElement(asset_event) {
+// funny function parameters in that it only uses the asset_name if there is an asset_longname
+function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
+    // function formattedAssetEventElement(asset_event) {
 
     const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
     const locked_element = asset_event.locked ? (<li>LOCK</li>) : null;
@@ -18,7 +20,14 @@ function formattedAssetEventElement(asset_event) {
     let genesis_or_transfer_element = null;
     if (asset_event.issuer) {
         if (!asset_event.source) {
-            genesis_created_top = (<li>genesis: [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+
+            let is_subasset_assetname = '';
+            if (asset_longname) {
+                is_subasset_assetname = ` [subasset: ${asset_name}]`;
+            }
+
+            genesis_created_top = (<li>genesis:{is_subasset_assetname} [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+            // genesis_created_top = (<li>genesis: [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_created_top = (<li>genesis:</li>);
             // genesis_created_bottom = (<li>[created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_divisibility = (<li>[divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
