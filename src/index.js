@@ -44,7 +44,8 @@ root.render(
           {/* <Route path="_latest" element={<Assets />} /> */}
           <Route path="_rarest" element={<Rarest />} />
 
-          <Route path=":assetName" element={<Asset />} />
+          <Route path=":anyName" element={<Asset />} />
+          {/* <Route path=":assetName" element={<Asset />} /> */}
 
           {/* <Route path="assets" element={<Assets />} />
           <Route path="assets/:assetName" element={<Asset />} />

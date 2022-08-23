@@ -10,44 +10,80 @@ class Asset extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            asset_name: props.router.params.assetName,
+            anyname: props.router.params.anyName,
+            // asset_name: props.router.params.assetName,
             asset_resource: null,
 
             enhanced_media_element: null
         };
     }
 
-    async fetchData(asset_name) {
-        const asset_resource = await getAsset(asset_name);
-        this.setState({ asset_resource });
+    async fetchData(anyname) {
+        // async fetchData(asset_name) {
+        const asset_resource = await getAsset(anyname);
+        // const asset_resource = await getAsset(asset_name);
 
-        // then do the enhanced if applies
-        // first reset
-        this.setState({ enhanced_media_element: null });
-        // then try it
-        if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-            // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
-            const asset_name = asset_resource.asset_name;
-            const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-            const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-            if (try_enhanced_media_element) {
-                this.setState({ enhanced_media_element: try_enhanced_media_element });
-            }
+        const asset_name = asset_resource.asset_name;
+
+        if (asset_resource.asset_longname && (asset_resource.asset_longname !== anyname)) {
+            // go to url (https://reactrouter.com/docs/en/v6/hooks/use-navigate)
+            // replace: the navigation will replace the current entry in the history stack instead of adding a new one
+            this.props.router.navigate(`/${asset_resource.asset_longname}`, { replace: true });
         }
+        else {
+            ///////////////////////////////
+            this.setState({ asset_resource });
+
+            // then do the enhanced if applies
+            // first reset
+            this.setState({ enhanced_media_element: null });
+            // then try it
+            if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+                // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+                // const asset_name = asset_resource.asset_name;
+                const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+                const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+                if (try_enhanced_media_element) {
+                    this.setState({ enhanced_media_element: try_enhanced_media_element });
+                }
+            }
+            ///////////////////////////////
+        }
+
+        // this.setState({ asset_resource });
+
+        // // then do the enhanced if applies
+        // // first reset
+        // this.setState({ enhanced_media_element: null });
+        // // then try it
+        // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+        //     // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+        //     // const asset_name = asset_resource.asset_name;
+        //     const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+        //     const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+        //     if (try_enhanced_media_element) {
+        //         this.setState({ enhanced_media_element: try_enhanced_media_element });
+        //     }
+        // }
     }
 
     async componentDidMount() {
         // const asset_resource = await getAsset(this.state.asset_name);
         // this.setState({ asset_resource });
-        await this.fetchData(this.state.asset_name);
+        await this.fetchData(this.state.anyname);
+        // await this.fetchData(this.state.asset_name);
     }
 
     // This method is not called for the initial render (https://reactjs.org/docs/react-component.html#componentdidupdate)
     async componentDidUpdate(prevProps) {
-        const updatedAssetName = this.props.router.params.assetName;
+        const updatedAssetAnyame = this.props.router.params.anyName;
         // Typical usage (don't forget to compare props):
-        if (updatedAssetName !== prevProps.router.params.assetName) {
-            await this.fetchData(updatedAssetName);
+        if (updatedAssetAnyame !== prevProps.router.params.anyName) {
+            // const updatedAssetName = this.props.router.params.assetName;
+            // // Typical usage (don't forget to compare props):
+            // if (updatedAssetName !== prevProps.router.params.assetName) {
+            await this.fetchData(updatedAssetAnyame);
+            // await this.fetchData(updatedAssetName);
         }
     }
 
