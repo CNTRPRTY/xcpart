@@ -12,9 +12,11 @@ export default class Home extends React.Component {
                 <br />
                 <p>
                     This is pre-ALPHA software.
-                    The purpose of this early release is to start showing an implementation of the{' '}
+                    The purpose of this early release is to start showing a read-only implementation of the{' '}
+                    {/* The purpose of this early release is to start showing an implementation of the{' '} */}
                     <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty Bitcoin platform</a> that
-                    reads the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">core protocol direct from Bitcoin block messages</a>.
+                    reads the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">core protocol direct from Bitcoin blocks</a>.{' '}
+                    {/* reads the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">core protocol direct from Bitcoin block messages</a>. */}
                     Don't trust, verify.
                 </p>
                 {/* <p>
@@ -42,7 +44,8 @@ export default class Home extends React.Component {
                     <li>[total: {`<asset supply>`}] : unlocked assets can <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">issue</a> more supply, locked assets cannot (but both can <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">destroy</a> supply)</li>
                     {/* <li>All asset lists only consider <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">LOCKED</a> assets, unless specified otherwise</li> */}
                     <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not (no destroy is <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">purer</a>)</li>
-                    <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">events</a></li>
+                    <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of issuance <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">events</a></li>
+                    {/* <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">events</a></li> */}
                     <li>[c] : the asset could have media content associated to it (which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>)</li>
                     {/* <li>[+] : the asset could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a></li> */}
                     
@@ -50,7 +53,8 @@ export default class Home extends React.Component {
                     <li>[subassets: {`<number of subassets>`}] : a basic "root" asset can create children assets, called <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">subassets</a></li>
                     {/* <li>[subassets: {`<number of subassets>`}] : a basic "root" asset can become a "superasset" when it creates children assets, called subassets</li> */}
                     
-                    <li>[created by: {`<Counterparty ready Bitcoin address>`}] : the assets are created with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li>
+                    <li>[issuer: {`<Counterparty ready Bitcoin address>`}] : the assets are issued (created / updated) with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li>
+                    {/* <li>[created by: {`<Counterparty ready Bitcoin address>`}] : the assets are created with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li> */}
                     <li>[divisibility: satoshi / whole number] : the asset could be considered divisible or indivisible, but the quantity numbers are <a href="https://counterparty.io/docs/api/#quantities-and-balances" target="_blank">equivalent</a></li>
                     {/* <li>[divisibility: satoshi / whole number] : the asset could be considered divisible or indivisible, but the quantity numbers are the <a href="https://counterparty.io/docs/api/#quantities-and-balances" target="_blank">same</a></li> */}
                 </ul>

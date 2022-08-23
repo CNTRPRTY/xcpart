@@ -110,6 +110,12 @@ class Asset extends React.Component {
             // const subassets_list_element = asset.subassets ? (<li>subassets:<ul>{asset.subassets.map((subasset) => (<li key={subasset}><Link to={`/assets/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;        
             /////////
 
+            // not convinced... kinda goes against the point of BEING PURE! ideally, A SINGLE LOCKED ISSUANCE!
+            // /////////////
+            // const genesis_event = this.state.asset_resource.events[0];
+            // const genesis_element = (<li>genesis: {genesis_event.block_timestamp_iso} [block: {genesis_event.block_index}]</li>);
+            // /////////////
+
             return (
                 <main style={{ padding: "1rem 0" }}>
                     <h1>Asset:</h1>
@@ -125,6 +131,7 @@ class Asset extends React.Component {
                         {media_or_none}
                         {/* {last_is_enhanced_element} */}
                         {superasset_element}
+                        {/* {genesis_element} */}
                         <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li>
                         {/* <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}

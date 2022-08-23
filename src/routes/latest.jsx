@@ -33,7 +33,8 @@ export default class Latest extends React.Component {
                 <h1>Latest assets:</h1>
                 {/* <h1>Assets</h1> */}
 
-                <h2>Description updated NFT [no destroy]</h2>
+                <h2>Description added NFT [no destroy]</h2>
+                {/* <h2>Description updated NFT [no destroy]</h2> */}
                 {/* <h2>[RAREST] Latest Updated Locked NFTND</h2> */}
                 {this.state.latest_locked_nftnd.length === 0 ? 'loading...' : null}
                 {this.state.latest_locked_nftnd.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))}
@@ -41,6 +42,7 @@ export default class Latest extends React.Component {
                 {this.state.latest_locked_nft_satoshi.length === 0 ? 'loading...' : null}
                 {this.state.latest_locked_nft_satoshi.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))} */}
 
+                {/* <h2>Quantity updated NFT [by destroy]</h2> */}
                 <h2>Quantity changed NFT [by destroy]</h2>
                 {/* <h2>Latest Updated Locked NFT</h2> */}
                 {this.state.latest_locked_nft.length === 0 ? 'loading...' : null}

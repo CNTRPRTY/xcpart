@@ -26,7 +26,8 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
                 is_subasset_assetname = ` [subasset: ${asset_name}]`;
             }
 
-            genesis_created_top = (<li>genesis:{is_subasset_assetname} [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+            genesis_created_top = (<li>genesis:{is_subasset_assetname} [issuer: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+            // genesis_created_top = (<li>genesis:{is_subasset_assetname} [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_created_top = (<li>genesis: [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_created_top = (<li>genesis:</li>);
             // genesis_created_bottom = (<li>[created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
@@ -34,7 +35,8 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
             // genesis_or_transfer_element = (<li>created by: {asset_event.issuer}</li>);
         }
         else {
-            genesis_or_transfer_element = (<li>transferred to: {asset_event.issuer}</li>);
+            genesis_or_transfer_element = (<li>issuer transfer: {asset_event.issuer}</li>);
+            // genesis_or_transfer_element = (<li>transferred to: {asset_event.issuer}</li>);
         }
     }
 
@@ -95,7 +97,8 @@ function formattedAssetElement(asset, event = null, event_type = null, is_locked
         // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
         //
 
-        time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
+        time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
+        // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
     }
 
     return (

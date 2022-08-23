@@ -2,8 +2,11 @@
 
 const TYPES = {
     GENESIS: 'genesis',
+    // LOCK: 'locked', // tried alternatives, wasn't convinced (less is more)
     LOCK: 'lock',
 
+    // UPDATE_QUANTITY: 'quantity changed', // issuances>0 and destroys
+    // UPDATE_DESCRIPTION: 'description added'
     UPDATE_QUANTITY: 'quantity', // issuances>0 and destroys
     UPDATE_DESCRIPTION: 'description'
 };
