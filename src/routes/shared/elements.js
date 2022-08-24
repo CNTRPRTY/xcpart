@@ -76,10 +76,13 @@ function formattedAssetElement(asset, event = null, event_type = null, is_locked
     }
     // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
 
-    let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
+    let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
+    // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
     if (is_locked_nft) {
         asset_total = '';
     }
+
+    const events_total = ` [events: ${asset.events.length}]`;
 
     const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
 
@@ -107,7 +110,7 @@ function formattedAssetElement(asset, event = null, event_type = null, is_locked
 
     return (
         <ul key={asset.asset_name}>
-            <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li>
+            <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
