@@ -3,8 +3,21 @@ const api_host = 'https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com';
 
 // for now only mainnet
 
-export async function getAssetRoot() {
-    const res = await fetch(`${api_host}/mainnet/asset`);
+export async function getLatest() {
+    // export async function getAssetRoot() {
+    // const res = await fetch(`${api_host}/direct/mainnet/latest`);
+    const res = await fetch(`${api_host}/mainnet/latest`);
+    // const res = await fetch(`${api_host}/mainnet/asset`);
+    if (!res.ok) {
+        throw Error(`[${res.status}:${res.statusText}]`);
+    }
+    const data = await res.json();
+    return data.data;
+}
+
+export async function getRarest() {
+    const res = await fetch(`${api_host}/direct/mainnet/rarest`);
+    // const res = await fetch(`${api_host}/mainnet/rarest`);
     if (!res.ok) {
         throw Error(`[${res.status}:${res.statusText}]`);
     }
