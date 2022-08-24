@@ -1,5 +1,6 @@
 import React from 'react';
-import { getAssetRoot } from "../api";
+import { getLatest } from "../api";
+// import { getAssetRoot } from "../api";
 import { formattedAssetElement } from "./shared/elements"
 import IssuanceEvent from "../models/IssuanceEvent";
 
@@ -17,13 +18,13 @@ export default class Latest extends React.Component {
     }
 
     async componentDidMount() {
-        const asset_root = await getAssetRoot();
+        const latest_root = await getLatest();
         this.setState({
-            latest: asset_root.latest,
-            latest_locked: asset_root.latest_locked,
-            latest_locked_nft: asset_root.latest_locked_nft,
-            latest_locked_nftnd: asset_root.latest_locked_nftnd
-            // latest_locked_nft_satoshi: asset_root.latest_locked_nft_satoshi
+            latest: latest_root.latest,
+            latest_locked: latest_root.latest_locked,
+            latest_locked_nft: latest_root.latest_locked_nft,
+            latest_locked_nftnd: latest_root.latest_locked_nftnd
+            // latest_locked_nft_satoshi: latest_root.latest_locked_nft_satoshi
         });
     }
 
