@@ -26,13 +26,15 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
                 is_subasset_assetname = ` [subasset: ${asset_name}]`;
             }
 
-            genesis_created_top = (<li>genesis:{is_subasset_assetname} [issuer: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+            genesis_created_top = (<li>genesis:{is_subasset_assetname} [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+            // genesis_created_top = (<li>genesis:{is_subasset_assetname} [issuer: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_created_top = (<li>genesis:{is_subasset_assetname} [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_created_top = (<li>genesis: [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_created_top = (<li>genesis:</li>);
             // genesis_created_bottom = (<li>[created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_divisibility = (<li>[divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_or_transfer_element = (<li>created by: {asset_event.issuer}</li>);
+            genesis_or_transfer_element = (<li>issuer: {asset_event.issuer}</li>);
         }
         else {
             genesis_or_transfer_element = (<li>issuer transfer: {asset_event.issuer}</li>);
@@ -50,9 +52,11 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
             {/* {genesis_divisibility} */}
             {quantity_element}
             {/* <li>{asset_event.type}: {asset_event.quantity}</li> */}
+            {/* {updated_description_element}
+            {locked_element} */}
+            {genesis_or_transfer_element}
             {updated_description_element}
             {locked_element}
-            {genesis_or_transfer_element}
         </ul>
     );
 }
