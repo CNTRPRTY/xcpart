@@ -27,32 +27,73 @@ class Asset extends React.Component {
         const asset_resource = await getAsset(anyname);
         // const asset_resource = await getAsset(asset_name);
 
-        const asset_name = asset_resource.asset_name;
-
-        if (asset_resource.asset_longname && (asset_resource.asset_longname !== anyname)) {
-            // go to url (https://reactrouter.com/docs/en/v6/hooks/use-navigate)
-            // replace: the navigation will replace the current entry in the history stack instead of adding a new one
-            this.props.router.navigate(`/${asset_resource.asset_longname}`, { replace: true });
+        if (!asset_resource) {
+            this.setState({ asset_not_found: true });
+        }
+        else if (
+            asset_resource.asset_name === 'BTC' ||
+            asset_resource.asset_name === 'XCP'
+        ) {
+            this.setState({ asset_btc_xcp: true });
         }
         else {
-            ///////////////////////////////
-            this.setState({ asset_resource });
 
-            // then do the enhanced if applies
-            // first reset
-            this.setState({ enhanced_media_element: null });
-            // then try it
-            if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-                // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
-                // const asset_name = asset_resource.asset_name;
-                const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-                const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-                if (try_enhanced_media_element) {
-                    this.setState({ enhanced_media_element: try_enhanced_media_element });
-                }
+            const asset_name = asset_resource.asset_name;
+
+            // this one redirects to longnames if their assetname was received
+            if (asset_resource.asset_longname && (asset_resource.asset_longname !== anyname)) {
+                // go to url (https://reactrouter.com/docs/en/v6/hooks/use-navigate)
+                // replace: the navigation will replace the current entry in the history stack instead of adding a new one
+                this.props.router.navigate(`/${asset_resource.asset_longname}`, { replace: true });
             }
-            ///////////////////////////////
+            else {
+                ///////////////////////////////
+                this.setState({ asset_resource });
+
+                // then do the enhanced if applies
+                // first reset
+                this.setState({ enhanced_media_element: null });
+                // then try it
+                if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+                    // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+                    // const asset_name = asset_resource.asset_name;
+                    const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+                    const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+                    if (try_enhanced_media_element) {
+                        this.setState({ enhanced_media_element: try_enhanced_media_element });
+                    }
+                }
+                ///////////////////////////////
+            }
+
         }
+
+        // const asset_name = asset_resource.asset_name;
+
+        // if (asset_resource.asset_longname && (asset_resource.asset_longname !== anyname)) {
+        //     // go to url (https://reactrouter.com/docs/en/v6/hooks/use-navigate)
+        //     // replace: the navigation will replace the current entry in the history stack instead of adding a new one
+        //     this.props.router.navigate(`/${asset_resource.asset_longname}`, { replace: true });
+        // }
+        // else {
+        //     ///////////////////////////////
+        //     this.setState({ asset_resource });
+
+        //     // then do the enhanced if applies
+        //     // first reset
+        //     this.setState({ enhanced_media_element: null });
+        //     // then try it
+        //     if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+        //         // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+        //         // const asset_name = asset_resource.asset_name;
+        //         const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+        //         const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+        //         if (try_enhanced_media_element) {
+        //             this.setState({ enhanced_media_element: try_enhanced_media_element });
+        //         }
+        //     }
+        //     ///////////////////////////////
+        // }
 
         // this.setState({ asset_resource });
 
