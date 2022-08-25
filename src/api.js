@@ -29,6 +29,9 @@ export async function getRarest() {
 export async function getAsset(name) {
     const res = await fetch(`${api_host}/mainnet/asset/${name}`);
     if (!res.ok) {
+        if (res.status === 404) { // 404 Not Found
+            return null;
+        }
         throw Error(`[${res.status}:${res.statusText}]`);
     }
     const data = await res.json();
