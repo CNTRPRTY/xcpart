@@ -91,6 +91,15 @@ class Asset extends React.Component {
         if (this.state.asset_resource) {
 
 
+            let rarest_element = null;
+            if (this.state.asset_resource.rarest) {
+                // TODO make cooler
+
+                rarest_element = (<p><b><Link to={`/_rarest`}>RAREST</Link>: {this.state.asset_resource.rarest}</b></p>);
+                // rarest_element = (<p><b>RAREST: {this.state.asset_resource.rarest}</b></p>);
+            }
+
+
             /////////
             let media_or_none = null; // done like this to be clear the next command can be null
             media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(this.state.asset_resource.latest_description_issuance.description);
@@ -126,6 +135,7 @@ class Asset extends React.Component {
 
 
                     <ul>
+                        {rarest_element}
                         {/* <li>[locked:{`${asset.locked}`}]</li> */}
                         {/* <li>[locked:{`${asset.locked}`}][divisible:{`${asset.divisible}`}]</li> */}
                         {media_or_none}

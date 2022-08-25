@@ -25,23 +25,43 @@ export default class Rarest extends React.Component {
             // most youtube/imgur/soundcloud links? maybe more abstracted in like just having multiple media?
 
             rarest_first_issuance: null,
+            rarest_first_satoshi_nft_nodestroy_issuance: null,
+            rarest_first_wholenumber_nft_nodestroy_issuance: null,
         };
     }
 
     async componentDidMount() {
         const rarest_root = await getRarest();
-        this.setState({
-            rarest_first_issuance: rarest_root.rarest_first_issuance,
-        });
+
+        console.log(`bbbbbbbbb1`);
+        console.log(JSON.stringify(rarest_root));
+        console.log(`bbbbbbbbb2`);
+
+        this.setState(rarest_root);
+        // this.setState({
+        //     rarest_first_issuance: rarest_root.rarest_first_issuance,
+        //     rarest_first_satoshi_nft_nodestroy_issuance: rarest_root.rarest_first_satoshi_nft_nodestroy_issuance,
+        // });
     }
 
     render() {
 
+        // console.log(`ttttttt1`);
+        // console.log(JSON.stringify(this.state.rarest_first_issuance));
+        // console.log(`ttttttt2`);
+        // console.log(this.state.rarest_first_locked_nft_nodestroy_issuance);
+        // console.log(`ttttttt3`);
+
         let content_element = (<h2>loading...</h2>);
-        if (this.state.rarest_first_issuance) {
+        if (
+            this.state.rarest_first_issuance &&
+            this.state.rarest_first_satoshi_nft_nodestroy_issuance &&
+            this.state.rarest_first_wholenumber_nft_nodestroy_issuance
+            ) {
             content_element = (
                 <div>
-                    <h2>First asset</h2>
+
+                    <h2>First asset issuance</h2>
                     {/* <h2>First locked NFT [no destroy] divisibility:satoshi</h2> */}
                     {/* {this.state.rarest_first_issuance.length === 0 ? 'loading...' : null} */}
                     {/* 
@@ -51,6 +71,13 @@ export default class Rarest extends React.Component {
                     */}
                     {formattedAssetElement(this.state.rarest_first_issuance)}
                     {/* {this.state.latest_locked_nftnd.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))} */}
+
+                    <h2>First satoshi NFT [no destroy] asset issuance</h2>
+                    {formattedAssetElement(this.state.rarest_first_satoshi_nft_nodestroy_issuance, null, null, true)}
+
+                    <h2>First whole number NFT [no destroy] asset issuance</h2>
+                    {formattedAssetElement(this.state.rarest_first_wholenumber_nft_nodestroy_issuance, null, null, true)}
+
                 </div>
             );
         }

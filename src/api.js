@@ -16,8 +16,8 @@ export async function getLatest() {
 }
 
 export async function getRarest() {
-    const res = await fetch(`${api_host}/direct/mainnet/rarest`);
-    // const res = await fetch(`${api_host}/mainnet/rarest`);
+    // const res = await fetch(`${api_host}/direct/mainnet/rarest`);
+    const res = await fetch(`${api_host}/mainnet/rarest`);
     if (!res.ok) {
         throw Error(`[${res.status}:${res.statusText}]`);
     }
