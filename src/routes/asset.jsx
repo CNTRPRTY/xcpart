@@ -12,6 +12,10 @@ class Asset extends React.Component {
         this.state = {
             anyname: props.router.params.anyName,
             // asset_name: props.router.params.assetName,
+
+            asset_not_found: null,
+            asset_btc_xcp: null,
+
             asset_resource: null,
 
             enhanced_media_element: null
@@ -88,7 +92,23 @@ class Asset extends React.Component {
     }
 
     render() {
-        if (this.state.asset_resource) {
+        if (this.state.asset_not_found) {
+            return (
+                <main style={{ padding: "1rem 0" }}>
+                    <h2>No asset found</h2>
+                </main>
+            );
+        }
+        else if (this.state.asset_btc_xcp) {
+            // TODO: this was implemented very quickly to keep moving forward...
+            return (
+                <main style={{ padding: "1rem 0" }}>
+                    <h2>No BTC / XPC page...</h2>
+                </main>
+            );
+        }
+        else if (this.state.asset_resource) {
+            // if (this.state.asset_resource) {
 
 
             let rarest_element = null;
