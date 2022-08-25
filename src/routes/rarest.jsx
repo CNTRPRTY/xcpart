@@ -33,9 +33,9 @@ export default class Rarest extends React.Component {
     async componentDidMount() {
         const rarest_root = await getRarest();
 
-        console.log(`bbbbbbbbb1`);
-        console.log(JSON.stringify(rarest_root));
-        console.log(`bbbbbbbbb2`);
+        // console.log(`bbbbbbbbb1`);
+        // console.log(JSON.stringify(rarest_root));
+        // console.log(`bbbbbbbbb2`);
 
         this.setState(rarest_root);
         // this.setState({
