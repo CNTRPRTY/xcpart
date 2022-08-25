@@ -46,6 +46,10 @@ class Asset extends React.Component {
                 // replace: the navigation will replace the current entry in the history stack instead of adding a new one
                 this.props.router.navigate(`/${asset_resource.asset_longname}`, { replace: true });
             }
+            // this one fixes the casing for assetname
+            else if (!asset_resource.asset_longname && (asset_resource.asset_name !== anyname)) {
+                this.props.router.navigate(`/${asset_resource.asset_name}`, { replace: true });
+            }
             else {
                 ///////////////////////////////
                 this.setState({ asset_resource });
