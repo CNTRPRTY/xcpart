@@ -61,10 +61,16 @@ class Asset extends React.Component {
                 if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
                     // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
                     // const asset_name = asset_resource.asset_name;
+
+                    this.setState({ enhanced_media_element: (<p>loading...</p>) });
+
                     const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
                     const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
                     if (try_enhanced_media_element) {
                         this.setState({ enhanced_media_element: try_enhanced_media_element });
+                    }
+                    else {
+                        this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
                     }
                 }
                 ///////////////////////////////
