@@ -61,7 +61,72 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
     );
 }
 
-function formattedAssetElement(asset, event = null, event_type = null, is_locked_nft = false) {
+function formattedAssetInListElement(asset, event = null, event_type = null, is_locked_nft = false) {
+    // function formattedAssetElement(asset, event = null, event_type = null, is_locked_nft = false) {
+
+    const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
+    const is_unlocked = asset.locked ? '' : ' (unlocked)';
+
+    // [c] as in media Content
+    let last_is_media = false;
+    if (
+        AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
+        AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
+    ) {
+        last_is_media = true;
+    }
+    // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
+
+    let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
+    // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
+    if (is_locked_nft) {
+        asset_total = '';
+    }
+
+    const events_total = ` [events: ${asset.events_length}]`;
+    // const events_total = ` [events: ${asset.events.length}]`;
+
+    const is_superasset_subassets_amount = asset.subassets_length ? ` [subassets: ${asset.subassets_length}]` : '';
+    // const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
+
+    // TODO?
+    let pretty_name_is_link_or_clipboard;
+    // types including none
+    let time_of_type = null;
+    if (event_type === null) {
+        // TODO?
+        // clipboard
+        // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{`bitst.art/${pretty_name}`}</Link>);
+        pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+        // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
+        //
+    }
+    else {
+        // link
+        pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+        // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
+        //
+
+        time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
+        // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
+    }
+
+    return (
+        <ul key={asset.asset_name}>
+            <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
+            {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
+            {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
+            {time_of_type}
+            {/* <li style={{ "list-style-type": "none" }}>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
+            {/* <li>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
+            {/* <li>{asset.description_first.block_timestamp_iso} [block:{asset.description_first.block_index}]</li> */}
+        </ul>
+    );
+}
+
+// CLOSE TO THE ABOVE ONE because these initialy came from just a single function BECAUSE i want these to be as consistent as possible!
+function formattedAssetTitleElement(asset, event = null, event_type = null, is_locked_nft = false) {
 
     const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
     const is_unlocked = asset.locked ? '' : ' (unlocked)';
@@ -124,5 +189,7 @@ function formattedAssetElement(asset, event = null, event_type = null, is_locked
 
 export {
     formattedAssetEventElement,
-    formattedAssetElement
+    // formattedAssetElement
+    formattedAssetInListElement,
+    formattedAssetTitleElement,
 };

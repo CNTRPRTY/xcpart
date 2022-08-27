@@ -1,6 +1,7 @@
 import React from 'react';
 import { getRarest } from "../api";
-import { formattedAssetElement } from "./shared/elements"
+import { formattedAssetInListElement } from "./shared/elements"
+// import { formattedAssetElement } from "./shared/elements"
 
 export default class Rarest extends React.Component {
     constructor(props) {
@@ -69,14 +70,17 @@ export default class Rarest extends React.Component {
                         - will need a new formatter for this instead of continuing variating this one
                         - OR start breaking all of them up, reusing parts of them which will be called by individual functions
                     */}
-                    {formattedAssetElement(this.state.rarest_first_issuance)}
+                    {formattedAssetInListElement(this.state.rarest_first_issuance)}
+                    {/* {formattedAssetElement(this.state.rarest_first_issuance)} */}
                     {/* {this.state.latest_locked_nftnd.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))} */}
 
                     <h2>First satoshi NFT [no destroy] asset issuance</h2>
-                    {formattedAssetElement(this.state.rarest_first_satoshi_nft_nodestroy_issuance, null, null, true)}
+                    {formattedAssetInListElement(this.state.rarest_first_satoshi_nft_nodestroy_issuance, null, null, true)}
+                    {/* {formattedAssetElement(this.state.rarest_first_satoshi_nft_nodestroy_issuance, null, null, true)} */}
 
                     <h2>First whole number NFT [no destroy] asset issuance</h2>
-                    {formattedAssetElement(this.state.rarest_first_wholenumber_nft_nodestroy_issuance, null, null, true)}
+                    {formattedAssetInListElement(this.state.rarest_first_wholenumber_nft_nodestroy_issuance, null, null, true)}
+                    {/* {formattedAssetElement(this.state.rarest_first_wholenumber_nft_nodestroy_issuance, null, null, true)} */}
 
                 </div>
             );

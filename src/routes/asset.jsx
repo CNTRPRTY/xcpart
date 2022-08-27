@@ -193,7 +193,8 @@ class Asset extends React.Component {
             return (
                 <main style={{ padding: "1rem 0" }}>
                     <h1>Asset:</h1>
-                    <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2>
+                    <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2>
+                    {/* <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2> */}
                     {/* <h2>{formattedAssetElement(this.state.asset_resource)}</h2> */}
                     {/* <h2>{JSON.stringify(this.state.asset_resource)}</h2> */}
                     {/* {formattedAssetPageDetailsElement(this.state.asset_resource)} */}

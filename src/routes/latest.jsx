@@ -1,7 +1,8 @@
 import React from 'react';
 import { getLatest } from "../api";
 // import { getAssetRoot } from "../api";
-import { formattedAssetElement } from "./shared/elements"
+import { formattedAssetInListElement } from "./shared/elements"
+// import { formattedAssetElement } from "./shared/elements"
 import IssuanceEvent from "../models/IssuanceEvent";
 
 export default class Latest extends React.Component {
@@ -38,7 +39,8 @@ export default class Latest extends React.Component {
                 {/* <h2>Description updated NFT [no destroy]</h2> */}
                 {/* <h2>[RAREST] Latest Updated Locked NFTND</h2> */}
                 {this.state.latest_locked_nftnd.length === 0 ? 'loading...' : null}
-                {this.state.latest_locked_nftnd.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))}
+                {this.state.latest_locked_nftnd.map((asset) => formattedAssetInListElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))}
+                {/* {this.state.latest_locked_nftnd.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))} */}
                 {/* <h2>[RAREST] Latest Updated Locked NFTsatoshi NOdestroys</h2>
                 {this.state.latest_locked_nft_satoshi.length === 0 ? 'loading...' : null}
                 {this.state.latest_locked_nft_satoshi.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))} */}
@@ -47,20 +49,23 @@ export default class Latest extends React.Component {
                 <h2>Quantity changed NFT [by destroy]</h2>
                 {/* <h2>Latest Updated Locked NFT</h2> */}
                 {this.state.latest_locked_nft.length === 0 ? 'loading...' : null}
-                {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, asset.block_event, IssuanceEvent.TYPES.UPDATE_QUANTITY, true))}
+                {this.state.latest_locked_nft.map((asset) => formattedAssetInListElement(asset, asset.block_event, IssuanceEvent.TYPES.UPDATE_QUANTITY, true))}
+                {/* {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, asset.block_event, IssuanceEvent.TYPES.UPDATE_QUANTITY, true))} */}
                 {/* {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_QUANTITY, true))} */}
                 {/* {this.state.latest_locked_nft.map((asset) => formattedAssetElement(asset, true))} */}
 
                 <h2>Latest Locked</h2>
                 {/* <h2>Locked</h2> */}
                 {this.state.latest_locked.length === 0 ? 'loading...' : null}
-                {this.state.latest_locked.map((asset) => formattedAssetElement(asset, asset.lock_issuance, IssuanceEvent.TYPES.LOCK))}
+                {this.state.latest_locked.map((asset) => formattedAssetInListElement(asset, asset.lock_issuance, IssuanceEvent.TYPES.LOCK))}
+                {/* {this.state.latest_locked.map((asset) => formattedAssetElement(asset, asset.lock_issuance, IssuanceEvent.TYPES.LOCK))} */}
                 {/* {this.state.latest_locked.map((asset) => formattedAssetElement(asset))} */}
 
                 <h2>Created (includes unlocked)</h2>
                 {/* <h2>Latest</h2> */}
                 {this.state.latest.length === 0 ? 'loading...' : null}
-                {this.state.latest.map((asset) => formattedAssetElement(asset, asset.first_issuance, IssuanceEvent.TYPES.GENESIS))}
+                {this.state.latest.map((asset) => formattedAssetInListElement(asset, asset.first_issuance, IssuanceEvent.TYPES.GENESIS))}
+                {/* {this.state.latest.map((asset) => formattedAssetElement(asset, asset.first_issuance, IssuanceEvent.TYPES.GENESIS))} */}
                 {/* {this.state.latest.map((asset) => formattedAssetElement(asset))} */}
 
             </main>
