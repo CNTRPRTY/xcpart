@@ -74,3 +74,15 @@ export async function getAssetEnhancedJsonResponse(asset_name, issuance_tx_index
     return data;
     // return data.data;
 }
+
+export async function getAddress(address) {
+    const res = await fetch(`${api_host}/mainnet/address/${address}`);
+    if (!res.ok) {
+        if (res.status === 404) { // 404 Not Found
+            return null;
+        }
+        throw Error(`[${res.status}:${res.statusText}]`);
+    }
+    const data = await res.json();
+    return data.data;
+}

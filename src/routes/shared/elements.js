@@ -34,10 +34,12 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
             // genesis_created_bottom = (<li>[created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_divisibility = (<li>[divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
             // genesis_or_transfer_element = (<li>created by: {asset_event.issuer}</li>);
-            genesis_or_transfer_element = (<li>issuer: {asset_event.issuer}</li>);
+            genesis_or_transfer_element = (<li>issuer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
+            // genesis_or_transfer_element = (<li>issuer: {asset_event.issuer}</li>);
         }
         else {
-            genesis_or_transfer_element = (<li>issuer transfer: {asset_event.issuer}</li>);
+            genesis_or_transfer_element = (<li>issuer transfer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
+            // genesis_or_transfer_element = (<li>issuer transfer: {asset_event.issuer}</li>);
             // genesis_or_transfer_element = (<li>transferred to: {asset_event.issuer}</li>);
         }
     }

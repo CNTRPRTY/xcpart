@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from './shared/classhooks';
 
 import Asset from "./asset";
-// import Address from "./asset";
+import Address from "./address";
 
 class AnyResource extends React.Component {
 
@@ -26,13 +26,25 @@ class AnyResource extends React.Component {
     render() {
 
         // TODO
+
+        let address;
         let asset_anyname;
-        if (true) {
+
+        // TODO!
+        if (this.state.anyresource.toUpperCase() !== this.state.anyresource) {
+            address = this.state.anyresource;
+        }
+
+        // TODO!
+        if (this.state.anyresource.toUpperCase() === this.state.anyresource) {
             asset_anyname = this.state.anyresource;
         }
 
         if (asset_anyname) {
             return <Asset anyName={asset_anyname} />;
+        }
+        else if (address) {
+            return <Address address={address} />;
         }
 
         else {
