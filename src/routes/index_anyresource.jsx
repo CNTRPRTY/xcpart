@@ -4,6 +4,8 @@ import { withRouter } from './shared/classhooks';
 import Asset from "./asset";
 import Address from "./address";
 
+import { validateBitcoinAddress } from "../bitcoin";
+
 class AnyResource extends React.Component {
 
     constructor(props) {
@@ -25,18 +27,15 @@ class AnyResource extends React.Component {
 
     render() {
 
-        // TODO
-
         let address;
         let asset_anyname;
 
-        // TODO!
-        if (this.state.anyresource.toUpperCase() !== this.state.anyresource) {
+        if (validateBitcoinAddress('bitcoin', this.state.anyresource)) {
+            // if (this.state.anyresource.toUpperCase() !== this.state.anyresource) {
             address = this.state.anyresource;
         }
-
-        // TODO!
-        if (this.state.anyresource.toUpperCase() === this.state.anyresource) {
+        // TODO more strict client validation, but for now treating everything else as an asset name
+        else {
             asset_anyname = this.state.anyresource;
         }
 
