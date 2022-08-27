@@ -11,7 +11,10 @@ import Home from "./routes/home"
 import Latest from "./routes/latest";
 // import Assets from "./routes/assets";
 import Rarest from "./routes/rarest";
-import Asset from "./routes/asset";
+
+import AnyResource from "./routes/index_anyresource";
+// import Asset from "./routes/asset";
+
 // import Expenses from "./routes/expenses";
 // import Invoices from "./routes/invoices";
 // import Invoice from "./routes/invoice";
@@ -44,7 +47,8 @@ root.render(
           {/* <Route path="_latest" element={<Assets />} /> */}
           <Route path="_rarest" element={<Rarest />} />
 
-          <Route path=":anyName" element={<Asset />} />
+          <Route path=":anyResource" element={<AnyResource />} />
+          {/* <Route path=":anyName" element={<Asset />} /> */}
           {/* <Route path=":assetName" element={<Asset />} /> */}
 
           {/* <Route path="assets" element={<Assets />} />

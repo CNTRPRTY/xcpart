@@ -1,16 +1,19 @@
 import { getAsset } from "../api";
 import React from 'react';
-import { withRouter } from './shared/classhooks';
-import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
+// import { withRouter } from './shared/classhooks';
+import { formattedAssetEventElement, formattedAssetTitleElement } from "./shared/elements"
+// import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
 import { Link } from "react-router-dom";
 import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
 import AssetDescriptionEnhancedMedia from "../models/AssetDescriptionEnhancedMedia"
 
-class Asset extends React.Component {
+export default class Asset extends React.Component {
+    // class Asset extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            anyname: props.router.params.anyName,
+            anyname: props.anyName,
+            // anyname: props.router.params.anyName,
             // asset_name: props.router.params.assetName,
 
             asset_not_found: null,
@@ -131,9 +134,11 @@ class Asset extends React.Component {
 
     // This method is not called for the initial render (https://reactjs.org/docs/react-component.html#componentdidupdate)
     async componentDidUpdate(prevProps) {
-        const updatedAssetAnyame = this.props.router.params.anyName;
+        const updatedAssetAnyame = this.props.anyName;
+        // const updatedAssetAnyame = this.props.router.params.anyName;
         // Typical usage (don't forget to compare props):
-        if (updatedAssetAnyame !== prevProps.router.params.anyName) {
+        if (updatedAssetAnyame !== prevProps.anyName) {
+            // if (updatedAssetAnyame !== prevProps.router.params.anyName) {
             // const updatedAssetName = this.props.router.params.assetName;
             // // Typical usage (don't forget to compare props):
             // if (updatedAssetName !== prevProps.router.params.assetName) {
@@ -245,4 +250,4 @@ class Asset extends React.Component {
     }
 }
 
-export default withRouter(Asset);
+// export default withRouter(Asset);

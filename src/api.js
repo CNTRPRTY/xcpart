@@ -7,7 +7,6 @@ export async function getLatest() {
     // export async function getAssetRoot() {
     // const res = await fetch(`${api_host}/direct/mainnet/latest`);
     const res = await fetch(`${api_host}/mainnet/latest`);
-    // const res = await fetch(`${api_host}/mainnet/asset`);
     if (!res.ok) {
         throw Error(`[${res.status}:${res.statusText}]`);
     }
@@ -25,9 +24,8 @@ export async function getRarest() {
     return data.data;
 }
 
-// TODO is this name anyname?
-export async function getAsset(name) {
-    const res = await fetch(`${api_host}/mainnet/asset/${name}`);
+export async function getAsset(anyname) {
+    const res = await fetch(`${api_host}/mainnet/asset/${anyname}`);
     if (!res.ok) {
         if (res.status === 404) { // 404 Not Found
             return null;
