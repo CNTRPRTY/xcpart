@@ -10,9 +10,23 @@ export function validateBitcoinAddress(new_network_name, address) {
         if (maybe_subasset.length > 1) {
             address = maybe_subasset[0];
         }
-        if (address.toUpperCase() === address) {
+
+        // https://stackoverflow.com/a/8653681
+        if (address.match(/^[a-zA-Z]+$/)) {
+            // if (address.toUpperCase() === address) {
             // false
-            throw Error(`temporary is name C`); // cnsnt
+            throw Error(`temporary is name C1`); // cnsnt
+        }
+        else if (
+            (
+                address.startsWith('A') ||
+                address.startsWith('a')
+            ) &&
+            Number.isInteger(Number(address.substring(1))) // Number.isInteger(99999999999999999999999); // true (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger#using_isinteger)
+            // Number.isInteger(address.substring(1)) // Number.isInteger(99999999999999999999999); // true (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger#using_isinteger)
+        ) {
+            // false
+            throw Error(`temporary is name C2`); // cnsnt
         }
         return true;
 
