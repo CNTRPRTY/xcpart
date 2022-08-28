@@ -8,7 +8,7 @@ export default class Home extends React.Component {
         // console.log(process.env);
         // console.log(`vvvvvvv2`);
 
-        const app_host = (process.env.NODE_ENV === "development") ? "http://localhost:3000" : process.env.REACT_APP_HOST;
+        // const app_host = (process.env.NODE_ENV === "development") ? "http://localhost:3000" : process.env.REACT_APP_HOST;
 
         return (
             <main style={{ padding: "1rem" }}>
@@ -22,7 +22,7 @@ export default class Home extends React.Component {
                     This is pre-ALPHA software.{' '}
                     {/* The purpose of this early release is to start showing a read-only implementation of the{' '} */}
 
-                    The purpose of this <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">early release</a>{' '}
+                    The <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">purpose</a> of this early release{' '}
                     is to start showing an implementation of the Counterparty Bitcoin platform that{' '}
                     {/* The purpose of this early release is to start showing an implementation of the{' '}
                     <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty Bitcoin platform</a> that */}
@@ -62,7 +62,8 @@ export default class Home extends React.Component {
                     The Counterparty platform uses Bitcoin to store "special" messages eternally in the <a href="https://bitcointalk.org/index.php?topic=382374.0" target="_blank">timechain</a>.{' '}
                     {/* Every <a href="http://localhost:3000/TEST" target="_blank">thing</a> starts with a name. The Counterparty platform uses Bitcoin to store messages eternally in the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">timechain</a>. */}
                     Assets start with a name.{' '}
-                    Choose or generate a forever unique name, then do your first asset issuance: <b><a href={`${app_host}/TEST`}>bitst.art/TEST</a></b>
+                    Choose or generate a forever unique name, then do your first asset issuance: <b><Link to="/TEST">bitst.art/TEST</Link></b>
+                    {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href={`${app_host}/TEST`}>bitst.art/TEST</a></b> */}
                     {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href="http://localhost:3000/TEST">bitst.art/TEST</a></b> */}
                     {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href="http://localhost:3000/TEST" target="_blank">bitst.art/TEST</a></b> */}
                 </p>
