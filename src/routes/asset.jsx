@@ -1,18 +1,18 @@
 import { getAsset } from "../api";
 import React from 'react';
-// import { withRouter } from './shared/classhooks';
+import { withRouter } from './shared/classhooks';
 import { formattedAssetEventElement, formattedAssetTitleElement } from "./shared/elements"
 // import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
 import { Link } from "react-router-dom";
 import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
 import AssetDescriptionEnhancedMedia from "../models/AssetDescriptionEnhancedMedia"
 
-export default class Asset extends React.Component {
-    // class Asset extends React.Component {
+// export default class Asset extends React.Component {
+class Asset extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            anyname: props.anyName,
+            anyname: props.anyName, // BUT withRouter still needed for this.props.router.navigate
             // anyname: props.router.params.anyName,
             // asset_name: props.router.params.assetName,
 
@@ -254,4 +254,4 @@ export default class Asset extends React.Component {
     }
 }
 
-// export default withRouter(Asset);
+export default withRouter(Asset);
