@@ -5,6 +5,11 @@
 
 export function validateBitcoinAddress(new_network_name, address) {
     try {
+        // if subasset only validate the superasset part
+        const maybe_subasset = address.split('.');
+        if (maybe_subasset.length > 1) {
+            address = maybe_subasset[0];
+        }
         if (address.toUpperCase() === address) {
             // false
             throw Error(`temporary is name C`); // cnsnt
