@@ -57,7 +57,8 @@ class Address extends React.Component {
                     <h1>Asset issuances by:</h1>
 
                     {/* TODO? maybe include more metadata for the address in a formatted form? */}
-                    <h2>{this.state.address}</h2>
+                    <h2>{<Link to={`/${this.state.address}`}>{this.state.address}</Link>}</h2>
+                    {/* <h2>{this.state.address}</h2> */}
                     {/* <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2> */}
 
                     <ul>
