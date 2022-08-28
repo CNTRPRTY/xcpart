@@ -31,7 +31,8 @@ export default class Latest extends React.Component {
 
     render() {
         return (
-            <main style={{ padding: "1rem 0" }}>
+            <main style={{ padding: "1rem" }}>
+                {/* <main style={{ padding: "1rem 0" }}> */}
                 <h1>Latest assets:</h1>
                 {/* <h1>Assets</h1> */}
 

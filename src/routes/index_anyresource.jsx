@@ -48,7 +48,8 @@ class AnyResource extends React.Component {
 
         else {
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>Invalid url...</h2>
                 </main>
             );

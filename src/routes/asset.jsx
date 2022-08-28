@@ -150,7 +150,8 @@ export default class Asset extends React.Component {
     render() {
         if (this.state.asset_not_found) {
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>No asset found</h2>
                 </main>
             );
@@ -158,7 +159,8 @@ export default class Asset extends React.Component {
         else if (this.state.asset_btc_xcp) {
             // TODO: this was implemented very quickly to keep moving forward...
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>No BTC / XPC page...</h2>
                 </main>
             );
@@ -202,7 +204,8 @@ export default class Asset extends React.Component {
             // /////////////
 
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                {/* <main style={{ padding: "1rem 0" }}> */}
                     <h1>Asset:</h1>
                     <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2>
                     {/* <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2> */}
@@ -242,7 +245,8 @@ export default class Asset extends React.Component {
         }
         else {
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>loading...</h2>
                 </main>
             );

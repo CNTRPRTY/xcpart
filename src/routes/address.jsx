@@ -43,7 +43,8 @@ class Address extends React.Component {
     render() {
         if (this.state.address_assets_not_found) {
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>No assets found for address</h2>
                 </main>
             );
@@ -53,7 +54,8 @@ class Address extends React.Component {
             // const subassets_list_element = this.state.asset_resource.subassets ? (<li>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
 
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h1>Asset issuances by:</h1>
 
                     {/* TODO? maybe include more metadata for the address in a formatted form? */}
@@ -70,7 +72,8 @@ class Address extends React.Component {
         }
         else {
             return (
-                <main style={{ padding: "1rem 0" }}>
+                <main style={{ padding: "1rem" }}>
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>loading...</h2>
                 </main>
             );

@@ -58,7 +58,7 @@ export default class Rarest extends React.Component {
             this.state.rarest_first_issuance &&
             this.state.rarest_first_satoshi_nft_nodestroy_issuance &&
             this.state.rarest_first_wholenumber_nft_nodestroy_issuance
-            ) {
+        ) {
             content_element = (
                 <div>
 
@@ -87,7 +87,8 @@ export default class Rarest extends React.Component {
         }
 
         return (
-            <main style={{ padding: "1rem 0" }}>
+            <main style={{ padding: "1rem" }}>
+                {/* <main style={{ padding: "1rem 0" }}> */}
                 <h1>Rarest assets:</h1>
                 {content_element}
             </main>

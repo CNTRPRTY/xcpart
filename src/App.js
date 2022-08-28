@@ -17,7 +17,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ padding: "1rem" }}>
 
         <h1>bitST.ART</h1>
         {/* <h1>bitSTART</h1> */}
