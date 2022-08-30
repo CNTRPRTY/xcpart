@@ -1,6 +1,7 @@
 
 // TODO how many left?
 const TYPES = {
+    IMGUR_COM: 'imgur.com',
     IMGUR: 'imgur', // https://xchain.io/asset/BEARFACTS.misprint
     YOUTUBE: 'youtube', // https://xchain.io/asset/CANTSUCKDICK
     SOUNDCLOUD: 'soundcloud', // https://xchain.io/asset/BACKINBLOOD
@@ -54,7 +55,10 @@ class AssetDescriptionMedia {
             const media_check = media_check_pre.split('/')[0];
             if (media_check.length) {
                 if (Object.values(AssetDescriptionMedia.TYPES).includes(media_check)) {
-                    if (media_check === AssetDescriptionMedia.TYPES.IMGUR) {
+                    if (media_check === AssetDescriptionMedia.TYPES.IMGUR_COM) {
+                        return getImgurElement(media_check_pre);
+                    }
+                    else if (media_check === AssetDescriptionMedia.TYPES.IMGUR) {
                         return getImgurElement(media_check_pre);
                     }
                     else if (media_check === AssetDescriptionMedia.TYPES.YOUTUBE) {
