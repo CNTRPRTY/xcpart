@@ -9,7 +9,8 @@ class Address extends React.Component {
         this.state = {
             address: props.address,
             address_assets_not_found: null,
-            address_assets: []
+            address_assets: null
+            // address_assets: []
         };
     }
 
@@ -45,11 +46,21 @@ class Address extends React.Component {
             return (
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
+                    <h2>No address found</h2>
+                    {/* <h2>No assets found for address</h2> */}
+                </main>
+            );
+        }
+        else if (this.state.address_assets && !this.state.address_assets.length) {
+            return (
+                <main style={{ padding: "1rem" }}>
+                    {/* <main style={{ padding: "1rem 0" }}> */}
+                    {/* <h2>No address found</h2> */}
                     <h2>No assets found for address</h2>
                 </main>
             );
         }
-        else if (this.state.address_assets.length) {
+        else if (this.state.address_assets && this.state.address_assets.length) {
 
             // const subassets_list_element = this.state.asset_resource.subassets ? (<li>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
 
