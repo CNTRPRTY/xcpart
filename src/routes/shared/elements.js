@@ -7,7 +7,11 @@ import AssetDescriptionEnhancedMedia from "../../models/AssetDescriptionEnhanced
 function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
     // function formattedAssetEventElement(asset_event) {
 
+    // AND changed back because the ones that are genesis issued without description show empty and this is more common
+    // changed to undefined check to be able to show when the description is deleted (DIRECTORYONE)
+    // const updated_description_element = (asset_event.description !== undefined) ? (<li>description: {asset_event.description}</li>) : null;
     const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
+
     const locked_element = asset_event.locked ? (<li>LOCK</li>) : null;
 
     const quantity_element = (asset_event.quantity !== undefined) ? (<li>{asset_event.type}: {asset_event.quantity}</li>) : null;
@@ -156,24 +160,24 @@ function formattedAssetTitleElement(asset, event = null, event_type = null, is_l
     // TODO?
     let pretty_name_is_link_or_clipboard;
     // types including none
-    let time_of_type = null;
-    if (event_type === null) {
-        // TODO?
-        // clipboard
-        // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{`bitst.art/${pretty_name}`}</Link>);
-        pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
-        // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
-        //
-    }
-    else {
-        // link
-        pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
-        // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
-        //
+    // let time_of_type = null;
+    // if (event_type === null) {
+    // TODO?
+    // clipboard
+    // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{`bitst.art/${pretty_name}`}</Link>);
+    pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+    // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
+    //
+    // }
+    // else {
+    //     // link
+    //     pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+    //     // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
+    //     //
 
-        time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
-        // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
-    }
+    //     time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
+    //     // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
+    // }
 
     return (
         <ul key={asset.asset_name}>
@@ -181,7 +185,7 @@ function formattedAssetTitleElement(asset, event = null, event_type = null, is_l
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
-            {time_of_type}
+            {/* {time_of_type} */}
             {/* <li style={{ "list-style-type": "none" }}>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
             {/* <li>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
             {/* <li>{asset.description_first.block_timestamp_iso} [block:{asset.description_first.block_index}]</li> */}
