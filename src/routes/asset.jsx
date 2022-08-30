@@ -68,13 +68,25 @@ class Asset extends React.Component {
                     this.setState({ enhanced_media_element: (<p>loading...</p>) });
 
                     const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-                    const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-                    if (try_enhanced_media_element) {
-                        this.setState({ enhanced_media_element: try_enhanced_media_element });
-                    }
-                    else {
+                    try {
+                        const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+                        if (try_enhanced_media_element) {
+                            this.setState({ enhanced_media_element: try_enhanced_media_element });
+                        }
+                        else {
+                            this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
+                        }
+                    } catch (err) {
+                        // console.log(err);
                         this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
                     }
+                    // const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+                    // if (try_enhanced_media_element) {
+                    //     this.setState({ enhanced_media_element: try_enhanced_media_element });
+                    // }
+                    // else {
+                    //     this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
+                    // }
                 }
                 ///////////////////////////////
             }
@@ -151,7 +163,7 @@ class Asset extends React.Component {
         if (this.state.asset_not_found) {
             return (
                 <main style={{ padding: "1rem" }}>
-                {/* <main style={{ padding: "1rem 0" }}> */}
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>No asset found</h2>
                 </main>
             );
@@ -160,7 +172,7 @@ class Asset extends React.Component {
             // TODO: this was implemented very quickly to keep moving forward...
             return (
                 <main style={{ padding: "1rem" }}>
-                {/* <main style={{ padding: "1rem 0" }}> */}
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>No BTC / XPC page...</h2>
                 </main>
             );
@@ -205,7 +217,7 @@ class Asset extends React.Component {
 
             return (
                 <main style={{ padding: "1rem" }}>
-                {/* <main style={{ padding: "1rem 0" }}> */}
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h1>Asset:</h1>
                     <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2>
                     {/* <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2> */}
@@ -246,7 +258,7 @@ class Asset extends React.Component {
         else {
             return (
                 <main style={{ padding: "1rem" }}>
-                {/* <main style={{ padding: "1rem 0" }}> */}
+                    {/* <main style={{ padding: "1rem 0" }}> */}
                     <h2>loading...</h2>
                 </main>
             );
