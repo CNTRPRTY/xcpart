@@ -9,23 +9,27 @@ class Block extends React.Component {
         this.state = {
             block: props.block,
             block_not_found: null,
-            block_events: null
+            block_assets: null
+            // block_events: null
             // block_events: []
         };
     }
 
     async fetchData(block_height) {
-        const block_events = await getBlock(block_height);
+        const block_assets = await getBlock(block_height);
+        // const block_events = await getBlock(block_height);
         // const address_assets = await getAddress(address);
 
         // TODO? seems like a reset of constructor params will be needed here...
 
-        if (!block_events) {
+        if (!block_assets) {
+            // if (!block_events) {
             this.setState({ block_not_found: true });
         }
         else {
             this.setState({
-                block_events: block_events.events
+                block_assets: block_assets.assets
+                // block_events: block_events.events
             });
         }
 
@@ -54,7 +58,8 @@ class Block extends React.Component {
                 </main>
             );
         }
-        else if (this.state.block_events && !this.state.block_events.length) {
+        else if (this.state.block_assets && !this.state.block_assets.length) {
+            // else if (this.state.block_events && !this.state.block_events.length) {
             return (
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
@@ -63,7 +68,8 @@ class Block extends React.Component {
                 </main>
             );
         }
-        else if (this.state.block_events && this.state.block_events.length) {
+        else if (this.state.block_assets && this.state.block_assets.length) {
+            // else if (this.state.block_events && this.state.block_events.length) {
 
             // const subassets_list_element = this.state.asset_resource.subassets ? (<li>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
 
@@ -73,12 +79,12 @@ class Block extends React.Component {
                     <h1>Assets with event in block:</h1>
 
                     {/* TODO? maybe include more metadata for the address in a formatted form? */}
-                    <h2>{<Link to={`/${this.state.block}`}>{this.state.block}</Link>}</h2>
-                    {/* <h2>{this.state.address}</h2> */}
-                    {/* <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2> */}
+                    {/* <h2>{<Link to={`/${this.state.block}`}>{this.state.block}</Link>}</h2> */}
+                    <h2>{this.state.block}</h2>
 
                     <ul>
-                        {this.state.block_events.map((mainname_obj) => (<li key={mainname_obj.index}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))}
+                        {this.state.block_assets.map((mainname_obj) => (<li key={mainname_obj.index}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))}
+                        {/* {this.state.block_events.map((mainname_obj) => (<li key={mainname_obj.index}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))} */}
                         {/* {this.state.block_events.map((block_event) => (<li key={block_event.id}><Link to={`/${asset_mainname}`}>{asset_mainname}</Link></li>))} */}
                     </ul>
 
