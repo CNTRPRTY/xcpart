@@ -54,7 +54,8 @@ function formattedAssetEventElement(asset_event, asset_name, asset_longname = nu
             {genesis_created_top}
             {/* {genesis_created_bottom} */}
             {/* {genesis_divisibility} */}
-            <li>{asset_event.block_timestamp_iso} [block:{asset_event.block_index}][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li>
+            <li>{asset_event.block_timestamp_iso} [block: <Link to={`/${asset_event.block_index}`}>{asset_event.block_index}</Link>][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li>
+            {/* <li>{asset_event.block_timestamp_iso} [block:{asset_event.block_index}][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li> */}
             {/* {genesis_divisibility} */}
             {quantity_element}
             {/* <li>{asset_event.type}: {asset_event.quantity}</li> */}

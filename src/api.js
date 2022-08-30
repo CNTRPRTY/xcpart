@@ -171,3 +171,15 @@ export async function getAddress(address) {
     const data = await res.json();
     return data.data;
 }
+
+export async function getBlock(block_height) {
+    const res = await fetch(`${api_host}/mainnet/block/${block_height}`);
+    if (!res.ok) {
+        if (res.status === 404) { // 404 Not Found
+            return null;
+        }
+        throw Error(`[${res.status}:${res.statusText}]`);
+    }
+    const data = await res.json();
+    return data.data;
+}

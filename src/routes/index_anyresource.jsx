@@ -3,6 +3,7 @@ import { withRouter } from './shared/classhooks';
 
 import Asset from "./asset";
 import Address from "./address";
+import Block from "./block";
 
 import { validateBitcoinAddress } from "../bitcoin";
 
@@ -27,10 +28,14 @@ class AnyResource extends React.Component {
 
     render() {
 
+        let block;
         let address;
         let asset_anyname;
 
-        if (validateBitcoinAddress('bitcoin', this.state.anyresource)) {
+        if (Number.isInteger(Number(this.state.anyresource))) {
+            block = this.state.anyresource;    
+        }
+        else if (validateBitcoinAddress('bitcoin', this.state.anyresource)) {
             // if (this.state.anyresource.toUpperCase() !== this.state.anyresource) {
             address = this.state.anyresource;
         }
@@ -44,6 +49,9 @@ class AnyResource extends React.Component {
         }
         else if (address) {
             return <Address address={address} />;
+        }
+        else if (block) {
+            return <Block block={block} />;
         }
 
         else {
