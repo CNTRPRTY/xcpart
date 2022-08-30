@@ -35,8 +35,22 @@ class AssetDescriptionMedia {
     }
 
     static checkIfDescriptionMedia(description) {
-        const media_check_pre = description.split(';')[0];
+        let media_check_pre = description.split(';')[0];
         if (media_check_pre.length) {
+
+            ////////////////////
+            // remove http(s)://
+            // console.log(`zzzzzzzz1`);
+            // console.log(media_check_pre);
+            if (media_check_pre.startsWith('http')) {
+                // console.log(`zzzzzzzz2`);
+                media_check_pre = media_check_pre.split('://')[1];
+                // console.log(media_check_pre);
+            }
+            // console.log(`zzzzzzzz3`);
+            // console.log(media_check_pre);
+            ////////////////////
+
             const media_check = media_check_pre.split('/')[0];
             if (media_check.length) {
                 if (Object.values(AssetDescriptionMedia.TYPES).includes(media_check)) {
@@ -49,9 +63,15 @@ class AssetDescriptionMedia {
 
     static getElementIfDescriptionMedia(description) {
         ////////
-        const media_check_pre = description.split(';')[0];
+        let media_check_pre = description.split(';')[0];
         // const media_check_pre = asset.latest_description_issuance.description.split(';')[0];
         if (media_check_pre.length) {
+            ////////////////////
+            // remove http(s)://
+            if (media_check_pre.startsWith('http')) {
+                media_check_pre = media_check_pre.split('://')[1];
+            }
+            ////////////////////
             const media_check = media_check_pre.split('/')[0];
             if (media_check.length) {
                 if (Object.values(AssetDescriptionMedia.TYPES).includes(media_check)) {
