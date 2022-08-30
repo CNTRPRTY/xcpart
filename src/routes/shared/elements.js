@@ -120,7 +120,9 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
 
     return (
         <ul key={asset.asset_name}>
-            <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{is_superasset_subassets_amount}{events_total}{asset_total}</li> */}
+            <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
@@ -159,14 +161,14 @@ function formattedAssetTitleElement(asset, event = null, event_type = null, is_l
     const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
 
     // TODO?
-    let pretty_name_is_link_or_clipboard;
+    let pretty_name_is_link_or_clipboard = pretty_name;
     // types including none
     // let time_of_type = null;
     // if (event_type === null) {
     // TODO?
     // clipboard
     // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{`bitst.art/${pretty_name}`}</Link>);
-    pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+    // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
     // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
     //
     // }
@@ -181,16 +183,77 @@ function formattedAssetTitleElement(asset, event = null, event_type = null, is_l
     // }
 
     return (
+        <p>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</p>
+        // <ul key={asset.asset_name}>
+        //     <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+        //     {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
+        //     {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
+        //     {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
+        //     {/* {time_of_type} */}
+        //     {/* <li style={{ "list-style-type": "none" }}>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
+        //     {/* <li>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
+        //     {/* <li>{asset.description_first.block_timestamp_iso} [block:{asset.description_first.block_index}]</li> */}
+        // </ul>
+    );
+}
+
+function formattedAssetRarestElement(asset, event = null, event_type = null, is_locked_nft = false) {
+
+
+    // console.log(`uuuuuuuuu0`);
+    // console.log(JSON.stringify(asset));
+    // console.log(`uuuuuuuuu1`);
+    // console.log(JSON.stringify(event));
+    // console.log(`uuuuuuuuu2`);
+    // console.log(event_type);
+    // console.log(`uuuuuuuuu3`);
+
+
+    const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
+    const is_unlocked = asset.locked ? '' : ' (unlocked)';
+
+    let last_is_media = false;
+    if (
+        AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
+        AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
+    ) {
+        last_is_media = true;
+    }
+
+    let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
+    if (is_locked_nft) {
+        asset_total = '';
+    }
+
+    // const events_length = (asset.events_length !== undefined) ? asset.events_length : asset.events.length;
+    // const events_total = ` [events: ${asset.events.length}]`;
+    const events_total = ` [events: ${asset.events_length}]`;
+
+    const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
+    // const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
+
+    let pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+
+    let time_of_type = '';
+    if (event_type) {
+        time_of_type = `${event_type}: ${event.block_timestamp_iso} [block: ${event.block_index}]`;
+    }
+
+    return (
         <ul key={asset.asset_name}>
-            <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{is_superasset_subassets_amount}{events_total}{asset_total}</li> */}
+            <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
-            {/* {time_of_type} */}
+            {time_of_type}
             {/* <li style={{ "list-style-type": "none" }}>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
             {/* <li>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
             {/* <li>{asset.description_first.block_timestamp_iso} [block:{asset.description_first.block_index}]</li> */}
         </ul>
+        // <p>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}{time_of_type}</p>
+        // // <p>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</p>
     );
 }
 
@@ -199,4 +262,5 @@ export {
     // formattedAssetElement
     formattedAssetInListElement,
     formattedAssetTitleElement,
+    formattedAssetRarestElement
 };
