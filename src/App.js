@@ -5,6 +5,8 @@ import { Outlet, Link } from "react-router-dom";
 import React from 'react';
 import { getLatest, getRarest } from "./api";
 
+import { withRouter } from './routes/shared/classhooks';
+
 class App extends React.Component {
   // function App() {
 
@@ -16,10 +18,16 @@ class App extends React.Component {
   }
 
   render() {
+
+    // console.log(`rrrrrrrrr1`);
+    // console.log(JSON.stringify(this.props));
+    // console.log(`rrrrrrrrr2`);
+
     return (
       <div style={{ padding: "1rem" }}>
 
-        <h1>bitST.ART</h1>
+        <h1>bitST.ART{`${this.props.router.location.pathname}`}</h1>
+        {/* <h1>bitST.ART</h1> */}
         {/* <h1>bitSTART</h1> */}
 
         <nav
@@ -65,4 +73,6 @@ class App extends React.Component {
 
 }
 
-export default App;
+// https://stackoverflow.com/a/60879343
+export default withRouter(App);
+// export default App;
