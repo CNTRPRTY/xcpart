@@ -77,7 +77,9 @@ export default class Home extends React.Component {
                 {/* <p>Counterparty v3 // rules:</p> */}
                 <p>Help:</p>
                 <ul>
-                    <li>Go to the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li>
+                    <li>Start discovering assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li>
+                    {/* <li>Discover assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li> */}
+                    {/* <li>Go to the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li> */}
                     <li>Type the asset, address or block of interest in the url</li>
                     {/* <li>The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty</a> assets issued or updated in Bitcoin <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">blocks</a></li>
                     <li>The <Link to="/_rarest">Rarest</Link> section shows the rarest assets</li> */}
@@ -87,7 +89,7 @@ export default class Home extends React.Component {
                     <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not (no destroy is purer)</li>
                     <li>[quantity: {`<total asset supply>`}] : unlocked assets can issue more supply, locked assets cannot (but both can destroy supply)</li>
                     <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of issuance events</li>
-                    <li>[c] : the asset could have media content associated to it (which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>)</li>
+                    <li>[m] : the asset could have media content associated to it (which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>)</li>
                     <li>[subassets: {`<number of subassets>`}] : a "root" asset can create children assets, called subassets</li>
                     <li>[divisibility: satoshi / whole number] : the asset could be considered divisible or indivisible, but the quantity numbers are <a href="https://counterparty.io/docs/api/#quantities-and-balances" target="_blank">equivalent</a></li>
                     <li>[issuer: {`<Counterparty ready Bitcoin address>`}] : the assets are issued (created / updated) with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li>
