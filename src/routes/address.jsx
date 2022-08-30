@@ -67,15 +67,16 @@ class Address extends React.Component {
             return (
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
-                    <h1>Asset issuances by:</h1>
+                    <h1>Asset issuances with address:</h1>
+                    {/* <h1>Asset issuances by:</h1> */}
 
                     {/* TODO? maybe include more metadata for the address in a formatted form? */}
-                    <h2>{<Link to={`/${this.state.address}`}>{this.state.address}</Link>}</h2>
-                    {/* <h2>{this.state.address}</h2> */}
-                    {/* <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2> */}
+                    {/* <h2>{<Link to={`/${this.state.address}`}>{this.state.address}</Link>}</h2> */}
+                    <h2>{this.state.address}</h2>
 
                     <ul>
-                        {this.state.address_assets.map((asset_mainname) => (<li key={asset_mainname}><Link to={`/${asset_mainname}`}>{asset_mainname}</Link></li>))}
+                        {this.state.address_assets.map((mainname_obj) => (<li key={mainname_obj.index}><Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link></li>))}
+                        {/* {this.state.address_assets.map((asset_mainname) => (<li key={asset_mainname}><Link to={`/${asset_mainname}`}>{asset_mainname}</Link></li>))} */}
                     </ul>
 
                 </main>
