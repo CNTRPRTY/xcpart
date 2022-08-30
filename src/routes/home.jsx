@@ -15,22 +15,20 @@ export default class Home extends React.Component {
                 <h1>Welcome to bitSTART</h1>
                 {/* <h1>Welcome to bitST.ART</h1> */}
                 <h2>BITCOIN MAXIMUM EXPRESSION</h2>
-                <h3>Discover Bitcoin Art and Assets</h3>
 
-                <br />
-                <p>
-                    This is pre-ALPHA software.{' '}
-                    {/* The purpose of this early release is to start showing a read-only implementation of the{' '} */}
+                <h3>Discover Bitcoin Art Assets ("NFTs")</h3>
+                {/* <p>Discover Bitcoin Art and Assets</p> */}
+                {/* <h3>Discover Bitcoin Art and Assets ("NFTs")</h3> */}
+                {/* <h3>Discover Bitcoin Art and Assets</h3> */}
 
+                {/* <br /> */}
+                {/* <p>
+                    (This is pre-ALPHA software.{' '}
                     The <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">purpose</a> of this early release{' '}
                     is to start showing an implementation of the Counterparty Bitcoin platform that{' '}
-                    {/* The purpose of this early release is to start showing an implementation of the{' '}
-                    <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty Bitcoin platform</a> that */}
-
                     reads the <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">core protocol direct from Bitcoin blocks</a>.{' '}
-                    {/* reads the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">core protocol direct from Bitcoin block messages</a>. */}
-                    Don't trust, verify.
-                </p>
+                    Don't trust, verify.)
+                </p> */}
                 {/* <p>
                     This is pre-ALPHA software, released early to{' '}
                     <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">protect Counterparty core</a>.
@@ -49,28 +47,41 @@ export default class Home extends React.Component {
                     <li>The <Link to="/_rarest">Rarest</Link> section contains top stats from Counterparty asset data</li>
                 </ul> */}
 
-                <br />
+                {/* <br />
                 <h4>Start</h4>
-                <p>
-                    The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) Counterparty assets issued or updated in Bitcoin blocks.
-                </p>
+                <ul>
+                    <li>The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty</a> assets issued or updated in Bitcoin <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">blocks</a></li>
+                    <li>The <Link to="/_rarest">Rarest</Link> section shows the rarest assets, like the first one ever <b><Link to="/TEST">bitst.art/TEST</Link></b> and the first zero quantity issuance <b><Link to="/SONY">bitst.art/SONY meehh otro no unlocked</Link></b></li>
+                </ul> */}
+                {/* <p>
+                    The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>){' '}
+                    <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty</a> assets issued or updated in Bitcoin <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">blocks</a>.{' '}
+                    // The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) Counterparty assets ("NFTs") issued or updated in Bitcoin blocks.
+                    The <Link to="/_rarest">Rarest</Link> section shows the rarest assets, like the first one: <b><Link to="/TEST">bitst.art/TEST</Link></b>
+                </p> */}
 
-                <br />
-                <h4>Idea</h4>
-                <p>
-                    {/* Every <a href="http://localhost:3000/TEST" target="_blank">thing</a> starts with a name.{' '} */}
+                {/* <br /> */}
+                {/* <h4>Idea</h4> */}
+                {/* <p> */}
+                {/* // Every <a href="http://localhost:3000/TEST" target="_blank">thing</a> starts with a name.{' '}
                     The Counterparty platform uses Bitcoin to store "special" messages eternally in the <a href="https://bitcointalk.org/index.php?topic=382374.0" target="_blank">timechain</a>.{' '}
-                    {/* Every <a href="http://localhost:3000/TEST" target="_blank">thing</a> starts with a name. The Counterparty platform uses Bitcoin to store messages eternally in the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">timechain</a>. */}
+                    // Every <a href="http://localhost:3000/TEST" target="_blank">thing</a> starts with a name. The Counterparty platform uses Bitcoin to store messages eternally in the <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">timechain</a>.
                     Assets start with a name.{' '}
-                    Choose or generate a forever unique name, then do your first asset issuance: <b><Link to="/TEST">bitst.art/TEST</Link></b>
-                    {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href={`${app_host}/TEST`}>bitst.art/TEST</a></b> */}
-                    {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href="http://localhost:3000/TEST">bitst.art/TEST</a></b> */}
-                    {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href="http://localhost:3000/TEST" target="_blank">bitst.art/TEST</a></b> */}
-                </p>
+                    Choose or generate a forever unique name, with this you have your first asset issuance. Like: <b><Link to="/TEST">bitst.art/TEST</Link></b> */}
+                {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href={`${app_host}/TEST`}>bitst.art/TEST</a></b> */}
+                {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href="http://localhost:3000/TEST">bitst.art/TEST</a></b> */}
+                {/* Choose or generate a forever unique name, then do your first asset issuance: <b><a href="http://localhost:3000/TEST" target="_blank">bitst.art/TEST</a></b> */}
+                {/* </p> */}
 
                 <br />
                 {/* <p>Counterparty v3 // rules:</p> */}
                 <p>Help:</p>
+                <ul>
+                    <li>Go to the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li>
+                    <li>Type the asset, address or block of interest in the url</li>
+                    {/* <li>The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty</a> assets issued or updated in Bitcoin <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">blocks</a></li>
+                    <li>The <Link to="/_rarest">Rarest</Link> section shows the rarest assets</li> */}
+                </ul>
                 <ul>
                     <li>All assets are LOCKED assets, unless specified otherwise</li>
                     <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not (no destroy is purer)</li>
