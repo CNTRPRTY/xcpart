@@ -1,11 +1,62 @@
 import { getAsset } from "../api";
 import React from 'react';
 import { withRouter } from './shared/classhooks';
-import { formattedAssetEventElement, formattedAssetTitleElement } from "./shared/elements"
+import { formattedAssetTitleElement } from "./shared/elements"
 // import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
 import { Link } from "react-router-dom";
 import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
 import AssetDescriptionEnhancedMedia from "../models/AssetDescriptionEnhancedMedia"
+
+
+
+// TODO! this function proves the need for some kind of api docs for these asset events...
+// funny function parameters in that it only uses the asset_name if there is an asset_longname
+function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
+
+    // AND changed back because the ones that are genesis issued without description show empty and this is more common
+    // changed to undefined check to be able to show when the description is deleted (DIRECTORYONE)
+    // const updated_description_element = (asset_event.description !== undefined) ? (<li>description: {asset_event.description}</li>) : null;
+    const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
+
+    const locked_element = asset_event.locked ? (<li>LOCK</li>) : null;
+
+    const quantity_element = (asset_event.quantity !== undefined) ? (<li>{asset_event.type}: {asset_event.quantity}</li>) : null;
+
+    // if issuer is in the results, and there is no source, then it is first issuance
+    // else if issuer is in the results, then a source should also be
+    let genesis_created_top = null;
+
+    let genesis_or_transfer_element = null;
+    if (asset_event.issuer) {
+        if (!asset_event.source) {
+
+            let is_subasset_assetname = '';
+            if (asset_longname) {
+                is_subasset_assetname = ` [subasset: ${asset_name}]`;
+            }
+
+            genesis_created_top = (<li>genesis:{is_subasset_assetname} [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+            genesis_or_transfer_element = (<li>issuer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
+
+        }
+        else {
+            genesis_or_transfer_element = (<li>issuer transfer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
+        }
+    }
+
+    return (
+        <ul style={{ "list-style-type": "none" }}>
+            {genesis_created_top}
+            <li>{asset_event.block_timestamp_iso} [block: <Link to={`/${asset_event.block_index}`}>{asset_event.block_index}</Link>][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li>
+            {quantity_element}
+            {genesis_or_transfer_element}
+            {updated_description_element}
+            {locked_element}
+        </ul>
+    );
+}
+
+
 
 // export default class Asset extends React.Component {
 class Asset extends React.Component {

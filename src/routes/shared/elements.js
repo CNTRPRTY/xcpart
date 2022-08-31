@@ -2,71 +2,73 @@ import { Link } from "react-router-dom";
 import AssetDescriptionMedia from "../../models/AssetDescriptionMedia";
 import AssetDescriptionEnhancedMedia from "../../models/AssetDescriptionEnhancedMedia";
 
-// TODO! this function proves the need for some kind of api docs for these asset events...
-// funny function parameters in that it only uses the asset_name if there is an asset_longname
-function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
-    // function formattedAssetEventElement(asset_event) {
+// TODO this one could have the SUB elements that then the others will reuse with the same format
 
-    // AND changed back because the ones that are genesis issued without description show empty and this is more common
-    // changed to undefined check to be able to show when the description is deleted (DIRECTORYONE)
-    // const updated_description_element = (asset_event.description !== undefined) ? (<li>description: {asset_event.description}</li>) : null;
-    const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
+// // TODO! this function proves the need for some kind of api docs for these asset events...
+// // funny function parameters in that it only uses the asset_name if there is an asset_longname
+// function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
+//     // function formattedAssetEventElement(asset_event) {
 
-    const locked_element = asset_event.locked ? (<li>LOCK</li>) : null;
+//     // AND changed back because the ones that are genesis issued without description show empty and this is more common
+//     // changed to undefined check to be able to show when the description is deleted (DIRECTORYONE)
+//     // const updated_description_element = (asset_event.description !== undefined) ? (<li>description: {asset_event.description}</li>) : null;
+//     const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
 
-    const quantity_element = (asset_event.quantity !== undefined) ? (<li>{asset_event.type}: {asset_event.quantity}</li>) : null;
+//     const locked_element = asset_event.locked ? (<li>LOCK</li>) : null;
 
-    // if issuer is in the results, and there is no source, then it is first issuance
-    // else if issuer is in the results, then a source should also be
-    let genesis_created_top = null;
-    // let genesis_created_bottom = null;
-    // let genesis_divisibility = null;
-    let genesis_or_transfer_element = null;
-    if (asset_event.issuer) {
-        if (!asset_event.source) {
+//     const quantity_element = (asset_event.quantity !== undefined) ? (<li>{asset_event.type}: {asset_event.quantity}</li>) : null;
 
-            let is_subasset_assetname = '';
-            if (asset_longname) {
-                is_subasset_assetname = ` [subasset: ${asset_name}]`;
-            }
+//     // if issuer is in the results, and there is no source, then it is first issuance
+//     // else if issuer is in the results, then a source should also be
+//     let genesis_created_top = null;
+//     // let genesis_created_bottom = null;
+//     // let genesis_divisibility = null;
+//     let genesis_or_transfer_element = null;
+//     if (asset_event.issuer) {
+//         if (!asset_event.source) {
 
-            genesis_created_top = (<li>genesis:{is_subasset_assetname} [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
-            // genesis_created_top = (<li>genesis:{is_subasset_assetname} [issuer: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
-            // genesis_created_top = (<li>genesis:{is_subasset_assetname} [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
-            // genesis_created_top = (<li>genesis: [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
-            // genesis_created_top = (<li>genesis:</li>);
-            // genesis_created_bottom = (<li>[created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
-            // genesis_divisibility = (<li>[divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
-            // genesis_or_transfer_element = (<li>created by: {asset_event.issuer}</li>);
-            genesis_or_transfer_element = (<li>issuer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
-            // genesis_or_transfer_element = (<li>issuer: {asset_event.issuer}</li>);
-        }
-        else {
-            genesis_or_transfer_element = (<li>issuer transfer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
-            // genesis_or_transfer_element = (<li>issuer transfer: {asset_event.issuer}</li>);
-            // genesis_or_transfer_element = (<li>transferred to: {asset_event.issuer}</li>);
-        }
-    }
+//             let is_subasset_assetname = '';
+//             if (asset_longname) {
+//                 is_subasset_assetname = ` [subasset: ${asset_name}]`;
+//             }
 
-    return (
-        <ul style={{ "list-style-type": "none" }}>
-            {/* <ul> */}
-            {genesis_created_top}
-            {/* {genesis_created_bottom} */}
-            {/* {genesis_divisibility} */}
-            <li>{asset_event.block_timestamp_iso} [block: <Link to={`/${asset_event.block_index}`}>{asset_event.block_index}</Link>][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li>
-            {/* <li>{asset_event.block_timestamp_iso} [block:{asset_event.block_index}][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li> */}
-            {/* {genesis_divisibility} */}
-            {quantity_element}
-            {/* <li>{asset_event.type}: {asset_event.quantity}</li> */}
-            {/* {updated_description_element}
-            {locked_element} */}
-            {genesis_or_transfer_element}
-            {updated_description_element}
-            {locked_element}
-        </ul>
-    );
-}
+//             genesis_created_top = (<li>genesis:{is_subasset_assetname} [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+//             // genesis_created_top = (<li>genesis:{is_subasset_assetname} [issuer: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+//             // genesis_created_top = (<li>genesis:{is_subasset_assetname} [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+//             // genesis_created_top = (<li>genesis: [created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+//             // genesis_created_top = (<li>genesis:</li>);
+//             // genesis_created_bottom = (<li>[created by: {asset_event.issuer}] [divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+//             // genesis_divisibility = (<li>[divisibility: {asset_event.divisible ? 'satoshi' : 'whole number'}]</li>);
+//             // genesis_or_transfer_element = (<li>created by: {asset_event.issuer}</li>);
+//             genesis_or_transfer_element = (<li>issuer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
+//             // genesis_or_transfer_element = (<li>issuer: {asset_event.issuer}</li>);
+//         }
+//         else {
+//             genesis_or_transfer_element = (<li>issuer transfer: <Link to={`/${asset_event.issuer}`}>{asset_event.issuer}</Link></li>);
+//             // genesis_or_transfer_element = (<li>issuer transfer: {asset_event.issuer}</li>);
+//             // genesis_or_transfer_element = (<li>transferred to: {asset_event.issuer}</li>);
+//         }
+//     }
+
+//     return (
+//         <ul style={{ "list-style-type": "none" }}>
+//             {/* <ul> */}
+//             {genesis_created_top}
+//             {/* {genesis_created_bottom} */}
+//             {/* {genesis_divisibility} */}
+//             <li>{asset_event.block_timestamp_iso} [block: <Link to={`/${asset_event.block_index}`}>{asset_event.block_index}</Link>][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li>
+//             {/* <li>{asset_event.block_timestamp_iso} [block:{asset_event.block_index}][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li> */}
+//             {/* {genesis_divisibility} */}
+//             {quantity_element}
+//             {/* <li>{asset_event.type}: {asset_event.quantity}</li> */}
+//             {/* {updated_description_element}
+//             {locked_element} */}
+//             {genesis_or_transfer_element}
+//             {updated_description_element}
+//             {locked_element}
+//         </ul>
+//     );
+// }
 
 function formattedAssetInListElement(asset, event = null, event_type = null, is_locked_nft = false) {
     // function formattedAssetElement(asset, event = null, event_type = null, is_locked_nft = false) {
@@ -258,7 +260,7 @@ function formattedAssetRarestElement(asset, event = null, event_type = null, is_
 }
 
 export {
-    formattedAssetEventElement,
+    // formattedAssetEventElement,
     // formattedAssetElement
     formattedAssetInListElement,
     formattedAssetTitleElement,
