@@ -72,7 +72,8 @@ class Asset extends React.Component {
 
             asset_resource: null,
 
-            enhanced_media_element: null
+            media_element: null
+            // enhanced_media_element: null
         };
     }
 
@@ -108,84 +109,46 @@ class Asset extends React.Component {
                 ///////////////////////////////
                 this.setState({ asset_resource });
 
-                // then do the enhanced if applies
-                // first reset
-                this.setState({ enhanced_media_element: null });
-                // then try it
-                if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+                // then do the media if applies
+
+                // step 0 reset
+                this.setState({ media_element: null });
+
+                // start trying normal media
+                let media_or_none = null; // done like this to be clear the next command can be null
+                media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset_resource.latest_description_issuance.description);
+
+                if (media_or_none) {
+                    this.setState({ media_element: media_or_none });
+                }
+
+                // if not normal, then try enhanced
+                else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+                    // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
                     // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
                     // const asset_name = asset_resource.asset_name;
 
-                    this.setState({ enhanced_media_element: (<p>loading...</p>) });
+                    this.setState({ media_element: (<p>loading...</p>) });
 
                     const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
                     try {
                         const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
                         if (try_enhanced_media_element) {
-                            this.setState({ enhanced_media_element: try_enhanced_media_element });
+                            this.setState({ media_element: try_enhanced_media_element });
                         }
                         else {
-                            this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
+                            this.setState({ media_element: (<p>(unable to load content)</p>) });
                         }
                     } catch (err) {
                         // console.log(err);
-                        this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
+                        this.setState({ media_element: (<p>(unable to load content)</p>) });
                     }
-                    // const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-                    // if (try_enhanced_media_element) {
-                    //     this.setState({ enhanced_media_element: try_enhanced_media_element });
-                    // }
-                    // else {
-                    //     this.setState({ enhanced_media_element: (<p>(unable to load content)</p>) });
-                    // }
+
                 }
                 ///////////////////////////////
             }
 
         }
-
-        // const asset_name = asset_resource.asset_name;
-
-        // if (asset_resource.asset_longname && (asset_resource.asset_longname !== anyname)) {
-        //     // go to url (https://reactrouter.com/docs/en/v6/hooks/use-navigate)
-        //     // replace: the navigation will replace the current entry in the history stack instead of adding a new one
-        //     this.props.router.navigate(`/${asset_resource.asset_longname}`, { replace: true });
-        // }
-        // else {
-        //     ///////////////////////////////
-        //     this.setState({ asset_resource });
-
-        //     // then do the enhanced if applies
-        //     // first reset
-        //     this.setState({ enhanced_media_element: null });
-        //     // then try it
-        //     if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-        //         // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
-        //         // const asset_name = asset_resource.asset_name;
-        //         const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-        //         const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-        //         if (try_enhanced_media_element) {
-        //             this.setState({ enhanced_media_element: try_enhanced_media_element });
-        //         }
-        //     }
-        //     ///////////////////////////////
-        // }
-
-        // this.setState({ asset_resource });
-
-        // // then do the enhanced if applies
-        // // first reset
-        // this.setState({ enhanced_media_element: null });
-        // // then try it
-        // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-        //     // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
-        //     // const asset_name = asset_resource.asset_name;
-        //     const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-        //     const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-        //     if (try_enhanced_media_element) {
-        //         this.setState({ enhanced_media_element: try_enhanced_media_element });
-        //     }
-        // }
     }
 
     async componentDidMount() {
@@ -241,13 +204,17 @@ class Asset extends React.Component {
             }
 
 
-            /////////
-            let media_or_none = null; // done like this to be clear the next command can be null
-            media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(this.state.asset_resource.latest_description_issuance.description);
 
-            if (this.state.enhanced_media_element) {
-                media_or_none = this.state.enhanced_media_element;
-            }
+            const media_or_none = this.state.media_element;
+            // let media_or_none = null; // done like this to be clear the next command can be null
+            // media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(this.state.asset_resource.latest_description_issuance.description);
+
+            // if (this.state.enhanced_media_element) {
+            //     media_or_none = this.state.enhanced_media_element;
+            // }
+
+
+
             // if (this.state.asset_resource.latest_description_issuance.description.endsWith('.json')) {
             //     media_or_none = (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>);
             // }
