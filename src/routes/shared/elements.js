@@ -92,7 +92,12 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
         asset_total = '';
     }
 
-    const events_total = ` [events: ${asset.events_length}]`;
+    const events_total = (
+        <div style={{ opacity: 0.2 }}>
+            [events: {asset.events_length}]
+        </div>
+    );
+    // const events_total = ` [events: ${asset.events_length}]`;
     // const events_total = ` [events: ${asset.events.length}]`;
 
     const is_superasset_subassets_amount = asset.subassets_length ? ` [subassets: ${asset.subassets_length}]` : '';
@@ -235,9 +240,14 @@ function formattedAssetRarestElement(asset, event = null, event_type = null, is_
         asset_total = '';
     }
 
+    const events_total = (
+        <div style={{ opacity: 0.2 }}>
+            [events: {asset.events_length}]
+        </div>
+    );
     // const events_length = (asset.events_length !== undefined) ? asset.events_length : asset.events.length;
     // const events_total = ` [events: ${asset.events.length}]`;
-    const events_total = ` [events: ${asset.events_length}]`;
+    // const events_total = ` [events: ${asset.events_length}]`;
 
     const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
     // const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';

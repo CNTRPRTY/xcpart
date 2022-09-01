@@ -105,17 +105,17 @@ function formattedAssetBelowTitleElement(asset, event = null, event_type = null,
         asset_total = '';
     }
 
-    const events_total = ` [events: ${asset.events.length}]`;
+    // const events_total = ` [events: ${asset.events.length}]`;
 
     const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
 
-    return (
-        <p>
-            {/* <b>{pretty_name_is_link_or_clipboard}</b>
-            <br /> */}
-            {events_total}{asset_total}{is_superasset_subassets_amount}
-        </p>
-    );
+    return `${asset_total}${is_superasset_subassets_amount}`;
+    // return (
+    //     <p>
+    //         {asset_total}{is_superasset_subassets_amount}
+    //         {/* {events_total}{asset_total}{is_superasset_subassets_amount} */}
+    //     </p>
+    // );
 }
 
 // TODO! this function proves the need for some kind of api docs for these asset events...
@@ -385,7 +385,15 @@ class Asset extends React.Component {
                     {/* <main style={{ padding: "1rem 0" }}> */}
                     <h1>Asset:</h1>
                     <h2><strong>{mainname}</strong></h2>
-                    <h3>{formattedAssetBelowTitleElement(this.state.asset_resource, null, null, false)}</h3>
+                    {/* const events_total = ` [events: ${asset.events.length}]`; */}
+
+                    <h3>
+                        <div style={{ opacity: 0.2 }}>
+                            [events: {this.state.asset_resource.events.length}]
+                        </div>
+                        <br />
+                        {formattedAssetBelowTitleElement(this.state.asset_resource, null, null, false)}
+                    </h3>
                     {/* <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2> */}
                     {/* <h2>{formattedAssetElement(this.state.asset_resource)}</h2> */}
                     {/* <h2>{JSON.stringify(this.state.asset_resource)}</h2> */}
