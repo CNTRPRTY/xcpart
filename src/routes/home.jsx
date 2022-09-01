@@ -133,7 +133,7 @@ export default class Home extends React.Component {
 
                 <br />
                 <p>
-                    [bitSTART v2022.1]
+                    [bitSTART v2022.2]
                     {/* [bitSTART v2022] */}
                     {/* [bitSTART v2022a] */}
                     <br />
