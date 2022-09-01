@@ -1,7 +1,7 @@
 import { getAsset } from "../api";
 import React from 'react';
 import { withRouter } from './shared/classhooks';
-import { formattedAssetTitleElement } from "./shared/elements"
+// import { formattedAssetTitleElement } from "./shared/elements"
 // import { formattedAssetEventElement, formattedAssetElement } from "./shared/elements"
 import { Link } from "react-router-dom";
 import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
@@ -93,6 +93,30 @@ class ActionLink extends React.Component {
 }
 
 
+function formattedAssetBelowTitleElement(asset, event = null, event_type = null, is_locked_nft = false) {
+
+    // const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
+    const is_unlocked = asset.locked ? '' : ' (unlocked)';
+
+    let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
+    // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
+    if (is_locked_nft) {
+        asset_total = '';
+    }
+
+    const events_total = ` [events: ${asset.events.length}]`;
+
+    const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
+
+    return (
+        <p>
+            {/* <b>{pretty_name_is_link_or_clipboard}</b>
+            <br /> */}
+            {events_total}{asset_total}{is_superasset_subassets_amount}
+        </p>
+    );
+}
+
 // TODO! this function proves the need for some kind of api docs for these asset events...
 // funny function parameters in that it only uses the asset_name if there is an asset_longname
 function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_longname = null) {
@@ -173,7 +197,6 @@ function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_l
         </ul>
     );
 }
-
 
 
 // export default class Asset extends React.Component {
@@ -354,11 +377,14 @@ class Asset extends React.Component {
             // const genesis_element = (<li>genesis: {genesis_event.block_timestamp_iso} [block: {genesis_event.block_index}]</li>);
             // /////////////
 
+            const mainname = this.state.asset_resource.asset_longname ? this.state.asset_resource.asset_longname : this.state.asset_resource.asset_name;
+
             return (
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
                     <h1>Asset:</h1>
-                    <h2>{formattedAssetTitleElement(this.state.asset_resource, null, null, false)}</h2>
+                    <h2><strong>{mainname}</strong></h2>
+                    <h3>{formattedAssetBelowTitleElement(this.state.asset_resource, null, null, false)}</h3>
                     {/* <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2> */}
                     {/* <h2>{formattedAssetElement(this.state.asset_resource)}</h2> */}
                     {/* <h2>{JSON.stringify(this.state.asset_resource)}</h2> */}

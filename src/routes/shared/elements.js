@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import AssetDescriptionMedia from "../../models/AssetDescriptionMedia";
-import AssetDescriptionEnhancedMedia from "../../models/AssetDescriptionEnhancedMedia";
+// import AssetDescriptionMedia from "../../models/AssetDescriptionMedia";
+// import AssetDescriptionEnhancedMedia from "../../models/AssetDescriptionEnhancedMedia";
 
 // TODO this one could have the SUB elements that then the others will reuse with the same format
 
@@ -76,15 +76,15 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
     const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
     const is_unlocked = asset.locked ? '' : ' (unlocked)';
 
-    // [c] as in media Content
-    let last_is_media = false;
-    if (
-        AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
-        AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
-    ) {
-        last_is_media = true;
-    }
-    // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
+    // // [c] as in media Content
+    // let last_is_media = false;
+    // if (
+    //     AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
+    //     AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
+    // ) {
+    //     last_is_media = true;
+    // }
+    // // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
 
     let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
     // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
@@ -123,7 +123,8 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
     return (
         <ul key={asset.asset_name}>
             {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{is_superasset_subassets_amount}{events_total}{asset_total}</li> */}
-            <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            <li>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
@@ -137,67 +138,73 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
 }
 
 // CLOSE TO THE ABOVE ONE because these initialy came from just a single function BECAUSE i want these to be as consistent as possible!
-function formattedAssetTitleElement(asset, event = null, event_type = null, is_locked_nft = false) {
+// function formattedAssetTitleElement(asset, event = null, event_type = null, is_locked_nft = false) {
 
-    const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
-    const is_unlocked = asset.locked ? '' : ' (unlocked)';
+//     const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
+//     const is_unlocked = asset.locked ? '' : ' (unlocked)';
 
-    // [c] as in media Content
-    let last_is_media = false;
-    if (
-        AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
-        AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
-    ) {
-        last_is_media = true;
-    }
-    // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
+//     // // [c] as in media Content
+//     // let last_is_media = false;
+//     // if (
+//     //     AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
+//     //     AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
+//     // ) {
+//     //     last_is_media = true;
+//     // }
+//     // // const last_is_enhanced = asset.latest_description_issuance.description.endsWith('.json');
 
-    let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
-    // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
-    if (is_locked_nft) {
-        asset_total = '';
-    }
+//     let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
+//     // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
+//     if (is_locked_nft) {
+//         asset_total = '';
+//     }
 
-    const events_total = ` [events: ${asset.events.length}]`;
+//     const events_total = ` [events: ${asset.events.length}]`;
 
-    const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
+//     const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
 
-    // TODO?
-    let pretty_name_is_link_or_clipboard = pretty_name;
-    // types including none
-    // let time_of_type = null;
-    // if (event_type === null) {
-    // TODO?
-    // clipboard
-    // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{`bitst.art/${pretty_name}`}</Link>);
-    // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
-    // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
-    //
-    // }
-    // else {
-    //     // link
-    //     pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
-    //     // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
-    //     //
+//     // TODO?
+//     let pretty_name_is_link_or_clipboard = pretty_name;
+//     // types including none
+//     // let time_of_type = null;
+//     // if (event_type === null) {
+//     // TODO?
+//     // clipboard
+//     // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{`bitst.art/${pretty_name}`}</Link>);
+//     // pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+//     // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
+//     //
+//     // }
+//     // else {
+//     //     // link
+//     //     pretty_name_is_link_or_clipboard = (<Link to={`/${pretty_name}`}>{pretty_name}</Link>);
+//     //     // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
+//     //     //
 
-    //     time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
-    //     // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
-    // }
+//     //     time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
+//     //     // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
+//     // }
 
-    return (
-        <p>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</p>
-        // <ul key={asset.asset_name}>
-        //     <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
-        //     {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
-        //     {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
-        //     {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
-        //     {/* {time_of_type} */}
-        //     {/* <li style={{ "list-style-type": "none" }}>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
-        //     {/* <li>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
-        //     {/* <li>{asset.description_first.block_timestamp_iso} [block:{asset.description_first.block_index}]</li> */}
-        // </ul>
-    );
-}
+//     return (
+//         <p>
+//             <b>{pretty_name_is_link_or_clipboard}</b>
+//             <br />
+//             {events_total}{asset_total}{is_superasset_subassets_amount}
+//         </p>
+//         // <p>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</p>
+//         // <p>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</p>
+//         // <ul key={asset.asset_name}>
+//         //     <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+//         //     {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
+//         //     {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
+//         //     {/* <li>{last_is_enhanced ? 'thumb!' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link> [total:{asset.total}{is_unlocked}]</li> */}
+//         //     {/* {time_of_type} */}
+//         //     {/* <li style={{ "list-style-type": "none" }}>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
+//         //     {/* <li>{description_time.block_timestamp_iso} [block:{description_time.block_index}]</li> */}
+//         //     {/* <li>{asset.description_first.block_timestamp_iso} [block:{asset.description_first.block_index}]</li> */}
+//         // </ul>
+//     );
+// }
 
 function formattedAssetRarestElement(asset, event = null, event_type = null, is_locked_nft = false) {
 
@@ -214,13 +221,14 @@ function formattedAssetRarestElement(asset, event = null, event_type = null, is_
     const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
     const is_unlocked = asset.locked ? '' : ' (unlocked)';
 
-    let last_is_media = false;
-    if (
-        AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
-        AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
-    ) {
-        last_is_media = true;
-    }
+    // // has media
+    // let last_is_media = false;
+    // if (
+    //     AssetDescriptionMedia.checkIfDescriptionMedia(asset.latest_description_issuance.description) ||
+    //     AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset.latest_description_issuance.description)
+    // ) {
+    //     last_is_media = true;
+    // }
 
     let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
     if (is_locked_nft) {
@@ -244,7 +252,8 @@ function formattedAssetRarestElement(asset, event = null, event_type = null, is_
     return (
         <ul key={asset.asset_name}>
             {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{is_superasset_subassets_amount}{events_total}{asset_total}</li> */}
-            <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            <li>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[e] ' : ''}<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>{asset_total}{is_superasset_subassets_amount}</li> */}
@@ -263,6 +272,6 @@ export {
     // formattedAssetEventElement,
     // formattedAssetElement
     formattedAssetInListElement,
-    formattedAssetTitleElement,
+    // formattedAssetTitleElement,
     formattedAssetRarestElement
 };
