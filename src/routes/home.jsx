@@ -86,7 +86,8 @@ export default class Home extends React.Component {
                 </ul>
                 <ul>
                     <li>All assets are LOCKED assets, unless specified otherwise</li>
-                    <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not (no destroy is purer)</li>
+                    <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not</li>
+                    {/* <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not (no destroy is purer)</li> */}
                     <li>[quantity: {`<total asset supply>`}] : unlocked assets can issue more supply, locked assets cannot (but both can destroy supply)</li>
                     <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of issuance events</li>
                     <li>[m] : the asset could have media content associated to it (which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>)</li>
