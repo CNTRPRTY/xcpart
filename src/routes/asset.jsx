@@ -12,44 +12,54 @@ async function setupMedia(self, asset_name, description_issuance) {
     ///////////////////////////////
     // this.setState({ asset_resource });
 
-    // then do the media if applies
+    // if is the one already selected, do nothing
+    if (self.state.media_element_selected !== description_issuance.tx_index) {
 
-    // step 0 reset
-    self.setState({ media_element: null });
+        ////////////////////////////////////////////////////////////
+        // then do the media if applies
 
-    // start trying normal media
-    let media_or_none = null; // done like this to be clear the next command can be null
-    media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(description_issuance.description);
-    // media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset_resource.latest_description_issuance.description);
+        // set selected
+        self.setState({ media_element_selected: description_issuance.tx_index });
 
-    if (media_or_none) {
-        self.setState({ media_element: media_or_none });
-    }
+        // step 0 reset
+        self.setState({ media_element: null });
 
-    // if not normal, then try enhanced
-    else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(description_issuance.description)) {
-        // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-        // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
-        // const asset_name = asset_resource.asset_name;
+        // start trying normal media
+        let media_or_none = null; // done like this to be clear the next command can be null
+        media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(description_issuance.description);
+        // media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset_resource.latest_description_issuance.description);
 
-        self.setState({ media_element: (<p>loading...</p>) });
-
-        // const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-        try {
-            const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, description_issuance.tx_index);
-            if (try_enhanced_media_element) {
-                self.setState({ media_element: try_enhanced_media_element });
-            }
-            else {
-                self.setState({ media_element: (<p>(unable to load content)</p>) });
-            }
-        } catch (err) {
-            // console.log(err);
-            self.setState({ media_element: (<p>(unable to load content)</p>) });
+        if (media_or_none) {
+            self.setState({ media_element: media_or_none });
         }
 
+        // if not normal, then try enhanced
+        else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(description_issuance.description)) {
+            // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+            // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+            // const asset_name = asset_resource.asset_name;
+
+            self.setState({ media_element: (<p>loading...</p>) });
+
+            // const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+            try {
+                const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, description_issuance.tx_index);
+                if (try_enhanced_media_element) {
+                    self.setState({ media_element: try_enhanced_media_element });
+                }
+                else {
+                    self.setState({ media_element: (<p>(unable to load content)</p>) });
+                }
+            } catch (err) {
+                // console.log(err);
+                self.setState({ media_element: (<p>(unable to load content)</p>) });
+            }
+
+        }
+        ////////////////////////////////////////////////////////////
+
     }
-    ///////////////////////////////
+
 }
 
 class ActionLink extends React.Component {
@@ -86,7 +96,7 @@ class ActionLink extends React.Component {
 // TODO! this function proves the need for some kind of api docs for these asset events...
 // funny function parameters in that it only uses the asset_name if there is an asset_longname
 function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_longname = null) {
-// function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
+    // function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
 
 
     // now checking if a description is media to make it selectable
@@ -97,7 +107,23 @@ function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_l
             AssetDescriptionMedia.checkIfDescriptionMedia(asset_event.description) ||
             AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_event.description)
         ) {
-            updated_description_element = (<li>[<ActionLink parentSelf={parentSelf} assetName={asset_name} descriptionIssuance={asset_event} />] description: {asset_event.description}</li>);
+
+
+            const actionLink = (<ActionLink parentSelf={parentSelf} assetName={asset_name} descriptionIssuance={asset_event} />);
+            //////////
+            // key from list: asset_event.tx_index
+            let selectedActionLink;
+            if (parentSelf.state.media_element_selected === asset_event.tx_index) {
+                selectedActionLink = (<b>{actionLink}</b>);
+            }
+            else {
+                selectedActionLink = actionLink;
+            }
+            //////////
+
+
+            updated_description_element = (<li>[{selectedActionLink}] description: {asset_event.description}</li>);
+            // updated_description_element = (<li>[<ActionLink parentSelf={parentSelf} assetName={asset_name} descriptionIssuance={asset_event} />] description: {asset_event.description}</li>);
         }
         else {
             updated_description_element = (<li>description: {asset_event.description}</li>);
@@ -164,6 +190,7 @@ class Asset extends React.Component {
 
             asset_resource: null,
 
+            media_element_selected: null,
             media_element: null
             // enhanced_media_element: null
         };
