@@ -8,6 +8,50 @@ import AssetDescriptionMedia from "../models/AssetDescriptionMedia"
 import AssetDescriptionEnhancedMedia from "../models/AssetDescriptionEnhancedMedia"
 
 
+async function setupMedia(self, asset_name, description_issuance) {
+    ///////////////////////////////
+    // this.setState({ asset_resource });
+
+    // then do the media if applies
+
+    // step 0 reset
+    self.setState({ media_element: null });
+
+    // start trying normal media
+    let media_or_none = null; // done like this to be clear the next command can be null
+    media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(description_issuance.description);
+    // media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset_resource.latest_description_issuance.description);
+
+    if (media_or_none) {
+        self.setState({ media_element: media_or_none });
+    }
+
+    // if not normal, then try enhanced
+    else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(description_issuance.description)) {
+        // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+        // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+        // const asset_name = asset_resource.asset_name;
+
+        self.setState({ media_element: (<p>loading...</p>) });
+
+        // const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+        try {
+            const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name,  description_issuance.tx_index);
+            if (try_enhanced_media_element) {
+                self.setState({ media_element: try_enhanced_media_element });
+            }
+            else {
+                self.setState({ media_element: (<p>(unable to load content)</p>) });
+            }
+        } catch (err) {
+            // console.log(err);
+            self.setState({ media_element: (<p>(unable to load content)</p>) });
+        }
+
+    }
+    ///////////////////////////////
+}
+
 
 // TODO! this function proves the need for some kind of api docs for these asset events...
 // funny function parameters in that it only uses the asset_name if there is an asset_longname
@@ -110,42 +154,44 @@ class Asset extends React.Component {
                 this.setState({ asset_resource });
 
                 // then do the media if applies
+                // not awaiting it...
+                setupMedia(this, asset_name, asset_resource.latest_description_issuance);
 
-                // step 0 reset
-                this.setState({ media_element: null });
+                // // step 0 reset
+                // this.setState({ media_element: null });
 
-                // start trying normal media
-                let media_or_none = null; // done like this to be clear the next command can be null
-                media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset_resource.latest_description_issuance.description);
+                // // start trying normal media
+                // let media_or_none = null; // done like this to be clear the next command can be null
+                // media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(asset_resource.latest_description_issuance.description);
 
-                if (media_or_none) {
-                    this.setState({ media_element: media_or_none });
-                }
+                // if (media_or_none) {
+                //     this.setState({ media_element: media_or_none });
+                // }
 
-                // if not normal, then try enhanced
-                else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-                    // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
-                    // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
-                    // const asset_name = asset_resource.asset_name;
+                // // if not normal, then try enhanced
+                // else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+                //     // if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_resource.latest_description_issuance.description)) {
+                //     // if (asset_resource.latest_description_issuance.description.endsWith('.json')) {
+                //     // const asset_name = asset_resource.asset_name;
 
-                    this.setState({ media_element: (<p>loading...</p>) });
+                //     this.setState({ media_element: (<p>loading...</p>) });
 
-                    const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
-                    try {
-                        const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
-                        if (try_enhanced_media_element) {
-                            this.setState({ media_element: try_enhanced_media_element });
-                        }
-                        else {
-                            this.setState({ media_element: (<p>(unable to load content)</p>) });
-                        }
-                    } catch (err) {
-                        // console.log(err);
-                        this.setState({ media_element: (<p>(unable to load content)</p>) });
-                    }
+                //     const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
+                //     try {
+                //         const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index);
+                //         if (try_enhanced_media_element) {
+                //             this.setState({ media_element: try_enhanced_media_element });
+                //         }
+                //         else {
+                //             this.setState({ media_element: (<p>(unable to load content)</p>) });
+                //         }
+                //     } catch (err) {
+                //         // console.log(err);
+                //         this.setState({ media_element: (<p>(unable to load content)</p>) });
+                //     }
 
-                }
-                ///////////////////////////////
+                // }
+                // ///////////////////////////////
             }
 
         }
