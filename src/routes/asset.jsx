@@ -36,7 +36,7 @@ async function setupMedia(self, asset_name, description_issuance) {
 
         // const issuance_tx_index = asset_resource.latest_description_issuance.tx_index;
         try {
-            const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name,  description_issuance.tx_index);
+            const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(asset_name, description_issuance.tx_index);
             if (try_enhanced_media_element) {
                 self.setState({ media_element: try_enhanced_media_element });
             }
@@ -52,15 +52,63 @@ async function setupMedia(self, asset_name, description_issuance) {
     ///////////////////////////////
 }
 
+class ActionLink extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            parentSelf: props.parentSelf,
+
+            asset_name: props.assetName,
+            description_issuance: props.descriptionIssuance,
+        };
+        this.handleClick = this.handleClick.bind(this);
+
+    }
+
+    handleClick(e) {
+        e.preventDefault();
+
+        // not awaiting it
+        setupMedia(this.state.parentSelf, this.state.asset_name, this.state.description_issuance);
+
+        // console.log(`rrrrrrrrr1`);
+        // console.log(`${this.state.asset_name}`);
+        // console.log(`${this.state.issuance_tx_index}`);
+        // console.log(`rrrrrrrrr2`);
+    };
+
+    render() {
+        return (<a href="#" onClick={this.handleClick}>m</a>);
+    }
+}
+
 
 // TODO! this function proves the need for some kind of api docs for these asset events...
 // funny function parameters in that it only uses the asset_name if there is an asset_longname
-function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
+function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_longname = null) {
+// function formattedAssetEventElement(asset_event, asset_name, asset_longname = null) {
 
-    // AND changed back because the ones that are genesis issued without description show empty and this is more common
-    // changed to undefined check to be able to show when the description is deleted (DIRECTORYONE)
-    // const updated_description_element = (asset_event.description !== undefined) ? (<li>description: {asset_event.description}</li>) : null;
-    const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
+
+    // now checking if a description is media to make it selectable
+    // const asset_name = asset_resource.asset_name;
+    let updated_description_element = null;
+    if (asset_event.description) {
+        if (
+            AssetDescriptionMedia.checkIfDescriptionMedia(asset_event.description) ||
+            AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(asset_event.description)
+        ) {
+            updated_description_element = (<li>[<ActionLink parentSelf={parentSelf} assetName={asset_name} descriptionIssuance={asset_event} />] description: {asset_event.description}</li>);
+        }
+        else {
+            updated_description_element = (<li>description: {asset_event.description}</li>);
+        }
+    }
+
+
+    // // AND changed back because the ones that are genesis issued without description show empty and this is more common
+    // // changed to undefined check to be able to show when the description is deleted (DIRECTORYONE)
+    // // const updated_description_element = (asset_event.description !== undefined) ? (<li>description: {asset_event.description}</li>) : null;
+    // const updated_description_element = asset_event.description ? (<li>description: {asset_event.description}</li>) : null;
 
     const locked_element = asset_event.locked ? (<li>LOCK</li>) : null;
 
@@ -298,7 +346,8 @@ class Asset extends React.Component {
                         {/* {last_is_enhanced_element} */}
                         {superasset_element}
                         {/* {genesis_element} */}
-                        <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li>
+                        <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(this, asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li>
+                        {/* <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{JSON.stringify(asset_event)}</li>))}</ul></li> */}
