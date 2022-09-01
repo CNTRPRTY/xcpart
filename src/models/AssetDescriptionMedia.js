@@ -1,3 +1,4 @@
+// ************* REMEMBER TO ALSO UPDATE IN THE API BACKEND! *************
 
 // TODO how many left?
 const TYPES = {

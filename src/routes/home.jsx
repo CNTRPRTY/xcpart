@@ -74,16 +74,20 @@ export default class Home extends React.Component {
                 {/* </p> */}
 
                 <br />
+                <p>
+                    Start discovering assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections.{' '}
+                    Or type the [asset / address / block] of interest in the url.</p>
+                <br />
                 {/* <p>Counterparty v3 // rules:</p> */}
                 <p>Help:</p>
-                <ul>
+                {/* <ul>
                     <li>Start discovering assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li>
-                    {/* <li>Discover assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li> */}
-                    {/* <li>Go to the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li> */}
+                    // <li>Discover assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li>
+                    // <li>Go to the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections</li>
                     <li>Type the asset, address or block of interest in the url</li>
-                    {/* <li>The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty</a> assets issued or updated in Bitcoin <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">blocks</a></li>
-                    <li>The <Link to="/_rarest">Rarest</Link> section shows the rarest assets</li> */}
-                </ul>
+                    // <li>The <Link to="/_latest">Latest</Link> section contains the "most recent" ({'<'}6 blocks from the <a href="https://mempool.space/" target="_blank">tip</a>) <a href="https://github.com/CounterpartyXCP/cips/issues/54" target="_blank">Counterparty</a> assets issued or updated in Bitcoin <a href="https://counterparty.io/docs/api/#get_blocks" target="_blank">blocks</a></li>
+                    // <li>The <Link to="/_rarest">Rarest</Link> section shows the rarest assets</li>
+                </ul> */}
                 <ul>
                     <li>All assets are LOCKED assets, unless specified otherwise</li>
                     <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not</li>

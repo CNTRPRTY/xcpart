@@ -62,6 +62,7 @@ async function setupMedia(self, asset_name, description_issuance) {
 
 }
 
+// https://stackoverflow.com/a/42964862
 class ActionLink extends React.Component {
     constructor(props) {
         super(props);
