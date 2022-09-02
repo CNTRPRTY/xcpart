@@ -83,7 +83,8 @@ class Block extends React.Component {
                     <h2>{this.state.block}</h2>
 
                     <ul>
-                        {this.state.block_assets.map((mainname_obj) => (<li key={mainname_obj.index}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))}
+                        {this.state.block_assets.map((mainname_obj) => (<li key={mainname_obj.index} style={{ padding: "0.25rem" }}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))}
+                        {/* {this.state.block_assets.map((mainname_obj) => (<li key={mainname_obj.index}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))} */}
                         {/* {this.state.block_events.map((mainname_obj) => (<li key={mainname_obj.index}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))} */}
                         {/* {this.state.block_events.map((block_event) => (<li key={block_event.id}><Link to={`/${asset_mainname}`}>{asset_mainname}</Link></li>))} */}
                     </ul>

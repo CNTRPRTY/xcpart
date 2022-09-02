@@ -75,7 +75,8 @@ class Address extends React.Component {
                     <h2>{this.state.address}</h2>
 
                     <ul>
-                        {this.state.address_assets.map((mainname_obj) => (<li key={mainname_obj.index}><Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link></li>))}
+                        {this.state.address_assets.map((mainname_obj) => (<li key={mainname_obj.index} style={{ padding: "0.25rem" }}><Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link></li>))}
+                        {/* {this.state.address_assets.map((mainname_obj) => (<li key={mainname_obj.index}><Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link></li>))} */}
                         {/* {this.state.address_assets.map((asset_mainname) => (<li key={asset_mainname}><Link to={`/${asset_mainname}`}>{asset_mainname}</Link></li>))} */}
                     </ul>
 
