@@ -94,29 +94,29 @@ class ActionLink extends React.Component {
 }
 
 
-function formattedAssetBelowTitleElement(asset, event = null, event_type = null, is_locked_nft = false) {
+// function formattedAssetBelowTitleElement(asset, event = null, event_type = null, is_locked_nft = false) {
 
-    // const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
-    const is_unlocked = asset.locked ? '' : ' (unlocked)';
+//     // const pretty_name = asset.asset_longname ? asset.asset_longname : asset.asset_name;
+//     const is_unlocked = asset.locked ? '' : ' (unlocked)';
 
-    let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
-    // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
-    if (is_locked_nft) {
-        asset_total = '';
-    }
+//     let asset_total = ` [quantity: ${asset.total}${is_unlocked}]`;
+//     // let asset_total = ` [total: ${asset.total}${is_unlocked}]`;
+//     if (is_locked_nft) {
+//         asset_total = '';
+//     }
 
-    // const events_total = ` [events: ${asset.events.length}]`;
+//     // const events_total = ` [events: ${asset.events.length}]`;
 
-    const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
+//     const is_superasset_subassets_amount = asset.subassets ? ` [subassets: ${asset.subassets.length}]` : '';
 
-    return `${asset_total}${is_superasset_subassets_amount}`;
-    // return (
-    //     <p>
-    //         {asset_total}{is_superasset_subassets_amount}
-    //         {/* {events_total}{asset_total}{is_superasset_subassets_amount} */}
-    //     </p>
-    // );
-}
+//     return `${asset_total}${is_superasset_subassets_amount}`;
+//     // return (
+//     //     <p>
+//     //         {asset_total}{is_superasset_subassets_amount}
+//     //         {/* {events_total}{asset_total}{is_superasset_subassets_amount} */}
+//     //     </p>
+//     // );
+// }
 
 // TODO! this function proves the need for some kind of api docs for these asset events...
 // funny function parameters in that it only uses the asset_name if there is an asset_longname
@@ -139,10 +139,12 @@ function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_l
             // key from list: asset_event.tx_index
             let selectedActionLink;
             if (parentSelf.state.media_element_selected === asset_event.tx_index) {
-                selectedActionLink = (<b>{actionLink}</b>);
+                selectedActionLink = (<b>m</b>);
+                // selectedActionLink = (<b>{actionLink}</b>);
             }
             else {
-                selectedActionLink = actionLink;
+                selectedActionLink = (<span> {actionLink} </span>);
+                // selectedActionLink = actionLink;
             }
             //////////
 
@@ -366,8 +368,9 @@ class Asset extends React.Component {
             // const last_is_enhanced_element = this.state.asset_resource.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>) : null;
             // // const last_is_enhanced_element = asset.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://xchain.io/asset/${asset.asset_name}`} target="_blank">+ see enhanced</a></li>) : null;
 
-            const superasset_element = this.state.asset_resource.superasset ? (<li>superasset: <Link to={`/${this.state.asset_resource.superasset}`}>{this.state.asset_resource.superasset}</Link></li>) : null;
-            const subassets_list_element = this.state.asset_resource.subassets ? (<li>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
+            const superasset_element = this.state.asset_resource.superasset ? (<li style={{ padding: "0.25rem" }}>superasset: <Link to={`/${this.state.asset_resource.superasset}`}>{this.state.asset_resource.superasset}</Link></li>) : null;
+            const subassets_list_element = this.state.asset_resource.subassets ? (<li style={{ padding: "0.25rem" }}>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset} style={{ padding: "0.25rem" }}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
+            // const subassets_list_element = this.state.asset_resource.subassets ? (<li>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
             // const superasset_element = asset.superasset ? (<li>superasset: <Link to={`/assets/${asset.superasset}`}>{asset.superasset}</Link></li>) : null;
             // const subassets_list_element = asset.subassets ? (<li>subassets:<ul>{asset.subassets.map((subasset) => (<li key={subasset}><Link to={`/assets/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;        
             /////////
@@ -380,11 +383,19 @@ class Asset extends React.Component {
 
             const mainname = this.state.asset_resource.asset_longname ? this.state.asset_resource.asset_longname : this.state.asset_resource.asset_name;
 
+            const is_unlocked = this.state.asset_resource.locked ? '' : ' (unlocked)';
+
+            let asset_total = ` [quantity: ${this.state.asset_resource.total}${is_unlocked}]`;
+
+            const is_superasset_subassets_amount = this.state.asset_resource.subassets ? ` [subassets: ${this.state.asset_resource.subassets.length}]` : '';
+
             return (
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
                     <h1>Asset:</h1>
-                    <h2><strong>{mainname}</strong></h2>
+
+                    <h2><strong>{mainname}</strong>{is_superasset_subassets_amount}</h2>
+                    {/* <h2><strong>{mainname}</strong></h2> */}
                     {/* const events_total = ` [events: ${asset.events.length}]`; */}
 
                     <h3>
@@ -392,7 +403,11 @@ class Asset extends React.Component {
                             [events: {this.state.asset_resource.events.length}]
                         </div>
                         <br />
-                        {formattedAssetBelowTitleElement(this.state.asset_resource, null, null, false)}
+
+                        {`${asset_total}`}
+                        {/* {`${asset_total}${is_superasset_subassets_amount}`}; */}
+
+                        {/* {formattedAssetBelowTitleElement(this.state.asset_resource, null, null, false)} */}
                     </h3>
                     {/* <h2>{formattedAssetElement(this.state.asset_resource, null, null, false)}</h2> */}
                     {/* <h2>{formattedAssetElement(this.state.asset_resource)}</h2> */}
@@ -408,7 +423,8 @@ class Asset extends React.Component {
                         {/* {last_is_enhanced_element} */}
                         {superasset_element}
                         {/* {genesis_element} */}
-                        <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(this, asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li>
+                        <li style={{ padding: "0.25rem" }}>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index} style={{ padding: "0.25rem" }}>{formattedAssetEventElement(this, asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li>
+                        {/* <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(this, asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event, this.state.asset_resource.asset_name, this.state.asset_resource.asset_longname)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{this.state.asset_resource.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}
                         {/* <li>events:<ul>{asset.events.map((asset_event) => (<li key={asset_event.tx_index}>{formattedAssetEventElement(asset_event)}</li>))}</ul></li> */}
