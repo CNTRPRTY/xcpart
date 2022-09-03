@@ -127,8 +127,9 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
 
     return (
         <ul key={asset.asset_name}>
+            <li>{asset.latest_media_issuance ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{is_superasset_subassets_amount}{events_total}{asset_total}</li> */}
-            <li>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
             {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
@@ -261,8 +262,9 @@ function formattedAssetRarestElement(asset, event = null, event_type = null, is_
 
     return (
         <ul key={asset.asset_name}>
+            <li>{asset.latest_media_issuance ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
+            {/* <li>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{is_superasset_subassets_amount}{events_total}{asset_total}</li> */}
-            <li>{asset.has_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li>
             {/* <li>{last_is_media ? '[m] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_media ? '[c] ' : ''}{pretty_name_is_link_or_clipboard}{events_total}{asset_total}{is_superasset_subassets_amount}</li> */}
             {/* <li>{last_is_enhanced ? '[+] ' : ''}{pretty_name_is_link_or_clipboard}{asset_total}{is_superasset_subassets_amount}</li> */}
