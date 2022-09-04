@@ -257,7 +257,8 @@ class Asset extends React.Component {
 
                 // then do the media if applies
                 // not awaiting it...
-                setupMedia(this, asset_name, asset_resource.latest_description_issuance);
+                setupMedia(this, asset_name, asset_resource.latest_media_issuance);
+                // setupMedia(this, asset_name, asset_resource.latest_description_issuance);
 
                 // // step 0 reset
                 // this.setState({ media_element: null });
