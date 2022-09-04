@@ -242,7 +242,9 @@ function formattedAssetRarestElement(asset, event = null, event_type = null, is_
     }
 
     const events_total = (
-        <div style={{ opacity: 0.2 }}>
+        <div style={{ opacity: 0.5 }}>
+        {/* <div style={{ opacity: 0.4 }}> */}
+        {/* <div style={{ opacity: 0.2 }}> */}
             [events: {asset.events_length}]
         </div>
     );
