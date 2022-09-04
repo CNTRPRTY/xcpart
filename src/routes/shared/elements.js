@@ -121,7 +121,8 @@ function formattedAssetInListElement(asset, event = null, event_type = null, is_
         // pretty_name_is_link_or_clipboard = (<Link to={`/assets/${pretty_name}`}>{pretty_name}</Link>);
         //
 
-        time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
+        time_of_type = (<li style={{ "listStyleType": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
+        // time_of_type = (<li style={{ "list-style-type": "none" }}>{event_type}: {event.block_timestamp_iso} [block: {event.block_index}]</li>);
         // time_of_type = (<li style={{ "list-style-type": "none" }}>[{event_type}: {event.block_timestamp_iso}] [block: {event.block_index}]</li>);
     }
 

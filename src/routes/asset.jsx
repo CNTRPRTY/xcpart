@@ -190,7 +190,8 @@ function formattedAssetEventElement(parentSelf, asset_event, asset_name, asset_l
     }
 
     return (
-        <ul style={{ "list-style-type": "none" }}>
+        <ul style={{ "listStyleType": "none" }}>
+            {/* <ul style={{ "list-style-type": "none" }}> */}
             {genesis_created_top}
             <li>{asset_event.block_timestamp_iso} [block: <Link to={`/${asset_event.block_index}`}>{asset_event.block_index}</Link>][<a href={`https://mempool.space/tx/${asset_event.tx_hash}`} target="_blank">tx</a>]</li>
             {quantity_element}
