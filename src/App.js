@@ -10,11 +10,35 @@ import { withRouter } from './routes/shared/classhooks';
 class App extends React.Component {
   // function App() {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      search: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   // TODO? a better lifecycle method?
   componentDidMount() {
     // called in background
     getLatest();
     getRarest();
+  }
+
+  handleChange(event) {
+    this.setState({ search: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const to_navigate = this.state.search.trim();
+    this.setState({ search: '' });
+    this.props.router.navigate(`/${to_navigate}`);
+    // this.props.router.navigate(`/${this.state.search}`);
+    // this.setState({ search: '' });
   }
 
   render() {
@@ -23,10 +47,41 @@ class App extends React.Component {
     // console.log(JSON.stringify(this.props));
     // console.log(`rrrrrrrrr2`);
 
+    let with_title = null;
+    // if (this.props.router.location.pathname === '/') {
+    let show_button = null;
+    const button_value = "go";
+    // const button_value = "get";
+    if (this.state.search.length) {
+      show_button = (<span> <input type="submit" value={button_value} /></span>);
+      // show_button = (<span> <input type="submit" value="get" /></span>);
+    }
+    const placeholder = "asset, address or block";
+    // const placeholder = "get asset, address or block";
+    // const placeholder = "search: asset / address / block";
+    with_title = (
+      <span>
+        {`${this.props.router.location.pathname}`}
+        {/* / */}
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" value={this.state.search} onChange={this.handleChange} placeholder={placeholder} />
+          {/* <input type="text" value={this.state.search} onChange={this.handleChange} placeholder="asset, address or block" /> */}
+          {/* / <input type="text" onChange={this.handleChange} placeholder="search" /> */}
+          {show_button}
+          {/* <input type="submit" value="go" /> */}
+        </form>
+      </span>
+    );
+    // }
+    // else {
+    //   with_title = `${this.props.router.location.pathname}`;
+    // }
+
     return (
       <div style={{ padding: "1rem" }}>
 
-        <h1>bitST.ART{`${this.props.router.location.pathname}`}</h1>
+        <h1>bitST.ART{with_title}</h1>
+        {/* <h1>bitST.ART{`${this.props.router.location.pathname}`}</h1> */}
         {/* <h1>bitST.ART</h1> */}
         {/* <h1>bitSTART</h1> */}
 
