@@ -73,17 +73,19 @@ class AssetDescriptionEnhancedMedia {
             ) {
                 return getImageElement(enhanced_json[AssetDescriptionEnhancedMedia.TYPES.IMAGE_THUMBNAIL]);
             }
-            else {
-                console.log(`TODO else enhanced:`);
-                console.log(JSON.stringify(enhanced_json));
-            }
+
+            // else {
+            //     console.log(`TODO else enhanced:`);
+            //     console.log(JSON.stringify(enhanced_json));
+            // }
 
         }
-        else {
-            // TODO? more
-            console.log(`no json returned by: ${response.data.enhanced_url}`);
-            // console.log(`no json returned by: ${response.message}`);
-        }
+
+        // else {
+        //     // TODO? more
+        //     console.log(`no json returned by: ${response.data.enhanced_url}`);
+        //     // console.log(`no json returned by: ${response.message}`);
+        // }
 
         // if none of the above returned
         return null;
