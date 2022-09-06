@@ -12,8 +12,10 @@ async function setupMedia(self, asset_name, description_issuance) {
     ///////////////////////////////
     // this.setState({ asset_resource });
 
-    // if is the one already selected, do nothing
-    if (self.state.media_element_selected !== description_issuance.tx_index) {
+    if (
+        description_issuance && // only do if there is an issuance
+        (self.state.media_element_selected !== description_issuance.tx_index) // if is the one already selected, do nothing
+    ) {
 
         ////////////////////////////////////////////////////////////
         // then do the media if applies
