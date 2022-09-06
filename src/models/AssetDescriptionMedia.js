@@ -16,7 +16,8 @@ function getImgurElement(media_check_pre) {
 
 function getYoutubeElement(media_check_pre) {
     const media_path = media_check_pre.split('/')[1];
-    return (<iframe src={`https://www.youtube.com/embed/${media_path}`} allowfullscreen=""></iframe>);
+    // return (<iframe src={`https://www.youtube.com/embed/${media_path}`} allowFullScreen=""></iframe>); // breaks full screen
+    return (<iframe src={`https://www.youtube.com/embed/${media_path}`} allowfullscreen=""></iframe>); // works, even with the error
     // return (<iframe src="https://www.youtube.com/embed/FenVJ_cyE5M" allowfullscreen="" class="embedded-video" frameborder="0"></iframe>);
 }
 
