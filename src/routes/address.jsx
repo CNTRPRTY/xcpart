@@ -37,12 +37,68 @@ async function setupMediaProcess(self) {
     // sleep for a moment
     await sleep(10);
 
-    for await (const address_asset of self.state.address_assets) {
-
-        /////////////////////////
-        // then do the media if applies
-
+    let media_to_get_address_assets = [];
+    // first iterate over all address_assets to see if there is any media WITHOUT getting it
+    for (const address_asset of self.state.address_assets) {
         if (address_asset.media && address_asset.media.description) {
+            ////////
+            if (
+                AssetDescriptionMedia.checkIfDescriptionMedia(address_asset.media.description) ||
+                AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(address_asset.media.description)
+            ) {
+                media_to_get_address_assets.push(address_asset);
+            }
+            ////////
+        }
+    }
+
+    if (!media_to_get_address_assets.length) {
+        self.setState({ media_not_found: true });
+    }
+    else {
+
+        // only set this the first time
+        if (!self.state.media_loading) {
+            self.setState({ media_loading: media_to_get_address_assets.length });
+        }
+        // self.setState({ media_loading: media_to_get_address_assets.length });
+
+        // self.setState({ media_loading: true });
+
+        // sleep for a moment
+        await sleep(10);
+
+        // if (!self.state.address_assets.length) {
+        //     // self.setState({ media_element: (<p>(unable to load content)</p>) });
+        //     self.setState({ media_elements: [(<p>(no media detected)</p>)] });
+        // }
+        // else {
+        ///////////////////////////////////////
+
+        const index = media_to_get_address_assets.length - self.state.media_loading;
+        const group_to_do = media_to_get_address_assets.slice(index);
+
+        for await (const address_asset of group_to_do) {
+            // for await (const address_asset of media_to_get_address_assets) {
+            // for await (const address_asset of self.state.address_assets) {
+
+            // let flag = true;
+            // while(flag) {
+            //     if (!self.state.media_paused) {
+            //         flag = false;
+            //     }
+            // }
+
+            // sleep for a moment
+            await sleep(1000);
+            // await sleep(500);
+            // await sleep(250);
+            // await sleep(100);
+            // await sleep(10);
+
+            /////////////////////////
+            // then do the media if applies
+            // if (address_asset.media && address_asset.media.description) {
             // // set selected
             // self.setState({ media_element_selected: description_issuance.tx_index });
 
@@ -66,7 +122,10 @@ async function setupMediaProcess(self) {
                 //         <br />
                 //     </div>
                 // );
-                self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, media_or_none)] });
+
+                self.setState({ media_elements: [formatMediaElement(address_asset.mainname, media_or_none), ...self.state.media_elements] });
+                // self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, media_or_none)] });
+
                 // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
                 // self.setState({ media_elements: [...self.state.media_elements, media_or_none] });
                 // self.setState({ media_element: media_or_none });
@@ -92,7 +151,10 @@ async function setupMediaProcess(self) {
                         //         <br />
                         //     </div>
                         // );
-                        self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, try_enhanced_media_element)] });
+
+                        self.setState({ media_elements: [formatMediaElement(address_asset.mainname, try_enhanced_media_element), ...self.state.media_elements] });
+                        // self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, try_enhanced_media_element)] });
+
                         // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
                         // self.setState({ media_elements: [...self.state.media_elements, try_enhanced_media_element] });
                         // self.setState({ media_element: try_enhanced_media_element });
@@ -106,11 +168,105 @@ async function setupMediaProcess(self) {
                 }
 
             }
-        }
+            // }
 
-        /////////////////////////
+            /////////////////////////
+
+            // self.setState({ media_loading: media_to_get_address_assets.length });
+            self.setState((prevState, props) => ({
+                media_loading: prevState.media_loading - 1
+            }));
+
+            if (self.media_paused) {
+                // if (self.state.media_paused) {
+                return;
+            }
+
+        }
+        ///////////////////////////////////////
+
+        // self.setState({ media_loading: false });
 
     }
+
+
+    // for await (const address_asset of self.state.address_assets) {
+
+    //     // sleep for a moment
+    //     await sleep(10);
+
+    //     /////////////////////////
+    //     // then do the media if applies
+
+    //     if (address_asset.media && address_asset.media.description) {
+    //         // // set selected
+    //         // self.setState({ media_element_selected: description_issuance.tx_index });
+
+    //         // // step 0 reset
+    //         // self.setState({ media_element: null });
+
+    //         // start trying normal media
+    //         let media_or_none = null; // done like this to be clear the next command can be null
+    //         media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(address_asset.media.description);
+
+    //         if (media_or_none) {
+    //             // const with_name_element = (
+    //             //     <div>
+    //             //         {/* <span> */}
+    //             //         {/* <span style={{ padding: "2rem" }}> */}
+    //             //         {address_asset.mainname}
+    //             //         <br />
+    //             //         {media_or_none}
+    //             //         {/* </span> */}
+    //             //         <br />
+    //             //         <br />
+    //             //     </div>
+    //             // );
+    //             self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, media_or_none)] });
+    //             // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
+    //             // self.setState({ media_elements: [...self.state.media_elements, media_or_none] });
+    //             // self.setState({ media_element: media_or_none });
+    //         }
+
+    //         // if not normal, then try enhanced
+    //         else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(address_asset.media.description)) {
+
+    //             // self.setState({ media_element: (<p>loading...</p>) });
+
+    //             try {
+    //                 const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(address_asset.media.asset_name, address_asset.media.tx_index);
+    //                 if (try_enhanced_media_element) {
+    //                     // const with_name_element = (
+    //                     //     <div>
+    //                     //         {/* <span> */}
+    //                     //         {/* <span style={{ padding: "2rem" }}> */}
+    //                     //         {address_asset.mainname}
+    //                     //         <br />
+    //                     //         {try_enhanced_media_element}
+    //                     //         {/* </span> */}
+    //                     //         <br />
+    //                     //         <br />
+    //                     //     </div>
+    //                     // );
+    //                     self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, try_enhanced_media_element)] });
+    //                     // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
+    //                     // self.setState({ media_elements: [...self.state.media_elements, try_enhanced_media_element] });
+    //                     // self.setState({ media_element: try_enhanced_media_element });
+    //                 }
+    //                 // else {
+    //                 //     self.setState({ media_element: (<p>(unable to load content)</p>) });
+    //                 // }
+    //             } catch (err) {
+    //                 // ignore
+    //                 // self.setState({ media_element: (<p>(unable to load content)</p>) });
+    //             }
+
+    //         }
+    //     }
+
+    //     /////////////////////////
+
+    // }
 
     ///////////////////////////////
 }
@@ -120,6 +276,7 @@ let only_once_lock = false;
 async function setupMedia(self) {
 
     if (process.env.NODE_ENV === "development") {
+        // console.log(`ddd1`); // confirmed
         if (only_once_lock) {
             return;
         }
@@ -130,6 +287,7 @@ async function setupMedia(self) {
         }
     }
     else { // in production ignore only_once_lock
+        // console.log(`ddd2`); // confirmed
         await setupMediaProcess(self);
     }
 
@@ -195,15 +353,34 @@ class Address extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            // !!!!! NOTE ADD TO fetchData reset also !!!!!
             address: props.address,
+
             address_assets_not_found: null,
             address_assets: null,
-            // address_assets: []
+            media_not_found: null,
+            media_loading: 0,
+            // media_paused: false,
             media_elements: []
+            // !!!!! NOTE ADD TO fetchData reset also !!!!!
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     async fetchData(address) {
+
+        // reset of constructor params
+        this.setState({
+            address: address,
+
+            address_assets_not_found: null,
+            address_assets: null,
+            media_not_found: null,
+            media_loading: 0,
+            // media_paused: false,
+            media_elements: []
+        });
+
         const address_assets = await getAddress(address);
 
         // TODO? seems like a reset of constructor params will be needed here...
@@ -216,12 +393,47 @@ class Address extends React.Component {
                 address_assets: address_assets.assets
             });
 
+            this.media_paused = false;
+
             // not awaiting it
             setupMedia(this);
 
         }
 
     }
+
+    handleClick(e) {
+        e.preventDefault();
+
+        if (this.media_paused) {
+            // if (this.state.media_paused) {
+
+            this.media_paused = false;
+
+            // not awaiting it
+            setupMedia(this);
+            // this.setState({ media_paused: false });
+        }
+        else {
+            this.media_paused = true;
+            // this.setState({ media_paused: true });
+        }
+
+        // https://stackoverflow.com/a/30626072 (https://github.com/facebook/react/issues/12111#issuecomment-361254441) (https://reactjs.org/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class)
+        this.forceUpdate(); // for rendering updated media_paused
+
+        // console.log(`rrrrrrrrr2`);
+
+        // this.setState({ media_paused: true });
+
+        // not awaiting it
+        // setupMedia(this.state.parentSelf, this.state.asset_name, this.state.description_issuance);
+
+        // console.log(`rrrrrrrrr1`);
+        // console.log(`${this.state.asset_name}`);
+        // console.log(`${this.state.issuance_tx_index}`);
+        // console.log(`rrrrrrrrr2`);
+    };
 
     async componentDidMount() {
         await this.fetchData(this.state.address);
@@ -232,6 +444,15 @@ class Address extends React.Component {
         if (updatedAddress !== prevProps.address) {
             await this.fetchData(updatedAddress);
         }
+    }
+
+    async componentWillUnmount() {
+        // console.log(`detected in address1`);
+        this.media_paused = true; // like this because state won't work (is expected behavior)
+        // this.setState({ media_paused: true });
+        // // sleep for a moment
+        // await sleep(10);
+        // console.log(`detected in address2`);
     }
 
     render() {
@@ -257,16 +478,53 @@ class Address extends React.Component {
 
             // const subassets_list_element = this.state.asset_resource.subassets ? (<li>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
 
-            let address_accesible_media = null;
-            if (this.state.media_elements.length) {
-                address_accesible_media = (
-                    <div>
-                        <h1>Detected media:</h1>
-                        {/* <h1>Detected media from assets:</h1> */}
-                        <ul style={{ "listStyleType": "none" }}>
-                            {this.state.media_elements.map((media_element, index) => (<li key={index} style={{ padding: "0.25rem" }}>{media_element}</li>))}
-                        </ul>
-                    </div>
+            // let address_accesible_media = null;
+            // if (this.state.media_elements.length) {
+            //     address_accesible_media = (
+            //         <div>
+            //             <h1>Detected media:</h1>
+            //             {/* <h1>Detected media from assets:</h1> */}
+            //             <ul style={{ "listStyleType": "none" }}>
+            //                 {this.state.media_elements.map((media_element, index) => (<li key={index} style={{ padding: "0.25rem" }}>{media_element}</li>))}
+            //             </ul>
+            //         </div>
+            //     );
+            // }
+            let detected_media;
+            if (this.state.media_not_found) {
+                detected_media = (
+                    <ul style={{ "listStyleType": "none" }}>
+                        <li style={{ padding: "0.25rem" }}>(no media detected)</li>
+                    </ul>
+                );
+            }
+            else if (this.state.media_elements.length) {
+
+                let still_loading = null;
+                if (this.state.media_loading) {
+                    const word = this.media_paused ? 'continue' : 'pause';
+                    // const word = this.state.media_paused ? 'continue' : 'pause';
+                    still_loading = (
+                        <li style={{ padding: "1rem" }}>
+                            loading {this.state.media_loading}...
+                            [<a href="#" onClick={this.handleClick}>{word}</a>]
+                            {/* [<a href="#" onClick={this.handleClick}>pause</a>] */}
+                        </li>
+                    );
+                }
+
+                detected_media = (
+                    <ul style={{ "listStyleType": "none" }}>
+                        {still_loading}
+                        {this.state.media_elements.map((media_element, index) => (<li key={index} style={{ padding: "0.25rem" }}>{media_element}</li>))}
+                    </ul>
+                );
+            }
+            else {
+                detected_media = (
+                    <ul style={{ "listStyleType": "none" }}>
+                        <li style={{ padding: "0.25rem" }}>loading...</li>
+                    </ul>
                 );
             }
 
@@ -274,7 +532,17 @@ class Address extends React.Component {
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
 
-                    {address_accesible_media}
+                    {/* <div> */}
+                    <h1>Detected media:</h1>
+
+                    {detected_media}
+
+                    {/* <h1>Detected media from assets:</h1> */}
+                    {/* <ul style={{ "listStyleType": "none" }}> */}
+                    {/* {this.state.media_elements.map((media_element, index) => (<li key={index} style={{ padding: "0.25rem" }}>{media_element}</li>))} */}
+                    {/* </ul> */}
+                    {/* </div> */}
+                    {/* {address_accesible_media} */}
 
                     <h1>Asset issuances with address:</h1>
                     {/* <h1>Asset issuances by:</h1> */}
