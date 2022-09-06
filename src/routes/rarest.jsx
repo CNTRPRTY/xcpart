@@ -31,6 +31,10 @@ export default class Rarest extends React.Component {
             rarest_first_satoshi_nft_nodestroy_issuance: null,
             rarest_first_wholenumber_nft_nodestroy_issuance: null,
             // rarest_first_nft_nodestroy_unlocked_issuance: null,
+            rarest_first_quantity_one_issuance: null,
+            rarest_first_quantity_zero_issuance: null,
+            rarest_first_description_issuance: null,
+            rarest_first_destroy: null,
         };
     }
 
@@ -60,13 +64,18 @@ export default class Rarest extends React.Component {
         if (
             this.state.rarest_first_issuance &&
             this.state.rarest_first_satoshi_nft_nodestroy_issuance &&
-            this.state.rarest_first_wholenumber_nft_nodestroy_issuance
+            this.state.rarest_first_wholenumber_nft_nodestroy_issuance &&
             // this.state.rarest_first_nft_nodestroy_unlocked_issuance
+            this.state.rarest_first_quantity_one_issuance &&
+            this.state.rarest_first_quantity_zero_issuance &&
+            this.state.rarest_first_description_issuance &&
+            this.state.rarest_first_destroy
         ) {
             content_element = (
                 <div>
 
-                    <h2>First asset issuance</h2>
+                    <h2>First asset</h2>
+                    {/* <h2>First asset issuance</h2> */}
                     {/* <h2>First locked NFT [no destroy] divisibility:satoshi</h2> */}
                     {/* {this.state.rarest_first_issuance.length === 0 ? 'loading...' : null} */}
                     {/* 
@@ -76,10 +85,16 @@ export default class Rarest extends React.Component {
                     */}
                     {formattedAssetRarestElement(
                         this.state.rarest_first_issuance,
+                        this.state.rarest_first_issuance.event,
+                        IssuanceEvent.TYPES.GENESIS,
+                        false
+                    )}
+                    {/* {formattedAssetRarestElement(
+                        this.state.rarest_first_issuance,
                         this.state.rarest_first_issuance.first_issuance,
                         IssuanceEvent.TYPES.GENESIS,
-                        true
-                    )}
+                        false
+                    )} */}
                     {/* {formattedAssetInListElement(this.state.rarest_first_issuance)} */}
                     {/* {formattedAssetElement(this.state.rarest_first_issuance)} */}
                     {/* {this.state.latest_locked_nftnd.map((asset) => formattedAssetElement(asset, asset.latest_description_issuance, IssuanceEvent.TYPES.UPDATE_DESCRIPTION, true))} */}
@@ -88,19 +103,31 @@ export default class Rarest extends React.Component {
                     {/* <h2>First NFT [no destroy] asset issuance</h2> */}
                     {formattedAssetRarestElement(
                         this.state.rarest_first_wholenumber_nft_nodestroy_issuance,
-                        this.state.rarest_first_wholenumber_nft_nodestroy_issuance.lock_issuance,
+                        this.state.rarest_first_wholenumber_nft_nodestroy_issuance.event,
                         IssuanceEvent.TYPES.LOCK,
                         true
                     )}
+                    {/* {formattedAssetRarestElement(
+                        this.state.rarest_first_wholenumber_nft_nodestroy_issuance,
+                        this.state.rarest_first_wholenumber_nft_nodestroy_issuance.lock_issuance,
+                        IssuanceEvent.TYPES.LOCK,
+                        true
+                    )} */}
                     {/* {formattedAssetInListElement(this.state.rarest_first_wholenumber_nft_nodestroy_issuance, null, null, true)} */}
 
                     <h2>First satoshi NFT [no destroy] asset issuance</h2>
                     {formattedAssetRarestElement(
                         this.state.rarest_first_satoshi_nft_nodestroy_issuance,
-                        this.state.rarest_first_satoshi_nft_nodestroy_issuance.lock_issuance,
+                        this.state.rarest_first_satoshi_nft_nodestroy_issuance.event,
                         IssuanceEvent.TYPES.LOCK,
                         true
                     )}
+                    {/* {formattedAssetRarestElement(
+                        this.state.rarest_first_satoshi_nft_nodestroy_issuance,
+                        this.state.rarest_first_satoshi_nft_nodestroy_issuance.lock_issuance,
+                        IssuanceEvent.TYPES.LOCK,
+                        true
+                    )} */}
                     {/* {formattedAssetInListElement(this.state.rarest_first_satoshi_nft_nodestroy_issuance, null, null, true)} */}
                     {/* {formattedAssetElement(this.state.rarest_first_satoshi_nft_nodestroy_issuance, null, null, true)} */}
 
@@ -110,6 +137,39 @@ export default class Rarest extends React.Component {
 
                     {/* <h2>First NFT [no destroy] asset issuance (unlocked)</h2>
                     {formattedAssetInListElement(this.state.rarest_first_nft_nodestroy_unlocked_issuance)} */}
+
+
+                    <h2>First quantity 1 issuance</h2>
+                    {formattedAssetRarestElement(
+                        this.state.rarest_first_quantity_one_issuance,
+                        this.state.rarest_first_quantity_one_issuance.event,
+                        IssuanceEvent.TYPES.GENESIS, // and quantity
+                        false
+                    )}
+
+                    <h2>First quantity 0 issuance</h2>
+                    {formattedAssetRarestElement(
+                        this.state.rarest_first_quantity_zero_issuance,
+                        this.state.rarest_first_quantity_zero_issuance.event,
+                        IssuanceEvent.TYPES.UPDATE_QUANTITY,
+                        false
+                    )}
+
+                    <h2>First description issuance</h2>
+                    {formattedAssetRarestElement(
+                        this.state.rarest_first_description_issuance,
+                        this.state.rarest_first_description_issuance.event,
+                        IssuanceEvent.TYPES.UPDATE_DESCRIPTION,
+                        false
+                    )}
+
+                    <h2>First destroy</h2>
+                    {formattedAssetRarestElement(
+                        this.state.rarest_first_destroy,
+                        this.state.rarest_first_destroy.event,
+                        IssuanceEvent.TYPES.UPDATE_QUANTITY,
+                        false
+                    )}
 
 
                 </div>
