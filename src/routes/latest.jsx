@@ -5,11 +5,15 @@ import { formattedAssetInListElement } from "./shared/elements"
 // import { formattedAssetElement } from "./shared/elements"
 import IssuanceEvent from "../models/IssuanceEvent";
 
+import { Link } from "react-router-dom";
+
 export default class Latest extends React.Component {
     // export default class Assets extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            addresses: [],
+
             latest: [],
             latest_locked: [],
             latest_locked_nft: [],
@@ -21,6 +25,7 @@ export default class Latest extends React.Component {
     async componentDidMount() {
         const latest_root = await getLatest();
         this.setState({
+            addresses: latest_root.addresses,
             latest: latest_root.latest,
             latest_locked: latest_root.latest_locked,
             latest_locked_nft: latest_root.latest_locked_nft,
@@ -33,6 +38,16 @@ export default class Latest extends React.Component {
         return (
             <main style={{ padding: "1rem" }}>
                 {/* <main style={{ padding: "1rem 0" }}> */}
+
+                <h1>Latest active addresses:</h1>
+                {this.state.addresses.length === 0 ? 'loading...' : null}
+                {this.state.addresses.map((address) => (
+                    <ul key={address}>
+                        <li><Link to={`/${address}`}>{address}</Link></li>
+                    </ul>
+                ))}
+
+                <br />
                 <h1>Latest assets:</h1>
                 {/* <h1>Assets</h1> */}
 
