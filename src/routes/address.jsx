@@ -31,12 +31,12 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function checkIfMediaAutoLoaded(self) {
-    if (self.state.media_elements.length === self.state.media_loading) {
-        // try again
-        setupMedia(self);
-    }
-}
+// function checkIfMediaAutoLoaded(self) {
+//     if (self.state.media_elements.length === self.state.media_loading) {
+//         // try again
+//         setupMedia(self);
+//     }
+// }
 
 async function setupMediaProcess(self) {
     ///////////////////////////////
@@ -70,9 +70,9 @@ async function setupMediaProcess(self) {
         // only set this the first time
         if (!self.state.media_loading) {
 
-            // for stuck fix
-            const unstuck_secs = 2; // 3;
-            self.timerID = setTimeout(checkIfMediaAutoLoaded, unstuck_secs * 1000, self);
+            // // for stuck fix
+            // const unstuck_secs = 2; // 3;
+            // self.timerID = setTimeout(checkIfMediaAutoLoaded, unstuck_secs * 1000, self);
 
             self.setState({ media_elements: new Array(media_to_get_address_assets.length) });
             self.setState({ media_loading: media_to_get_address_assets.length });
