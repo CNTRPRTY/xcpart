@@ -1,3 +1,4 @@
+// ************* REMEMBER TO ALSO UPDATE IN THE API BACKEND! *************
 
 import { getAssetEnhancedJsonResponse } from "../api";
 
@@ -43,6 +44,61 @@ class AssetDescriptionEnhancedMedia {
         }
         return false;
     }
+
+    // not used because it requires and extra pre-cache of ALL data in the backend
+    // ////////////////////////////////////////////////
+    // // new client optimized alternative
+    // static getElementIfMedia(media_json) {
+    //     // static async getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index) {
+
+    //     // const response = await getAssetEnhancedJsonResponse(asset_name, issuance_tx_index);
+
+    //     if (Object.keys(media_json).length) {
+    //         // if (Object.keys(response.data.enhanced_json).length) {
+    //         // if (Object.keys(response.data).length) {
+
+    //         const enhanced_json = media_json;
+    //         // const enhanced_json = response.data.enhanced_json;
+    //         // const enhanced_json = response.data;
+
+    //         // for now, only selecting 1, and trying the best first
+    //         if (
+    //             Object.hasOwn(enhanced_json, AssetDescriptionEnhancedMedia.TYPES.VIDEO) &&
+    //             enhanced_json[AssetDescriptionEnhancedMedia.TYPES.VIDEO]
+    //         ) {
+    //             return getVideoElement(enhanced_json[AssetDescriptionEnhancedMedia.TYPES.VIDEO]);
+    //         }
+    //         else if ( // done like this to be able to get these based on being defined in TYPES
+    //             Object.hasOwn(enhanced_json, AssetDescriptionEnhancedMedia.TYPES.IMAGE_LARGE) && // has property
+    //             enhanced_json[AssetDescriptionEnhancedMedia.TYPES.IMAGE_LARGE] // is not null
+    //         ) {
+    //             return getImageElement(enhanced_json[AssetDescriptionEnhancedMedia.TYPES.IMAGE_LARGE]);
+    //         }
+    //         else if (
+    //             Object.hasOwn(enhanced_json, AssetDescriptionEnhancedMedia.TYPES.IMAGE_THUMBNAIL) &&
+    //             enhanced_json[AssetDescriptionEnhancedMedia.TYPES.IMAGE_THUMBNAIL]
+    //         ) {
+    //             return getImageElement(enhanced_json[AssetDescriptionEnhancedMedia.TYPES.IMAGE_THUMBNAIL]);
+    //         }
+
+    //         // else {
+    //         //     console.log(`TODO else enhanced:`);
+    //         //     console.log(JSON.stringify(enhanced_json));
+    //         // }
+
+    //     }
+
+    //     // else {
+    //     //     // TODO? more
+    //     //     console.log(`no json returned by: ${response.data.enhanced_url}`);
+    //     //     // console.log(`no json returned by: ${response.message}`);
+    //     // }
+
+    //     // if none of the above returned
+    //     return null;
+
+    // }
+    // ////////////////////////////////////////////////
 
     static async getElementIfSuccessWithEnhancedMedia(asset_name, issuance_tx_index) {
 
