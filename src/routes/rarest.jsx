@@ -33,6 +33,10 @@ export default class Rarest extends React.Component {
             // rarest_first_nft_nodestroy_unlocked_issuance: null,
             rarest_first_quantity_one_issuance: null,
             rarest_first_quantity_zero_issuance: null,
+
+            rarest_first_satoshi_issuance: null,
+            rarest_first_lock_issuance: null,
+
             rarest_first_description_issuance: null,
             rarest_first_destroy: null,
         };
@@ -68,6 +72,10 @@ export default class Rarest extends React.Component {
             // this.state.rarest_first_nft_nodestroy_unlocked_issuance
             this.state.rarest_first_quantity_one_issuance &&
             this.state.rarest_first_quantity_zero_issuance &&
+
+            this.state.rarest_first_satoshi_issuance &&
+            this.state.rarest_first_lock_issuance &&
+
             this.state.rarest_first_description_issuance &&
             this.state.rarest_first_destroy
         ) {
@@ -154,6 +162,24 @@ export default class Rarest extends React.Component {
                         IssuanceEvent.TYPES.UPDATE_QUANTITY,
                         false
                     )}
+
+
+                    <h2>First satoshi issuance</h2>
+                    {formattedAssetRarestElement(
+                        this.state.rarest_first_satoshi_issuance,
+                        this.state.rarest_first_satoshi_issuance.event,
+                        IssuanceEvent.TYPES.GENESIS, // and quantity
+                        false
+                    )}
+
+                    <h2>First lock issuance</h2>
+                    {formattedAssetRarestElement(
+                        this.state.rarest_first_lock_issuance,
+                        this.state.rarest_first_lock_issuance.event,
+                        IssuanceEvent.TYPES.LOCK,
+                        false
+                    )}
+
 
                     <h2>First description issuance</h2>
                     {formattedAssetRarestElement(
