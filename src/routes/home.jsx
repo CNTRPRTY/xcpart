@@ -135,11 +135,12 @@ export default class Home extends React.Component {
 
                 <br />
                 <p>
-                    [bitSTART v2022.2]
+                    [bitSTART v2022.3]
                     {/* [bitSTART v2022] */}
                     {/* [bitSTART v2022a] */}
                     <br />
-                    built on: [counterparty-lib v9.59.6] [Bitcoin Core v0.21.1]
+                    [counterparty-lib v9.59.6] in [Bitcoin Core v0.21.1]
+                    {/* built on: [counterparty-lib v9.59.6] [Bitcoin Core v0.21.1] */}
                     {/* <p>[bitSTART v2022a][counterparty-lib v9.59.6][Bitcoin Core v0.21.1]</p> */}
                 </p>
             </main>
