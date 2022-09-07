@@ -34,7 +34,8 @@ class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const to_navigate = this.state.search.trim();
+    const to_navigate = this.state.search.replace(/\s/g,''); // remove all whitespace (https://stackoverflow.com/a/6623263)
+    // const to_navigate = this.state.search.trim();
     this.setState({ search: '' });
     this.props.router.navigate(`/${to_navigate}`);
     // this.props.router.navigate(`/${this.state.search}`);
