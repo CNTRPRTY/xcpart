@@ -17,8 +17,10 @@ class App extends React.Component {
       search: '',
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // TODO? a better lifecycle method?
@@ -28,13 +30,15 @@ class App extends React.Component {
     getRarest();
   }
 
-  handleChange(event) {
+  handleSearchChange(event) {
+    // handleChange(event) {
     this.setState({ search: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSearchSubmit(event) {
+    // handleSubmit(event) {
     event.preventDefault();
-    const to_navigate = this.state.search.replace(/\s/g,''); // remove all whitespace (https://stackoverflow.com/a/6623263)
+    const to_navigate = this.state.search.replace(/\s/g, ''); // remove all whitespace (https://stackoverflow.com/a/6623263)
     // const to_navigate = this.state.search.trim();
     this.setState({ search: '' });
     this.props.router.navigate(`/${to_navigate}`);
@@ -64,8 +68,10 @@ class App extends React.Component {
       <span>
         {`${this.props.router.location.pathname}`}
         {/* / */}
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.search} onChange={this.handleChange} placeholder={placeholder} />
+        <form onSubmit={this.handleSearchSubmit}>
+          {/* <form onSubmit={this.handleSubmit}> */}
+          <input type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder={placeholder} />
+          {/* <input type="text" value={this.state.search} onChange={this.handleChange} placeholder={placeholder} /> */}
           {/* <input type="text" value={this.state.search} onChange={this.handleChange} placeholder="asset, address or block" /> */}
           {/* / <input type="text" onChange={this.handleChange} placeholder="search" /> */}
           {show_button}
