@@ -23,9 +23,6 @@ async function setupMedia(self, asset_name, description_issuance) {
         // set selected
         self.setState({ media_element_selected: description_issuance.tx_index });
 
-        // step 0 reset
-        self.setState({ media_element: null });
-
         // start trying normal media
         let media_or_none = null; // done like this to be clear the next command can be null
         media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(description_issuance.description);
