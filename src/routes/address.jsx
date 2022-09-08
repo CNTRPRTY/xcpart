@@ -580,8 +580,9 @@ class Address extends React.Component {
             return (
                 <main style={{ padding: "1rem" }}>
                     {/* <main style={{ padding: "1rem 0" }}> */}
-                    <h2>No address found</h2>
-                    {/* <h2>No assets found for address</h2> */}
+                    {/* <h2>No asset issuances found for address</h2> */}
+                    {/* <h2>No address found</h2> */}
+                    <h2>No assets found for address</h2>
                 </main>
             );
         }
