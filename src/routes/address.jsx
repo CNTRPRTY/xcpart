@@ -529,7 +529,6 @@ class Address extends React.Component {
             // if (this.state.media_paused) {
 
             this.media_paused = false;
-            this.forceUpdate();
 
             // not awaiting it
             setupMedia(this);
@@ -537,13 +536,11 @@ class Address extends React.Component {
         }
         else {
             this.media_paused = true;
-            this.forceUpdate();
             // this.setState({ media_paused: true });
         }
 
-        // now doing it as soon as the state is changed
         // https://stackoverflow.com/a/30626072 (https://github.com/facebook/react/issues/12111#issuecomment-361254441) (https://reactjs.org/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class)
-        // this.forceUpdate(); // for rendering updated media_paused
+        this.forceUpdate(); // for rendering updated media_paused
 
         // console.log(`rrrrrrrrr2`);
 
