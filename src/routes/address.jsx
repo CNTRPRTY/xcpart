@@ -31,12 +31,13 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// function checkIfMediaAutoLoaded(self) {
-//     if (self.state.media_elements.length === self.state.media_loading) {
-//         // try again
-//         setupMedia(self);
-//     }
-// }
+function checkIfMediaAutoLoaded(self) {
+    if (self.state.media_elements.length === self.state.media_loading) {
+        // try again
+        self.setState({ media_did_autoplay: false });
+        // setupMedia(self);
+    }
+}
 
 async function setupMediaProcess(self) {
     ///////////////////////////////
@@ -70,9 +71,9 @@ async function setupMediaProcess(self) {
         // only set this the first time
         if (!self.state.media_loading) {
 
-            // // for stuck fix
-            // const unstuck_secs = 2; // 3;
-            // self.timerID = setTimeout(checkIfMediaAutoLoaded, unstuck_secs * 1000, self);
+            // for stuck fix
+            const unstuck_secs = 2; // 3;
+            self.timerID = setTimeout(checkIfMediaAutoLoaded, unstuck_secs * 1000, self);
 
             self.setState({ media_elements: new Array(media_to_get_address_assets.length) });
             self.setState({ media_loading: media_to_get_address_assets.length });
@@ -467,6 +468,9 @@ class Address extends React.Component {
             address_assets: null,
             media_not_found: null,
             media_loading: 0,
+
+            media_did_autoplay: true,
+
             // media_paused: false,
             media_elements: [],
 
@@ -515,6 +519,11 @@ class Address extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
+
+        // the next when load is just pressed, so that it doesn't appear any more
+        if (!this.state.media_did_autoplay) {
+            this.setState({ media_did_autoplay: true });
+        }
 
         if (this.media_paused) {
             // if (this.state.media_paused) {
@@ -621,15 +630,67 @@ class Address extends React.Component {
 
                 let still_loading = null;
                 if (this.state.media_loading) {
-                    const word = this.media_paused ? 'continue' : 'pause';
-                    // const word = this.state.media_paused ? 'continue' : 'pause';
-                    still_loading = (
-                        <li style={{ padding: "1rem" }}>
-                            loading {this.state.media_loading}...
-                            [<a href="#" onClick={this.handleClick}>{word}</a>]
-                            {/* [<a href="#" onClick={this.handleClick}>pause</a>] */}
-                        </li>
-                    );
+
+                    if (this.state.media_did_autoplay) {
+                        ///////////////////////
+                        let word;
+                        let loading_or_not_element;
+                        if (this.media_paused) {
+                            word = 'continue';
+                            loading_or_not_element = (
+                                <li>load {this.state.media_loading}</li>
+                            );
+                        }
+                        else {
+                            word = 'pause';
+                            loading_or_not_element = (
+                                <li>loading {this.state.media_loading}...</li>
+                            );
+                        }
+
+                        // const word = this.media_paused ? 'continue' : 'pause';
+                        // const word = this.state.media_paused ? 'continue' : 'pause';
+                        still_loading = (
+                            <ul style={{
+                                padding: "0 2rem 2rem 2rem", // https://developer.mozilla.org/en-US/docs/Web/CSS/padding
+                                listStyleType: "none"
+                            }}>
+                                {loading_or_not_element}
+                                {/* <li>loading {this.state.media_loading}...</li> */}
+                                <li>[<a href="#" onClick={this.handleClick}>{word}</a>]</li>
+                            </ul>
+                        );
+                        ///////////////////////
+                    }
+                    else {
+                        still_loading = (
+                            <ul style={{
+                                padding: "0 2rem 2rem 2rem", // https://developer.mozilla.org/en-US/docs/Web/CSS/padding
+                                listStyleType: "none"
+                            }}>
+                                <li>[<a href="#" onClick={this.handleClick}>{'load'}</a>] {this.state.media_loading}</li>
+                            </ul>
+                        );
+                    }
+
+                    // const word = this.media_paused ? 'continue' : 'pause';
+                    // // const word = this.state.media_paused ? 'continue' : 'pause';
+                    // still_loading = (
+                    //     <ul style={{
+                    //         padding: "0 2rem 2rem 2rem", // https://developer.mozilla.org/en-US/docs/Web/CSS/padding
+                    //         listStyleType: "none"
+                    //     }}>
+                    //         <li>loading {this.state.media_loading}...</li>
+                    //         <li>[<a href="#" onClick={this.handleClick}>{word}</a>]</li>
+                    //     </ul>
+                    // );
+                    // still_loading = (
+                    //     <li style={{ padding: "1rem" }}>
+                    //         loading {this.state.media_loading}...
+                    //         [<a href="#" onClick={this.handleClick}>{word}</a>]
+                    //         {/* [<a href="#" onClick={this.handleClick}>pause</a>] */}
+                    //     </li>
+                    // );
                 }
 
                 detected_media = (
