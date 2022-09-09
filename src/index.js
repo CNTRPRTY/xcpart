@@ -12,6 +12,8 @@ import Latest from "./routes/latest";
 // import Assets from "./routes/assets";
 import Rarest from "./routes/rarest";
 
+import Allpage from "./routes/all_page";
+
 import AnyResource from "./routes/index_anyresource";
 // import Asset from "./routes/asset";
 
@@ -46,6 +48,8 @@ root.render(
           <Route path="_latest" element={<Latest />} />
           {/* <Route path="_latest" element={<Assets />} /> */}
           <Route path="_rarest" element={<Rarest />} />
+
+          <Route path="_all" element={<Allpage />} />
 
           <Route path=":anyResource" element={<AnyResource />} />
           {/* <Route path=":anyName" element={<Asset />} /> */}

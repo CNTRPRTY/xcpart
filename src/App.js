@@ -161,7 +161,11 @@ class App extends React.Component {
           <Link to="/">Home</Link> |{" "}
           {/* <a href="https://mempool.space/" target="_blank">Bitcoin</a> |{" "} */}
           <Link to="/_latest">Latest</Link> |{" "}
-          <Link to="/_rarest">Rarest</Link>
+
+          <Link to="/_rarest">Rarest</Link> |{" "}
+          <Link to="/_all">All</Link>
+
+          {/* <Link to="/_rarest">Rarest</Link> */}
           {/* <Link to="/assets">Latest</Link> |{" "}
         <Link to="/rarest">Rarest</Link> */}
           {/* <Link to="/assets">Assets</Link> */}
