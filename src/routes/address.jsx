@@ -99,8 +99,13 @@ async function setupMediaProcess(self) {
         const index = media_to_get_address_assets.length - self.state.media_loading;
         const group_to_do = media_to_get_address_assets.slice(index);
 
+        const autoplay_limit = 100;
+        let autoplay_limit_count = 0;
+
         let media_elements_array_index = self.state.media_loading;
         for await (const address_asset of group_to_do) {
+
+            autoplay_limit_count++;
 
             // self.setState({ test_log: `2. ${JSON.stringify(address_asset)}` });
 
@@ -160,7 +165,12 @@ async function setupMediaProcess(self) {
 
             media_elements_array_index--;
 
-            if (self.media_paused) {
+
+            if ((autoplay_limit_count % autoplay_limit) === 0) {
+                self.handleClick();
+            }
+            else if (self.media_paused) {
+                // if (self.media_paused) {
                 // if (self.state.media_paused) {
                 return;
             }
@@ -325,7 +335,10 @@ class Address extends React.Component {
     }
 
     handleClick(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
+        // e.preventDefault();
 
         // the next when load is just pressed, so that it doesn't appear any more
         if (!this.state.media_did_autoplay) {
