@@ -91,6 +91,7 @@ class Allpage extends React.Component {
             go_to_first_clean,
 
             total_assets: null,
+            total_addresses: null,
 
             current_page: page_if_specified,
             // current_page: null,
@@ -150,6 +151,7 @@ class Allpage extends React.Component {
             else {
                 this.setState({
                     total_assets: allpage_root.total_assets,
+                    total_addresses: allpage_root.total_addresses,
                     current_page: allpage_root.current_page,
                     last_page: allpage_root.last_page,
                     rows: allpage_root.rows
@@ -229,6 +231,7 @@ class Allpage extends React.Component {
         // // console.log(`ttttttt3`);
 
         let content_total_assets = ` loading...`;
+        let content_total_addresses = ` loading...`;
 
         let content_element = (<h2>loading...</h2>);
         if (this.state.page_not_found) {
@@ -253,6 +256,7 @@ class Allpage extends React.Component {
             // console.log(`iiiiii2`);
 
             content_total_assets = ` ${this.state.total_assets}`;
+            content_total_addresses = ` ${this.state.total_addresses}`;
 
             const current_page = this.state.current_page;
             const is_first = (current_page === 1);
@@ -260,7 +264,7 @@ class Allpage extends React.Component {
 
             let first_link = (
                 <td>
-                    <Link to={`/_all#1`}>first</Link>{' '}
+                    <Link to={`/_all#1`}>{'<<'}first</Link>{' '}
                 </td>
             );
             let previous_page_column;
@@ -276,14 +280,14 @@ class Allpage extends React.Component {
                 const previous_page = current_page - 1;
                 previous_page_column = (
                     <td>
-                        <Link to={`/_all#${previous_page}`}>previous</Link>{' '}
+                        <Link to={`/_all#${previous_page}`}>{'<'}previous</Link>{' '}
                     </td>
                 );
             }
 
             let last_link = (
                 <td>
-                    <Link to={`/_all#${this.state.last_page}`}>last</Link>{' '}
+                    <Link to={`/_all#${this.state.last_page}`}>last{'>>'}</Link>{' '}
                 </td>
             );
             let next_page_column;
@@ -299,7 +303,7 @@ class Allpage extends React.Component {
                 const next_page = current_page + 1;
                 next_page_column = (
                     <td>
-                        <Link to={`/_all#${next_page}`}>next</Link>{' '}
+                        <Link to={`/_all#${next_page}`}>next{'>'}</Link>{' '}
                     </td>
                 );
             }
@@ -328,7 +332,8 @@ class Allpage extends React.Component {
             content_element = (
                 <div>
 
-                    <h2>Asset issuing addresses ordered by the amount of issuances done (most recent first):</h2>
+                    <h2>All asset issuing addresses, ordered by the amount of issuances done (most recent first):</h2>
+                    {/* <h2>Asset issuing addresses ordered by the amount of issuances done (most recent first):</h2> */}
                     {/* <h2>Addresses ordered by the amount of issuances done, then by most recent:</h2> */}
                     {/* <h2>Addresses:</h2> */}
                     {/* <h2>All addresses:</h2> */}
@@ -349,7 +354,6 @@ class Allpage extends React.Component {
                     {/* <br /> */}
                     {/* SELECT issuer, COUNT(*) as entries, MAX(block_index) as last_block */}
                     {change_pages_element}
-
                     <table>
                         <tbody>
                             {/* <td>The table body</td> */}
@@ -390,6 +394,8 @@ class Allpage extends React.Component {
                             ))}
                         </tbody>
                     </table>
+                    <br />
+                    {change_pages_element}
                     {/* <ul>
                         {this.state.page_results.map((allpage_one_result, index) => (
                             <li key={index} style={{ padding: "0.25rem" }}>
@@ -425,10 +431,16 @@ class Allpage extends React.Component {
             <main style={{ padding: "1rem" }}>
 
                 <h1>Total assets:{content_total_assets}</h1>
+                {/* <h1>All assets:{content_total_assets}</h1> */}
+                {/* <h1>Total assets:{content_total_assets}</h1> */}
 
                 {/* <main style={{ padding: "1rem 0" }}> */}
                 {/* <h1>All:</h1> */}
-                <h1>All addresses:</h1>
+
+                <h1>Total addresses:{content_total_addresses}</h1>
+                {/* <h1>All addresses:{content_total_addresses}</h1> */}
+                {/* <h1>All addresses:</h1> */}
+
                 {/* <h1>All page first title:</h1> */}
                 {/* <h1>Rarest assets:</h1> */}
                 {content_element}
