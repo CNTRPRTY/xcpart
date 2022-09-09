@@ -93,17 +93,8 @@ async function setupMediaProcess(self) {
         }
         // self.setState({ media_loading: media_to_get_address_assets.length });
 
-        // self.setState({ media_loading: true });
-
         // sleep for a moment
         await sleep(10);
-
-        // if (!self.state.address_assets.length) {
-        //     // self.setState({ media_element: (<p>(unable to load content)</p>) });
-        //     self.setState({ media_elements: [(<p>(no media detected)</p>)] });
-        // }
-        // else {
-        ///////////////////////////////////////
 
         const index = media_to_get_address_assets.length - self.state.media_loading;
         const group_to_do = media_to_get_address_assets.slice(index);
@@ -113,16 +104,6 @@ async function setupMediaProcess(self) {
 
             // self.setState({ test_log: `2. ${JSON.stringify(address_asset)}` });
 
-            // for await (const address_asset of media_to_get_address_assets) {
-            // for await (const address_asset of self.state.address_assets) {
-
-            // let flag = true;
-            // while(flag) {
-            //     if (!self.state.media_paused) {
-            //         flag = false;
-            //     }
-            // }
-
             // sleep for a moment
             // await sleep(1000);
             await sleep(500);
@@ -130,42 +111,12 @@ async function setupMediaProcess(self) {
             // await sleep(100);
             // await sleep(10);
 
-            /////////////////////////
-            // then do the media if applies
-            // if (address_asset.media && address_asset.media.description) {
-            // // set selected
-            // self.setState({ media_element_selected: description_issuance.tx_index });
-
-            // // step 0 reset
-            // self.setState({ media_element: null });
-
-            // start trying normal media
-            // let media_or_none = null; // done like this to be clear the next command can be null
-            // media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(address_asset.media.description);
-
             // first try enhanced
             let media_or_none = null;
             if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(address_asset.media.description)) {
 
-                // self.setState({ media_element: (<p>loading...</p>) });
-
-                // try {
                 media_or_none = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(address_asset.media.asset_name, address_asset.media.tx_index);
                 if (media_or_none) {
-                    // const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(address_asset.media.asset_name, address_asset.media.tx_index);
-                    // if (try_enhanced_media_element) {
-                    // const with_name_element = (
-                    //     <div>
-                    //         {/* <span> */}
-                    //         {/* <span style={{ padding: "2rem" }}> */}
-                    //         {address_asset.mainname}
-                    //         <br />
-                    //         {try_enhanced_media_element}
-                    //         {/* </span> */}
-                    //         <br />
-                    //         <br />
-                    //     </div>
-                    // );
 
                     self.state.media_elements[media_elements_array_index] = formatMediaElement(address_asset.mainname, media_or_none);
                     // self.setState((prevState, props) => ({
@@ -176,42 +127,11 @@ async function setupMediaProcess(self) {
                     // }));
                     // self.setState({ media_elements: [formatMediaElement(address_asset.mainname, try_enhanced_media_element), ...self.state.media_elements] });
 
-                    // self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, try_enhanced_media_element)] });
-
-                    // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
-                    // self.setState({ media_elements: [...self.state.media_elements, try_enhanced_media_element] });
-                    // self.setState({ media_element: try_enhanced_media_element });
                 }
-                // else {
-                //     console.log(`l: ${address_asset.media.description}`);
-                //     // console.log(`skipped el: ${address_asset.media.description}`);
-                // }
-                // else {
-                //     self.setState({ media_element: (<p>(unable to load content)</p>) });
-                // }
-                // } catch (err) {
-                //     // console.log(`r: ${address_asset.media.description}`);
-                //     // console.log(`skipped er: ${address_asset.media.description}`);
-                //     // ignore
-                //     // self.setState({ media_element: (<p>(unable to load content)</p>) });
-                // }
 
             }
             // else try normal
             else if (AssetDescriptionMedia.checkIfDescriptionMedia(address_asset.media.description)) {
-                // if (media_or_none) {
-                // const with_name_element = (
-                //     <div>
-                //         {/* <span> */}
-                //         {/* <span style={{ padding: "2rem" }}> */}
-                //         {address_asset.mainname}
-                //         <br />
-                //         {media_or_none}
-                //         {/* </span> */}
-                //         <br />
-                //         <br />
-                //     </div>
-                // );
 
                 media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(address_asset.media.description);
                 // const media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(address_asset.media.description);
@@ -226,52 +146,7 @@ async function setupMediaProcess(self) {
                     // self.setState({ media_elements: [formatMediaElement(address_asset.mainname, media_or_none), ...self.state.media_elements] });
                 }
 
-                // self.setState({ media_elements: [formatMediaElement(address_asset.mainname, media_or_none), ...self.state.media_elements] });
-                // self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, media_or_none)] });
-
-                // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
-                // self.setState({ media_elements: [...self.state.media_elements, media_or_none] });
-                // self.setState({ media_element: media_or_none });
             }
-
-            // // if not normal, then try enhanced
-            // else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(address_asset.media.description)) {
-
-            //     // self.setState({ media_element: (<p>loading...</p>) });
-
-            //     try {
-            //         const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(address_asset.media.asset_name, address_asset.media.tx_index);
-            //         if (try_enhanced_media_element) {
-            //             // const with_name_element = (
-            //             //     <div>
-            //             //         {/* <span> */}
-            //             //         {/* <span style={{ padding: "2rem" }}> */}
-            //             //         {address_asset.mainname}
-            //             //         <br />
-            //             //         {try_enhanced_media_element}
-            //             //         {/* </span> */}
-            //             //         <br />
-            //             //         <br />
-            //             //     </div>
-            //             // );
-
-            //             self.setState({ media_elements: [formatMediaElement(address_asset.mainname, try_enhanced_media_element), ...self.state.media_elements] });
-            //             // self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, try_enhanced_media_element)] });
-
-            //             // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
-            //             // self.setState({ media_elements: [...self.state.media_elements, try_enhanced_media_element] });
-            //             // self.setState({ media_element: try_enhanced_media_element });
-            //         }
-            //         // else {
-            //         //     self.setState({ media_element: (<p>(unable to load content)</p>) });
-            //         // }
-            //     } catch (err) {
-            //         // ignore
-            //         // self.setState({ media_element: (<p>(unable to load content)</p>) });
-            //     }
-
-            // }
-            // }
 
             /////////////////////////
 
@@ -309,87 +184,6 @@ async function setupMediaProcess(self) {
 
     }
 
-    // self.setState({ test_log: '' });
-
-    // for await (const address_asset of self.state.address_assets) {
-
-    //     // sleep for a moment
-    //     await sleep(10);
-
-    //     /////////////////////////
-    //     // then do the media if applies
-
-    //     if (address_asset.media && address_asset.media.description) {
-    //         // // set selected
-    //         // self.setState({ media_element_selected: description_issuance.tx_index });
-
-    //         // // step 0 reset
-    //         // self.setState({ media_element: null });
-
-    //         // start trying normal media
-    //         let media_or_none = null; // done like this to be clear the next command can be null
-    //         media_or_none = AssetDescriptionMedia.getElementIfDescriptionMedia(address_asset.media.description);
-
-    //         if (media_or_none) {
-    //             // const with_name_element = (
-    //             //     <div>
-    //             //         {/* <span> */}
-    //             //         {/* <span style={{ padding: "2rem" }}> */}
-    //             //         {address_asset.mainname}
-    //             //         <br />
-    //             //         {media_or_none}
-    //             //         {/* </span> */}
-    //             //         <br />
-    //             //         <br />
-    //             //     </div>
-    //             // );
-    //             self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, media_or_none)] });
-    //             // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
-    //             // self.setState({ media_elements: [...self.state.media_elements, media_or_none] });
-    //             // self.setState({ media_element: media_or_none });
-    //         }
-
-    //         // if not normal, then try enhanced
-    //         else if (AssetDescriptionEnhancedMedia.checkIfDescriptionEnhancedMedia(address_asset.media.description)) {
-
-    //             // self.setState({ media_element: (<p>loading...</p>) });
-
-    //             try {
-    //                 const try_enhanced_media_element = await AssetDescriptionEnhancedMedia.getElementIfSuccessWithEnhancedMedia(address_asset.media.asset_name, address_asset.media.tx_index);
-    //                 if (try_enhanced_media_element) {
-    //                     // const with_name_element = (
-    //                     //     <div>
-    //                     //         {/* <span> */}
-    //                     //         {/* <span style={{ padding: "2rem" }}> */}
-    //                     //         {address_asset.mainname}
-    //                     //         <br />
-    //                     //         {try_enhanced_media_element}
-    //                     //         {/* </span> */}
-    //                     //         <br />
-    //                     //         <br />
-    //                     //     </div>
-    //                     // );
-    //                     self.setState({ media_elements: [...self.state.media_elements, formatMediaElement(address_asset.mainname, try_enhanced_media_element)] });
-    //                     // self.setState({ media_elements: [...self.state.media_elements, with_name_element] });
-    //                     // self.setState({ media_elements: [...self.state.media_elements, try_enhanced_media_element] });
-    //                     // self.setState({ media_element: try_enhanced_media_element });
-    //                 }
-    //                 // else {
-    //                 //     self.setState({ media_element: (<p>(unable to load content)</p>) });
-    //                 // }
-    //             } catch (err) {
-    //                 // ignore
-    //                 // self.setState({ media_element: (<p>(unable to load content)</p>) });
-    //             }
-
-    //         }
-    //     }
-
-    //     /////////////////////////
-
-    // }
-
-    ///////////////////////////////
 }
 
 let only_once_lock = false;
