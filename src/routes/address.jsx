@@ -51,7 +51,15 @@ async function setupMediaProcess(self) {
 
         // self.setState({ test_log: `1. ${JSON.stringify(address_asset)}` });
 
-        if (address_asset.media && address_asset.media.description) {
+        // ********************************************
+        // MEDIA = NULL means is_over_ddb_limit_address
+        // if one is null, the rest should also be null becuase this is for the special addresses that don't fit in ddb
+        if (address_asset.media === null) {
+            media_to_get_address_assets = null;
+        }
+        // ********************************************
+        else if (address_asset.media && address_asset.media.description) {
+            // if (address_asset.media && address_asset.media.description) {
             ////////
             if (
                 AssetDescriptionMedia.checkIfDescriptionMedia(address_asset.media.description) ||
@@ -63,7 +71,12 @@ async function setupMediaProcess(self) {
         }
     }
 
-    if (!media_to_get_address_assets.length) {
+    // for the ddb hack
+    if (media_to_get_address_assets === null) {
+        self.setState({ media_not_found: false });
+    }
+    else if (!media_to_get_address_assets.length) {
+        // if (!media_to_get_address_assets.length) {
         self.setState({ media_not_found: true });
     }
     else {
@@ -620,6 +633,19 @@ class Address extends React.Component {
                     </ul>
                 );
             }
+
+            // ********************************************
+            // non-ddb addresses hack
+            else if (this.state.media_not_found === false) {
+                detected_media = (
+                    <ul style={{ "listStyleType": "none" }}>
+                        <li style={{ padding: "0.25rem" }}>(too much data to load for this address)</li>
+                        {/* <li style={{ padding: "0.25rem" }}>(no media detected)</li> */}
+                    </ul>
+                );
+            }
+            // ********************************************
+
             else if (
                 this.state.media_loading ||
                 this.state.media_elements.length
