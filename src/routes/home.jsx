@@ -75,9 +75,10 @@ export default class Home extends React.Component {
 
                 <br />
                 <p>
-                    Start discovering assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections.{' '}
+                    Start discovering assets through the <Link to="/_latest">Latest</Link>, <Link to="/_rarest">Rarest</Link> and <Link to="/_all">All</Link> sections.{' '}
+                    {/* Start discovering assets through the <Link to="/_latest">Latest</Link> and <Link to="/_rarest">Rarest</Link> sections.{' '} */}
                     Or type the [asset / address / block] of interest in the url or search bar.</p>
-                    {/* Or type the [asset / address / block] of interest in the url.</p> */}
+                {/* Or type the [asset / address / block] of interest in the url.</p> */}
                 <br />
                 {/* <p>Counterparty v3 // rules:</p> */}
                 <p>Help:</p>
