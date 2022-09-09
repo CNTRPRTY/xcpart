@@ -446,7 +446,8 @@ class Address extends React.Component {
             else if (this.state.media_not_found === false) {
                 detected_media = (
                     <ul style={{ "listStyleType": "none" }}>
-                        <li style={{ padding: "0.25rem" }}>(too much data to load for this address)</li>
+                        <li style={{ padding: "0.25rem" }}>(no media loaded)</li>
+                        {/* <li style={{ padding: "0.25rem" }}>(too much data to load for this address)</li> */}
                         {/* <li style={{ padding: "0.25rem" }}>(no media detected)</li> */}
                     </ul>
                 );
