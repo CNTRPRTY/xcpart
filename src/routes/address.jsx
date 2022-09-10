@@ -545,7 +545,8 @@ class Address extends React.Component {
                     {/* <main style={{ padding: "1rem 0" }}> */}
 
                     {/* <div> */}
-                    <h1>Address media:</h1>
+                    <h1>Address [m]edia:</h1>
+                    {/* <h1>Address media:</h1> */}
                     {/* <h1>Media:</h1> */}
                     {/* {this.state.test_log} */}
                     {/* <h1>Detected media:</h1> */}

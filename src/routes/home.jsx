@@ -12,8 +12,12 @@ export default class Home extends React.Component {
 
         return (
             <main style={{ padding: "1rem" }}>
-                <h1>Welcome to bitSTART</h1>
+
+                <h1>bitSTART</h1>
+                {/* <h1><strong>bitSTART</strong></h1> */}
+                {/* <h1>Welcome to bitSTART</h1> */}
                 {/* <h1>Welcome to bitST.ART</h1> */}
+
                 <h2>BITCOIN MAXIMUM EXPRESSION</h2>
 
                 <h3>Discover Bitcoin Art Assets ("NFTs")</h3>

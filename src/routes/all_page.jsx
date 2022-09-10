@@ -332,7 +332,8 @@ class Allpage extends React.Component {
             content_element = (
                 <div>
 
-                    <h2>All asset issuing addresses, ordered by the amount of issuances done (most recent first):</h2>
+                    <h2>All asset issuing addresses (ordered by the amount of issuances ascending, then by most recent):</h2>
+                    {/* <h2>All asset issuing addresses, ordered by the amount of issuances done (most recent first):</h2> */}
                     {/* <h2>Asset issuing addresses ordered by the amount of issuances done (most recent first):</h2> */}
                     {/* <h2>Addresses ordered by the amount of issuances done, then by most recent:</h2> */}
                     {/* <h2>Addresses:</h2> */}

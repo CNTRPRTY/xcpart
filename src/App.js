@@ -115,7 +115,14 @@ class App extends React.Component {
           // top: "200px !important",
         }}>
 
-          <h3>bitSTART Terms of Use:</h3>
+          <h1>Welcome to bitSTART</h1>
+          
+          <h2>First step:</h2>
+
+          <h3>Read terms of use:</h3>
+          {/* <h3>Read and agree with terms of use:</h3>
+          <h3>Agree with terms of use:</h3> */}
+          {/* <h3>bitSTART Terms of Use:</h3> */}
 
           <p>
             Bitcoin is the source of all data in this application.{' '}
