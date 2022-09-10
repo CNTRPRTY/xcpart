@@ -3,7 +3,7 @@ import './App.css';
 import { Outlet, Link } from "react-router-dom";
 
 import React from 'react';
-import { getLatest, getRarest } from "./api";
+import { getLatest, getRarest, getAllpage } from "./api";
 
 import { withRouter } from './routes/shared/classhooks';
 
@@ -30,6 +30,7 @@ class App extends React.Component {
     // called in background
     getLatest();
     getRarest();
+    getAllpage(1);
   }
 
   handleSearchChange(event) {
@@ -116,7 +117,7 @@ class App extends React.Component {
         }}>
 
           <h1>Welcome to bitSTART</h1>
-          
+
           <h2>First step:</h2>
 
           <h3>Read terms of use:</h3>

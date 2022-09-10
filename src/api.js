@@ -20,6 +20,11 @@ const getRarestCache = {
     cached: null
 };
 
+const getPageOneCache = {
+    timeExpired: null, // milliseconds
+    cached: null
+}
+
 
 // for now only mainnet
 
@@ -110,15 +115,55 @@ export async function getRarest() {
 }
 
 export async function getAllpage(page) {
-    const res = await fetch(`${api_host}/mainnet/all/${page}`);
-    if (!res.ok) {
-        if (res.status === 404) { // 404 Not Found
-            return null;
+
+    if (page === 1) {
+        const cache = getPageOneCache;
+        // FIRST check if the getLatestCache exists and if it does if is timeExpired
+        let ifTimeIfExpired = cache.timeExpired;
+        if (ifTimeIfExpired) {
+            if (isAlreadyExpired(cache.timeExpired)) {
+                // clean up!
+                cache.timeExpired = null;
+                cache.cached = null;
+            }
         }
-        throw Error(`[${res.status}:${res.statusText}]`);
+        if (!cache.cached) {
+            /////////////////////////
+            const res = await fetch(`${api_host}/mainnet/all/${page}`);
+            // const res = await fetch(`${api_host}/mainnet/rarest`);
+            if (!res.ok) {
+                throw Error(`[${res.status}:${res.statusText}]`);
+            }
+            const data = await res.json();
+            const fiveMinutesInFutureMs = (new Date().getTime()) + (5 * 60 * 1000);
+            cache.timeExpired = fiveMinutesInFutureMs;
+            cache.cached = data.data;
+            // return data.data;
+            /////////////////////////
+        }
+        return cache.cached;
     }
-    const data = await res.json();
-    return data.data;
+    else {
+        const res = await fetch(`${api_host}/mainnet/all/${page}`);
+        if (!res.ok) {
+            if (res.status === 404) { // 404 Not Found
+                return null;
+            }
+            throw Error(`[${res.status}:${res.statusText}]`);
+        }
+        const data = await res.json();
+        return data.data;
+    }
+
+    // const res = await fetch(`${api_host}/mainnet/all/${page}`);
+    // if (!res.ok) {
+    //     if (res.status === 404) { // 404 Not Found
+    //         return null;
+    //     }
+    //     throw Error(`[${res.status}:${res.statusText}]`);
+    // }
+    // const data = await res.json();
+    // return data.data;
 }
 
 export async function getAsset(anyname) {
