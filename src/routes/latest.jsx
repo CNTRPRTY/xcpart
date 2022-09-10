@@ -39,6 +39,8 @@ export default class Latest extends React.Component {
             <main style={{ padding: "1rem" }}>
                 {/* <main style={{ padding: "1rem 0" }}> */}
 
+                <h1><strong>2022-09-09: Updates to the data have paused, but <Link to="/_all">all</Link> past data is still available.</strong></h1>
+
                 <h1>Latest:</h1>
 
                 <h2>Active addresses:</h2>
