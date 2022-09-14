@@ -264,6 +264,7 @@ class Allpage extends React.Component {
             content_total_assets = ` ${this.state.total_assets}`;
             content_total_addresses = ` ${this.state.total_addresses}`;
 
+            const per_year = this.state.total_assets_per_year;
 
             /////////
             // doing first version of years here...
@@ -273,7 +274,64 @@ class Allpage extends React.Component {
                     <h2>Asset (genesis) issuances per year:</h2>
 
                     <ul>
-                        <li>2014: {this.state.total_assets_per_year.y2014}</li>
+                        <li>
+                            2014{' '}
+                            [blocks <Link to={`/${280332}`}>{280332}</Link> to{' '}
+                            {/* [blocks <Link to={`/${per_year.y2014.first}`}>{per_year.y2014.first}</Link> to{' '} */}
+                            <Link to={`/${per_year.y2014.last}`}>{per_year.y2014.last}</Link>]:{' '}
+                            {per_year.y2014.total}
+                        </li>
+                        <li>
+                            2015{' '}
+                            [blocks <Link to={`/${per_year.y2015.first}`}>{per_year.y2015.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2015.last}`}>{per_year.y2015.last}</Link>]:{' '}
+                            {per_year.y2015.total}
+                        </li>
+                        <li>
+                            2016{' '}
+                            [blocks <Link to={`/${per_year.y2016.first}`}>{per_year.y2016.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2016.last}`}>{per_year.y2016.last}</Link>]:{' '}
+                            {per_year.y2016.total}
+                        </li>
+                        <li>
+                            2017{' '}
+                            [blocks <Link to={`/${per_year.y2017.first}`}>{per_year.y2017.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2017.last}`}>{per_year.y2017.last}</Link>]:{' '}
+                            {per_year.y2017.total}
+                        </li>
+                        <li>
+                            2018{' '}
+                            [blocks <Link to={`/${per_year.y2018.first}`}>{per_year.y2018.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2018.last}`}>{per_year.y2018.last}</Link>]:{' '}
+                            {per_year.y2018.total}
+                        </li>
+                        <li>
+                            2019{' '}
+                            [blocks <Link to={`/${per_year.y2019.first}`}>{per_year.y2019.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2019.last}`}>{per_year.y2019.last}</Link>]:{' '}
+                            {per_year.y2019.total}
+                        </li>
+                        <li>
+                            2020{' '}
+                            [blocks <Link to={`/${per_year.y2020.first}`}>{per_year.y2020.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2020.last}`}>{per_year.y2020.last}</Link>]:{' '}
+                            {per_year.y2020.total}
+                        </li>
+                        <li>
+                            2021{' '}
+                            [blocks <Link to={`/${per_year.y2021.first}`}>{per_year.y2021.first}</Link> to{' '}
+                            <Link to={`/${per_year.y2021.last}`}>{per_year.y2021.last}</Link>]:{' '}
+                            {per_year.y2021.total}
+                        </li>
+                        <li>
+                            2022{' '}
+                            [blocks <Link to={`/${per_year.y2022.first}`}>{per_year.y2022.first}</Link> to{' '}
+                            ...]:{' '}
+                            {/* <Link to={`/${per_year.y2022.last}`}>{per_year.y2022.last}</Link>]:{' '} */}
+                            {per_year.y2022.total}
+                        </li>
+
+                        {/* <li>2014: {this.state.total_assets_per_year.y2014}</li>
                         <li>2015: {this.state.total_assets_per_year.y2015}</li>
                         <li>2016: {this.state.total_assets_per_year.y2016}</li>
                         <li>2017: {this.state.total_assets_per_year.y2017}</li>
@@ -281,7 +339,7 @@ class Allpage extends React.Component {
                         <li>2019: {this.state.total_assets_per_year.y2019}</li>
                         <li>2020: {this.state.total_assets_per_year.y2020}</li>
                         <li>2021: {this.state.total_assets_per_year.y2021}</li>
-                        <li>2022: {this.state.total_assets_per_year.y2022}</li>
+                        <li>2022: {this.state.total_assets_per_year.y2022}</li> */}
                     </ul>
 
                 </div>
