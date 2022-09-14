@@ -7,7 +7,9 @@ class Block extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            block: props.block,
+            block: Number(props.block),
+            // block: props.block,
+
             block_not_found: null,
             block_assets: null
             // block_events: null
@@ -16,6 +18,9 @@ class Block extends React.Component {
     }
 
     async fetchData(block_height) {
+
+        this.setState({ block: Number(block_height) });
+
         const block_assets = await getBlock(block_height);
         // const block_events = await getBlock(block_height);
         // const address_assets = await getAddress(address);
@@ -50,6 +55,33 @@ class Block extends React.Component {
     }
 
     render() {
+
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        const previous_page_column = (
+            <td>
+                <Link to={`/${this.state.block - 1}`}>{'<'}previous</Link>{' '}
+            </td>
+        );
+        const next_page_column = (
+            <td>
+                <Link to={`/${this.state.block + 1}`}>next{'>'}</Link>{' '}
+            </td>
+        );
+
+        const change_pages_element = (
+            <table>
+                <tbody>
+                    <tr style={{ padding: "0.25rem" }}>
+                        {previous_page_column}
+                        {next_page_column}
+                    </tr>
+                </tbody>
+            </table>
+        );
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+
         if (this.state.block_not_found) {
             return (
                 <main style={{ padding: "1rem" }}>
@@ -65,6 +97,7 @@ class Block extends React.Component {
                     {/* <main style={{ padding: "1rem 0" }}> */}
                     {/* <h2>No address found</h2> */}
                     <h2>No events found in block</h2>
+                    {change_pages_element}
                 </main>
             );
         }
@@ -81,6 +114,7 @@ class Block extends React.Component {
                     {/* TODO? maybe include more metadata for the address in a formatted form? */}
                     {/* <h2>{<Link to={`/${this.state.block}`}>{this.state.block}</Link>}</h2> */}
                     <h2>{this.state.block}</h2>
+                    {change_pages_element}
 
                     <ul>
                         {this.state.block_assets.map((mainname_obj) => (<li key={mainname_obj.index} style={{ padding: "0.25rem" }}>{<Link to={`/${mainname_obj.mainname}`}>{mainname_obj.mainname}</Link>}</li>))}
