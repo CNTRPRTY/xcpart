@@ -4,6 +4,7 @@ import { formattedAssetRarestElement } from "./shared/elements"
 // import { formattedAssetInListElement } from "./shared/elements"
 // import { formattedAssetElement } from "./shared/elements"
 import IssuanceEvent from "../models/IssuanceEvent";
+import { Link } from "react-router-dom";
 
 export default class Rarest extends React.Component {
     constructor(props) {
@@ -26,6 +27,10 @@ export default class Rarest extends React.Component {
             // most subassets
             // most updated description
             // most youtube/imgur/soundcloud links? maybe more abstracted in like just having multiple media?
+
+
+            rarest_blocks: null,
+
 
             rarest_first_issuance: null,
             rarest_first_satoshi_nft_nodestroy_issuance: null,
@@ -63,6 +68,27 @@ export default class Rarest extends React.Component {
         // console.log(`ttttttt2`);
         // console.log(this.state.rarest_first_locked_nft_nodestroy_issuance);
         // console.log(`ttttttt3`);
+
+        let blocks_content_element = (<h2>loading...</h2>);
+        if (
+            this.state.rarest_first_issuance &&
+            this.state.rarest_first_satoshi_nft_nodestroy_issuance
+        ) {
+            blocks_content_element = (
+                <div>
+
+                    <h2>Blocks with most issuances:</h2>
+
+                    {this.state.rarest_blocks.length === 0 ? 'loading...' : null}
+                    {this.state.rarest_blocks.map((rarest_block) => (
+                        <ul key={rarest_block.block_index}>
+                            <li><Link to={`/${rarest_block.block_index}`}>{rarest_block.block_index}</Link> ({rarest_block.issuances} issuances)</li>
+                        </ul>
+                    ))}
+
+                </div>
+            );
+        }
 
         let content_element = (<h2>loading...</h2>);
         if (
@@ -205,6 +231,8 @@ export default class Rarest extends React.Component {
         return (
             <main style={{ padding: "1rem" }}>
                 {/* <main style={{ padding: "1rem 0" }}> */}
+                <h1>Rarest blocks:</h1>
+                {blocks_content_element}
                 <h1>Rarest assets:</h1>
                 {content_element}
             </main>
