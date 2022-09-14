@@ -91,6 +91,8 @@ class Allpage extends React.Component {
             go_to_first_clean,
 
             total_assets: null,
+            total_assets_per_year: null,
+
             total_addresses: null,
 
             current_page: page_if_specified,
@@ -151,6 +153,9 @@ class Allpage extends React.Component {
             else {
                 this.setState({
                     total_assets: allpage_root.total_assets,
+
+                    total_assets_per_year: allpage_root.years,
+
                     total_addresses: allpage_root.total_addresses,
                     current_page: allpage_root.current_page,
                     last_page: allpage_root.last_page,
@@ -233,6 +238,7 @@ class Allpage extends React.Component {
         let content_total_assets = ` loading...`;
         let content_total_addresses = ` loading...`;
 
+        let years_content_element = (<h2>loading...</h2>);
         let content_element = (<h2>loading...</h2>);
         if (this.state.page_not_found) {
             return (
@@ -257,6 +263,31 @@ class Allpage extends React.Component {
 
             content_total_assets = ` ${this.state.total_assets}`;
             content_total_addresses = ` ${this.state.total_addresses}`;
+
+
+            /////////
+            // doing first version of years here...
+            years_content_element = (
+                <div>
+
+                    <h2>Asset (genesis) issuances per year:</h2>
+
+                    <ul>
+                        <li>2014: {this.state.total_assets_per_year.y2014}</li>
+                        <li>2015: {this.state.total_assets_per_year.y2015}</li>
+                        <li>2016: {this.state.total_assets_per_year.y2016}</li>
+                        <li>2017: {this.state.total_assets_per_year.y2017}</li>
+                        <li>2018: {this.state.total_assets_per_year.y2018}</li>
+                        <li>2019: {this.state.total_assets_per_year.y2019}</li>
+                        <li>2020: {this.state.total_assets_per_year.y2020}</li>
+                        <li>2021: {this.state.total_assets_per_year.y2021}</li>
+                        <li>2022: {this.state.total_assets_per_year.y2022}</li>
+                    </ul>
+
+                </div>
+            );
+            /////////
+
 
             const current_page = this.state.current_page;
             const is_first = (current_page === 1);
@@ -432,6 +463,7 @@ class Allpage extends React.Component {
             <main style={{ padding: "1rem" }}>
 
                 <h1>Total assets:{content_total_assets}</h1>
+                {years_content_element}
                 {/* <h1>All assets:{content_total_assets}</h1> */}
                 {/* <h1>Total assets:{content_total_assets}</h1> */}
 
