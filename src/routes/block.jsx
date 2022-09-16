@@ -8,6 +8,8 @@ class Block extends React.Component {
         super(props);
         this.state = {
             block: Number(props.block),
+
+            block_timestamp_iso: null,
             // block: props.block,
 
             block_not_found: null,
@@ -21,19 +23,23 @@ class Block extends React.Component {
 
         this.setState({ block: Number(block_height) });
 
-        const block_assets = await getBlock(block_height);
+        const block_resource = await getBlock(block_height);
+        // const block_assets = await getBlock(block_height);
         // const block_events = await getBlock(block_height);
         // const address_assets = await getAddress(address);
 
         // TODO? seems like a reset of constructor params will be needed here...
 
-        if (!block_assets) {
+        if (!block_resource) {
+            // if (!block_assets) {
             // if (!block_events) {
             this.setState({ block_not_found: true });
         }
         else {
             this.setState({
-                block_assets: block_assets.assets
+                block_timestamp_iso: block_resource.block.block_timestamp_iso,
+                block_assets: block_resource.assets,
+                // block_assets: block_assets.assets
                 // block_events: block_events.events
             });
         }
@@ -114,6 +120,7 @@ class Block extends React.Component {
                     {/* TODO? maybe include more metadata for the address in a formatted form? */}
                     {/* <h2>{<Link to={`/${this.state.block}`}>{this.state.block}</Link>}</h2> */}
                     <h2>{this.state.block}</h2>
+                    <p>{this.state.block_timestamp_iso}</p>
                     {change_pages_element}
 
                     <ul>
