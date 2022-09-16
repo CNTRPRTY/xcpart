@@ -12,6 +12,8 @@ export default class Latest extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            last: null,
+
             addresses: [],
 
             latest: [],
@@ -25,6 +27,7 @@ export default class Latest extends React.Component {
     async componentDidMount() {
         const latest_root = await getLatest();
         this.setState({
+            last: latest_root.last,
             addresses: latest_root.addresses,
             latest: latest_root.latest,
             latest_locked: latest_root.latest_locked,
@@ -35,13 +38,25 @@ export default class Latest extends React.Component {
     }
 
     render() {
+
+        let last_time = ``;
+        if (this.state.last) {
+            last_time = `Last updated: ${this.state.last.block_timestamp_iso} [block: ${this.state.last.block_index}]`;
+            // last_time = `Last updated: ${this.state.last.block_timestamp_iso.split('T')[0]} [block: ${this.state.last.block_index}]`;
+            // last_time = ` ${this.state.last.block_timestamp_iso.split('T')[0]} [block: ${this.state.last.block_index}]`;
+            // last_time = ` ${this.state.last.block_timestamp_iso} [block: ${this.state.last.block_index}]`;
+        }
+
         return (
             <main style={{ padding: "1rem" }}>
                 {/* <main style={{ padding: "1rem 0" }}> */}
 
                 {/* <h1><strong>2022-09-10: Updates to the data have paused, but <Link to="/_all">all</Link> past data is still available.</strong></h1> */}
 
+                {/* <h1>Latest:{last_time}</h1> */}
                 <h1>Latest:</h1>
+
+                <p>{last_time}</p>
 
                 <h2>Active addresses:</h2>
                 {/* <h1>Latest active addresses:</h1> */}
