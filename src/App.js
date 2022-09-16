@@ -75,6 +75,17 @@ class App extends React.Component {
       <span>
         {`${this.props.router.location.pathname}`}
         {/* / */}
+      </span>
+    );
+    // }
+    // else {
+    //   with_title = `${this.props.router.location.pathname}`;
+    // }
+
+    const address_bar = (
+      <span>
+        {/* {`${this.props.router.location.pathname}`} */}
+        {/* / */}
         <form onSubmit={this.handleSearchSubmit}>
           {/* <form onSubmit={this.handleSubmit}> */}
           <input type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder={placeholder} />
@@ -86,10 +97,6 @@ class App extends React.Component {
         </form>
       </span>
     );
-    // }
-    // else {
-    //   with_title = `${this.props.router.location.pathname}`;
-    // }
 
     let show_terms = null;
     if (!this.state.terms_accepted) {
@@ -166,6 +173,9 @@ class App extends React.Component {
           }}
         >
           {/* <Link to="/_news">News</Link> |{" "} */}
+
+          {address_bar}
+
           <Link to="/">Home</Link> |{" "}
           {/* <a href="https://mempool.space/" target="_blank">Bitcoin</a> |{" "} */}
           <Link to="/_latest">Latest</Link> |{" "}
