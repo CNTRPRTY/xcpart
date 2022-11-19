@@ -22,7 +22,7 @@ export default class Home extends React.Component {
                     <li>[issuer: {`<Counterparty ready Bitcoin address>`}] : the assets are issued (created / updated) with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li>
                 </ul>
                 <ul>
-                    <li>For any request or feedback please tweet or DM <a href="https://twitter.com/uanbtc" target="_blank">@uanbtc</a></li>
+                    <li>XCP.ART is part of the <a href="https://github.com/CNTRPRTY/xcpart" target="_blank">CNTRPRTY</a> open source Counterparty Bitcoin tools</li>
                 </ul>
                 <br />
                 <p>
