@@ -1,6 +1,6 @@
 # XCP.ART
 
-## Open Source [Counterparty](https://github.com/CNTRPRTY) Bitcoin Art Explorer
+## Open Source Counterparty Bitcoin Art Explorer
 
 <!-- # Getting Started with Create React App -->
 
