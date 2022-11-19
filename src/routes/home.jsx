@@ -13,13 +13,13 @@ export default class Home extends React.Component {
                 <br />
                 <p>Help:</p>
                 <ul>
-                    <li>All assets are LOCKED assets, unless specified otherwise</li>
-                    <li>NFT [no destroy / by destroy] : Non-Fungible Token, achieved by destroying supply or not</li>
-                    <li>[quantity: {`<total asset supply>`}] : unlocked assets can issue more supply, locked assets cannot (but both can destroy supply)</li>
-                    <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : assets can have multiple kinds of issuance events</li>
-                    <li>[m] : (click to switch inside assets) the asset could have media content associated to it (which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>)</li>
-                    <li>[subassets: {`<number of subassets>`}] : a "root" asset can create children assets, called subassets</li>
-                    <li>[issuer: {`<Counterparty ready Bitcoin address>`}] : the assets are issued (created / updated) with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a></li>
+                    <li>Assets are locked, unless specified as unlocked with their quantity.</li>
+                    <li>[quantity: {`<total asset supply>`}] : Unlocked assets can issue more supply, locked assets cannot. But both can destroy supply.</li>
+                    <li>NFT [no destroy / by destroy] : Non-Fungible Token (locked quantity = 1), achieved by destroying supply or not.</li>
+                    <li>[description / quantity / lock / genesis: {`<ISO formatted time>`}] : Assets can have multiple kinds of issuance events.</li>
+                    <li>[m] : (click to switch inside assets) The asset could link to media content in its description, which could be <a href="https://counterparty.io/docs/enhanced_asset_info/" target="_blank">enhanced</a>.</li>
+                    <li>[subassets: {`<number of subassets>`}] : A "root" asset can create children assets, called subassets.</li>
+                    <li>[issuer: {`<Counterparty ready Bitcoin address>`}] : The assets are issued (created / updated) with Counterparty compatible <a href="https://counterparty.io/wallets/" target="_blank">wallets</a>.</li>
                 </ul>
                 <ul>
                     <li>XCP.ART is part of the <a href="https://github.com/CNTRPRTY/xcpart" target="_blank">CNTRPRTY</a> open source Counterparty Bitcoin tools</li>
