@@ -4,9 +4,9 @@
 const TYPES = {
     IMGUR_I_COM: 'i.imgur.com',
     IMGUR_COM: 'imgur.com',
-    IMGUR: 'imgur', // https://xchain.io/asset/BEARFACTS.misprint
-    YOUTUBE: 'youtube', // https://xchain.io/asset/CANTSUCKDICK
-    SOUNDCLOUD: 'soundcloud', // https://xchain.io/asset/BACKINBLOOD
+    IMGUR: 'imgur',
+    YOUTUBE: 'youtube',
+    SOUNDCLOUD: 'soundcloud',
 };
 
 function getImgurElement(media_check_pre) {

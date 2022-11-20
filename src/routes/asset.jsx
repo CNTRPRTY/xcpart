@@ -367,7 +367,6 @@ class Asset extends React.Component {
             //     media_or_none = (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>);
             // }
             // const last_is_enhanced_element = this.state.asset_resource.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://7x9p9r8ln2.execute-api.us-east-1.amazonaws.com/mainnet/asset_name/${this.state.asset_resource.asset_name}/_enhanced/${this.state.asset_resource.latest_description_issuance.tx_index}`} target="_blank">+ see enhanced</a></li>) : null;
-            // // const last_is_enhanced_element = asset.latest_description_issuance.description.endsWith('.json') ? (<li><a href={`https://xchain.io/asset/${asset.asset_name}`} target="_blank">+ see enhanced</a></li>) : null;
 
             const superasset_element = this.state.asset_resource.superasset ? (<li style={{ padding: "0.25rem" }}>superasset: <Link to={`/${this.state.asset_resource.superasset}`}>{this.state.asset_resource.superasset}</Link></li>) : null;
             const subassets_list_element = this.state.asset_resource.subassets ? (<li style={{ padding: "0.25rem" }}>subassets:<ul>{this.state.asset_resource.subassets.map((subasset) => (<li key={subasset} style={{ padding: "0.25rem" }}><Link to={`/${subasset}`}>{subasset}</Link></li>))}</ul></li>) : null;
