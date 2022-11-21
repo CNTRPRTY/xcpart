@@ -2,7 +2,7 @@
 
 ## Libre Counterparty Bitcoin Art Explorer
 
-This is an open sourced v2022.5 snapshot of the [bitSTART](https://bitst.art) web app, released for the benefit of the Counterparty developer community (as stated in the [HNFT meeting](https://t.me/xcpfoundation)).
+This is an open sourced v2022.5 snapshot of the [bitSTART](https://bitst.art) web app, released for the benefit of the Counterparty developer community (as stated in the HNFT meeting).
 
 "The app is the art", born as [resistance](https://bitst.art/BITSTART.NEWERA) to the [v9.60](https://github.com/CounterpartyXCP/cips/issues/54) activations. And the seed to this Counterparty Bitcoin Tools project: Decentralizing [CNTRPRTY](https://github.com/CNTRPRTY).
 
